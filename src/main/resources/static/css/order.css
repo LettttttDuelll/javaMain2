@@ -1,0 +1,116 @@
+
+    body {
+      background: linear-gradient(rgb(14, 17, 36), rgb(36, 26, 73));
+      color: white;
+      overflow-x: hidden;
+    }
+    input + .error-msg {
+    display: block;
+    margin-top: 5px;
+    }
+
+    .container {
+      max-width: 95%;
+      margin: auto;
+    }
+
+    .intro-section {
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .product-header {
+      color: rgb(233, 66, 176);
+    }
+
+    .form-control {
+      background-color: rgb(19, 23, 42);
+      border: 1px solid rgb(29, 33, 54);
+      color: white;
+    }
+
+    .form-label {
+      color: white;
+    }
+
+    .product-order {
+      color: rgb(105, 244, 181);
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .table-wrapper {
+      max-width: 100%;
+      overflow-x: auto;
+      background-color: rgb(12, 13, 54);
+      border: 1px solid white;
+      border-radius: 8px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      color: white;
+    }
+
+    th, td {
+      padding: 10px;
+      text-align: center;
+      vertical-align: middle;
+    }
+
+    th {
+      color: #ffffff;
+      background-color: #181c3a;
+    }
+
+    .product-info {
+      display: flex;
+      align-items: center;
+      text-align: left;
+    }
+
+    .product-image {
+      width: 100px;
+      height: 100px;
+      border-radius: 5px;
+      margin-right: 10px;
+    }
+
+    .btn-gradient {
+      background: linear-gradient(to right, rgb(225, 64, 180), rgb(126, 43, 237));
+      color: white;
+      border-radius: 30px;
+      width: 200px;
+    }
+
+    .btn-remove {
+      background-color: #dc3545;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      padding: 5px 10px;
+      cursor: pointer;
+    }
+
+    .error-msg {
+      color: red;
+      font-size: 0.9em;
+      margin-top: 5px;
+    }
+
+    @media (max-width: 768px) {
+      .row {
+        flex-direction: column;
+      }
+
+      .product-image {
+        width: 80px;
+        height: 80px;
+      }
+
+      .btn-gradient {
+        width: 100%;
+      }
+    }

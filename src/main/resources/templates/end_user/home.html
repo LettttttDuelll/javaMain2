@@ -1,0 +1,1007 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" xmlns:th="http://www.thymeleaf.org">-->
+
+<!--<head>-->
+<!--    <meta charset="utf-8">-->
+<!--    <title>Trang chủ</title>-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1">-->
+
+<!--    &lt;!&ndash; Favicon &ndash;&gt;-->
+<!--    <link rel="icon" type="image/x-icon" th:href="@{/favicon.ico}">-->
+
+<!--    &lt;!&ndash; Local CSS &ndash;&gt;-->
+<!--    <link rel="stylesheet" th:href="@{css/home.css}">-->
+
+<!--    &lt;!&ndash; Bootstrap CSS &ndash;&gt;-->
+<!--    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"-->
+<!--        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">-->
+
+<!--    &lt;!&ndash; Bootstrap JS Bundle &ndash;&gt;-->
+<!--    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>-->
+
+<!--    &lt;!&ndash; Font Awesome &ndash;&gt;-->
+<!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">-->
+
+<!--    &lt;!&ndash; Owl Carousel CSS &ndash;&gt;-->
+<!--    <link rel="stylesheet"-->
+<!--        href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />-->
+<!--    <link rel="stylesheet"-->
+<!--        href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css" />-->
+<!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />-->
+<!--    &lt;!&ndash; jQuery + Owl Carousel JS &ndash;&gt;-->
+<!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>-->
+<!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>-->
+
+<!--    <style>-->
+<!--        body {-->
+<!--            background: #faf9ff;-->
+<!--        }-->
+<!--    </style>-->
+
+<!--</head>-->
+
+<!--<body>-->
+<!--    <div class="toast-container"></div>-->
+<!--    <header>-->
+<!--        <nav class="navbar navbar-expand-lg navbar-light bg-dark">-->
+<!--            <div class="container">-->
+<!--                &lt;!&ndash; Logo &ndash;&gt;-->
+<!--                <a class="navbar-brand" th:href="@{/}">-->
+<!--                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="50" height="50">-->
+<!--                        <circle cx="50" cy="50" r="45" fill="rgb(240, 101, 197)" />-->
+<!--                        <circle cx="50" cy="50" r="35" fill="rgb(127, 68, 255)" />-->
+<!--                    </svg>-->
+<!--                </a>-->
+
+<!--                &lt;!&ndash; Toggle Button (Responsive) &ndash;&gt;-->
+<!--                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"-->
+<!--                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">-->
+<!--                    <span class="navbar-toggler-icon"></span>-->
+<!--                </button>-->
+
+<!--                &lt;!&ndash; Nav items &ndash;&gt;-->
+<!--                <div class="collapse navbar-collapse justify-content-between" id="navbarNav">-->
+<!--                    &lt;!&ndash; Left &ndash;&gt;-->
+<!--                    <ul class="navbar-nav d-flex flex-row align-items-center gap-3">-->
+<!--                        <li class="nav-item">-->
+<!--                            <a class="nav-link active text-white" th:href="@{/}">Trang chủ</a>-->
+<!--                        </li>-->
+<!--                        <li class="nav-item">-->
+<!--                            <a class="nav-link text-white" th:href="@{/notifications}">Thông báo</a>-->
+<!--                        </li>-->
+<!--                        <li class="nav-item">-->
+<!--                            <a class="nav-link text-white" th:href="@{/}">Sản phẩm</a>-->
+<!--                        </li>-->
+<!--                    </ul>-->
+
+<!--                    &lt;!&ndash; Center: Search box &ndash;&gt;-->
+<!--                    <div class="search-container mx-auto">-->
+<!--                        <i class="fas fa-search search-icon"></i>-->
+<!--                        <input type="text" class="search-box" placeholder="Bạn tìm gì...">-->
+<!--                    </div>-->
+
+<!--                    &lt;!&ndash; Right &ndash;&gt;-->
+<!--                    <ul class="navbar-nav d-flex flex-row align-items-center gap-3">-->
+<!--                        <li class="nav-item">-->
+<!--                            <a class="nav-link text-white" th:href="@{/cart}">-->
+<!--                                <i class="fas fa-shopping-cart"></i> Giỏ hàng-->
+<!--                            </a>-->
+<!--                        </li>-->
+<!--                        <li class="nav-item">-->
+<!--                            <a class="nav-link text-white" th:href="@{/custom-login}">Đăng nhập</a>-->
+<!--                        </li>-->
+<!--                    </ul>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </nav>-->
+<!--    </header>-->
+<!--    <section class="banner-laptop">-->
+<!--        <div class="banner-content">-->
+<!--            <h1>Chọn laptop hoàn hảo cho bạn</h1>-->
+<!--            <p>Hãy để chúng tôi giúp bạn tìm được chiếc laptop phù hợp nhất</p>-->
+<!--            <button>MUA NGAY</button>-->
+<!--        </div>-->
+<!--        <div class="banner-image">-->
+<!--            <img th:src="@{https://cdn.tgdd.vn/Products/Images/44/289472/apple-macbook-air-m2-2022-16gb-256gb-1-2-750x500.jpg}"-->
+<!--                alt="Laptop Image" />-->
+<!--        </div>-->
+<!--    </section>-->
+<!--    <div class="container">-->
+<!--        <section class="custom-banner">-->
+<!--            <div class="slider-container owl-carousel owl-theme">-->
+<!--                <div class="banner-item">-->
+<!--                    <a th:href="@{https://example.com/link1}" target="_blank" rel="nofollow">-->
+<!--                        <img th:src="@{https://cdnv2.tgdd.vn/mwg-static/tgdd/Banner/82/8a/828aee5818229c8512f373520909b4bb.png}"-->
+<!--                            alt="Banner 1" />-->
+<!--                    </a>-->
+<!--                </div>-->
+<!--                <div class="banner-item">-->
+<!--                    <a th:href="@{https://example.com/link2}" target="_blank" rel="nofollow">-->
+<!--                        <img th:src="@{https://cdnv2.tgdd.vn/mwg-static/tgdd/Banner/61/63/61633d2c813b88b9cee25e7cd84ac923.png}"-->
+<!--                            alt="Banner 2" />-->
+<!--                    </a>-->
+<!--                </div>-->
+<!--                <div class="banner-item">-->
+<!--                    <a th:href="@{https://example.com/link3}" target="_blank" rel="nofollow">-->
+<!--                        <img th:src="@{https://cdnv2.tgdd.vn/mwg-static/tgdd/Banner/b2/83/b283533b3a31e2d02509f37b04b15a4f.png}"-->
+<!--                            alt="Banner 3" />-->
+<!--                    </a>-->
+<!--                </div>-->
+<!--                <div class="banner-item">-->
+<!--                    <a th:href="@{https://example.com/link3}" target="_blank" rel="nofollow">-->
+<!--                        <img th:src="@{https://cdnv2.tgdd.vn/mwg-static/tgdd/Banner/b2/83/b283533b3a31e2d02509f37b04b15a4f.png}"-->
+<!--                            alt="Banner 3" />-->
+<!--                    </a>-->
+<!--                </div>-->
+<!--                <div class="banner-item">-->
+<!--                    <a th:href="@{https://example.com/link3}" target="_blank" rel="nofollow">-->
+<!--                        <img th:src="@{https://cdnv2.tgdd.vn/mwg-static/tgdd/Banner/b2/83/b283533b3a31e2d02509f37b04b15a4f.png}"-->
+<!--                            alt="Banner 3" />-->
+<!--                    </a>-->
+<!--                </div>-->
+<!--                &lt;!&ndash; Thêm banner-item tùy ý &ndash;&gt;-->
+<!--            </div>-->
+<!--        </section>-->
+<!--        <script>-->
+<!--            $(document).ready(function () {-->
+<!--                $('.slider-container').owlCarousel({-->
+<!--                    items: 2,               // Hiển thị 2 ảnh mỗi lần-->
+<!--                    loop: true,-->
+<!--                    margin: 10,-->
+<!--                    autoplay: true,-->
+<!--                    autoplayTimeout: 3000,-->
+<!--                    autoplayHoverPause: true,-->
+<!--                    responsive: {-->
+<!--                        0: {-->
+<!--                            items: 1-->
+<!--                        },-->
+<!--                        768: {-->
+<!--                            items: 2-->
+<!--                        }-->
+<!--                    }-->
+<!--                });-->
+<!--            });-->
+<!--        </script>-->
+<!--        &lt;!&ndash; Tìm kiếm và bộ lọc &ndash;&gt;-->
+<!--        <div class="search-box">-->
+<!--            <div class="filter-bar container-fluid d-flex flex-wrap justify-content-between align-items-center mb-4">-->
+<!--                <div class="filter-item">-->
+<!--                    <label for="brand-select" class="form-label fw-bold">Hãng:</label>-->
+<!--                    <select id="brand-select" class="form-select">-->
+<!--                        <option selected disabled>Chọn hãng</option>-->
+<!--                        <option>Tất cả</option>-->
+<!--                        <option>ACER</option>-->
+<!--                        <option>ASUS</option>-->
+<!--                        <option>DELL</option>-->
+<!--                        <option>LENOVO</option>-->
+<!--                    </select>-->
+<!--                </div>-->
+
+<!--                <div class="filter-item">-->
+<!--                    <label for="price-select" class="form-label fw-bold">Mức giá:</label>-->
+<!--                    <select id="price-select" class="form-select">-->
+<!--                        <option selected disabled>Chọn mức giá</option>-->
+<!--                        <option>Tất cả</option>-->
+<!--                        <option>Dưới 10 triệu</option>-->
+<!--                        <option>10 - 20 triệu</option>-->
+<!--                        <option>20 - 30 triệu</option>-->
+<!--                        <option>Trên 30 triệu</option>-->
+<!--                    </select>-->
+<!--                </div>-->
+
+<!--                <div class="filter-item">-->
+<!--                    <label for="sort-select" class="form-label fw-bold">Ưu tiên:</label>-->
+<!--                    <select id="sort-select" class="form-select">-->
+<!--                        <option selected disabled>Sắp xếp theo</option>-->
+<!--                        <option>Tất cả</option>-->
+<!--                        <option>Tên A → Z</option>-->
+<!--                        <option>Tên Z → A</option>-->
+<!--                        <option>Giá tăng dần</option>-->
+<!--                        <option>Giá giảm dần</option>-->
+<!--                    </select>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div id="hidden-products" style="display: none;">-->
+<!--            <div class="product" th:each="product : ${products}" th:attr="data-id=${product.id}, -->
+<!--                  data-name=${product.name}, -->
+<!--                  data-price=${product.current_price}, -->
+<!--                  data-img=${product.firstImageUrl}">-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="row" id="product-container">-->
+<!--            -->
+<!--        </div>-->
+<!--        <div class="text-center mt-4">-->
+<!--            <button id="loadMoreBtn" class="btn btn-outline-primary">Xem thêm</button>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    <script>-->
+<!--    const allProducts = Array.from(document.querySelectorAll('#hidden-products .product')).map(p => ({-->
+<!--        id: p.dataset.id,-->
+<!--        name: p.dataset.name,-->
+<!--        price: p.dataset.price,-->
+<!--        img: p.dataset.img-->
+<!--    }));-->
+
+<!--    const container = document.getElementById('product-container');-->
+<!--    const loadMoreBtn = document.getElementById('loadMoreBtn');-->
+<!--    const pageSize = 6;-->
+<!--    let currentIndex = 0;-->
+
+<!--    function loadProducts() {-->
+<!--        const end = currentIndex + pageSize;-->
+<!--        const productsToLoad = allProducts.slice(currentIndex, end);-->
+
+<!--        productsToLoad.forEach(product => {-->
+<!--            const html = `-->
+<!--                <div class="col-lg-4 col-md-6 mb-4">-->
+<!--                    <div class="product-item" data-id="${product.id}">-->
+<!--                        <img src="${product.img}" alt="Ảnh sản phẩm" class="product-image img-fluid">-->
+<!--                        <h3 class="product-name">${product.name}</h3>-->
+<!--                        <p class="product-price">${Number(product.price).toLocaleString()}đ</p>-->
+<!--                        <div class="product-actions">-->
+<!--                            <a class="btn btn-primary" href="/detailproduct?id=${product.id}">Xem chi tiết</a>-->
+<!--                            <button class="btn btn-success buy-now-btn" data-id="${product.id}">Mua ngay</button>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            `;-->
+<!--            container.innerHTML += html;-->
+<!--        });-->
+
+<!--        currentIndex += pageSize;-->
+
+<!--        if (currentIndex >= allProducts.length) {-->
+<!--            loadMoreBtn.style.display = 'none';-->
+<!--        }-->
+<!--    }-->
+
+<!--    // Load sản phẩm lần đầu-->
+<!--    loadProducts();-->
+
+<!--    // Gán sự kiện-->
+<!--    loadMoreBtn.addEventListener('click', loadProducts);-->
+<!--</script>-->
+<!--    <script>-->
+<!--        function showToast(msg, type = "success") {-->
+<!--            let toastContainer = document.querySelector('.toast-container');-->
+<!--            if (!toastContainer) {-->
+<!--                toastContainer = document.createElement('div');-->
+<!--                toastContainer.className = 'toast-container';-->
+<!--                document.body.appendChild(toastContainer);-->
+<!--            }-->
+<!--            // Thêm icon-->
+<!--            let icon = '';-->
+<!--            if (type === "success") icon = '<span style="font-size:1.3em;vertical-align:middle; margin-right:8px;">✅</span>';-->
+<!--            else if (type === "danger") icon = '<span style="font-size:1.3em;vertical-align:middle; margin-right:8px;">❌</span>';-->
+<!--            const toast = document.createElement('div');-->
+<!--            toast.className = `toast align-items-center text-bg-${type} border-0 show mb-2`;-->
+<!--            toast.setAttribute('role', 'alert');-->
+<!--            toast.innerHTML = `<div class="d-flex align-items-center">-->
+<!--            <div class="toast-body">${icon}${msg}</div>-->
+<!--            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>-->
+<!--        </div>`;-->
+<!--            toastContainer.appendChild(toast);-->
+<!--            setTimeout(() => toast.remove(), 2800);-->
+<!--        }-->
+
+
+<!--        document.addEventListener("DOMContentLoaded", function () {-->
+<!--            // Thêm vào giỏ-->
+<!--            document.querySelectorAll(".add-to-cart-btn").forEach(btn => {-->
+<!--                btn.addEventListener("click", function () {-->
+<!--                    const id = this.getAttribute("data-id");-->
+<!--                    fetch("/api/cart", {-->
+<!--                        method: "POST",-->
+<!--                        headers: { "Content-Type": "application/json" },-->
+<!--                        body: JSON.stringify({ productId: parseInt(id), quantity: 1 })-->
+<!--                    })-->
+<!--                        .then(res => {-->
+<!--                            console.log('Add to cart response:', res.status);-->
+<!--                            if (res.ok) showToast("Đã thêm vào giỏ hàng!", "success");-->
+<!--                            else showToast("Thêm vào giỏ thất bại!", "danger");-->
+<!--                        });-->
+<!--                });-->
+<!--            });-->
+
+<!--            document.querySelectorAll(".buy-now-btn").forEach(btn => {-->
+<!--                btn.addEventListener("click", function () {-->
+<!--                    const id = this.getAttribute("data-id");-->
+<!--                    fetch("/api/cart/clear", { method: "DELETE" })-->
+<!--                        .then(() =>-->
+<!--                            fetch("/api/cart", {-->
+<!--                                method: "POST",-->
+<!--                                headers: { "Content-Type": "application/json" },-->
+<!--                                body: JSON.stringify({ productId: parseInt(id), quantity: 1 })-->
+<!--                            })-->
+<!--                        )-->
+<!--                        .then(res => {-->
+<!--                            if (res.ok) window.location.href = "/order";-->
+<!--                            else showToast("Mua ngay thất bại!", "danger");-->
+<!--                        });-->
+<!--                });-->
+<!--            });-->
+<!--        });-->
+<!--    </script>-->
+
+<!--    <footer th:fragment="footer"-->
+<!--        style="margin-top:48px; width:100vw; position:relative; left:50%; transform:translateX(-50%);">-->
+<!--        <div class="footer-main py-4 px-2 px-lg-0" style="max-width:none;width:100vw;">-->
+<!--            <div class="container-xl">-->
+<!--                <div class="row align-items-stretch g-4">-->
+<!--                    &lt;!&ndash; LOGO & THÔNG TIN &ndash;&gt;-->
+<!--                    <div class="col-md-4 d-flex flex-column align-items-start gap-2">-->
+<!--                        <div class="footer-logo mb-2">-->
+<!--                            &lt;!&ndash; Logo SVG &ndash;&gt;-->
+<!--                            <svg width="54" height="54" viewBox="0 0 54 54" fill="none"-->
+<!--                                xmlns="http://www.w3.org/2000/svg"-->
+<!--                                style="border-radius:13px;box-shadow:0 2px 8px #e140b422;">-->
+<!--                                <defs>-->
+<!--                                    <linearGradient id="grad1" x1="0" y1="0" x2="1" y2="1">-->
+<!--                                        <stop offset="0%" stop-color="#e140b4" />-->
+<!--                                        <stop offset="100%" stop-color="#7e2bed" />-->
+<!--                                    </linearGradient>-->
+<!--                                </defs>-->
+<!--                                <rect width="54" height="54" rx="13" fill="url(#grad1)" />-->
+<!--                                <rect x="10" y="20" width="34" height="16" rx="4" fill="#fff" stroke="#7e2bed"-->
+<!--                                    stroke-width="2.2" />-->
+<!--                                <rect x="20" y="36" width="14" height="4" rx="1.7" fill="#7e2bed" />-->
+<!--                                <circle cx="27" cy="14.5" r="4.5" fill="#fff" stroke="#e140b4" stroke-width="2" />-->
+<!--                                <text x="27" y="50" text-anchor="middle" fill="#fff" font-size="10"-->
+<!--                                    font-family="Arial, Helvetica, sans-serif" font-weight="bold"-->
+<!--                                    opacity="0.82">LAPTOP</text>-->
+<!--                            </svg>-->
+<!--                        </div>-->
+<!--                        <div class="footer-brand">-->
+<!--                            <h4 class="mb-2" style="color:#7e2bed;font-weight:700;">Laptop Shop</h4>-->
+<!--                            <p class="mb-1" style="font-size:.98em;">Chuyên laptop gaming, văn phòng, đồ hoạ, bảo hành-->
+<!--                                chính hãng 12 tháng toàn quốc.</p>-->
+<!--                            <p class="mb-0" style="color:#7e2bed;"><i class="fa-solid fa-location-dot me-1"></i> 123-->
+<!--                                Nguyễn Văn Cừ, Long Biên, Hà Nội</p>-->
+<!--                        </div>-->
+<!--                        &lt;!&ndash;                    <div class="mt-3">&ndash;&gt;-->
+<!--                        &lt;!&ndash;                        <img src="/images/logo-bct.png" alt="Đã thông báo Bộ Công Thương" style="height:38px;">&ndash;&gt;-->
+<!--                        &lt;!&ndash;                    </div>&ndash;&gt;-->
+<!--                    </div>-->
+<!--                    &lt;!&ndash; LIÊN KẾT NHANH &ndash;&gt;-->
+<!--                    <div class="col-md-2">-->
+<!--                        <h5 class="footer-title">Sản phẩm</h5>-->
+<!--                        <ul class="footer-link-list">-->
+<!--                            <li><a th:href="@{/}" href="/">Laptop Gaming</a></li>-->
+<!--                            <li><a th:href="@{/}" href="/">Laptop Văn phòng</a></li>-->
+<!--                            <li><a th:href="@{/}" href="/">Laptop Đồ hoạ</a></li>-->
+<!--                            <li><a th:href="@{/}" href="/">Phụ kiện</a></li>-->
+<!--                        </ul>-->
+<!--                    </div>-->
+<!--                    <div class="col-md-2">-->
+<!--                        <h5 class="footer-title">Hỗ trợ</h5>-->
+<!--                        <ul class="footer-link-list">-->
+<!--                            <li><a href="#">Chính sách bảo hành</a></li>-->
+<!--                            <li><a href="#">Chính sách giao hàng</a></li>-->
+<!--                            <li><a href="#">Đổi trả & hoàn tiền</a></li>-->
+<!--                            <li><a href="#">Câu hỏi thường gặp</a></li>-->
+<!--                        </ul>-->
+<!--                    </div>-->
+<!--                    <div class="col-md-2">-->
+<!--                        <h5 class="footer-title">Về chúng tôi</h5>-->
+<!--                        <ul class="footer-link-list">-->
+<!--                            <li><a href="#">Giới thiệu</a></li>-->
+<!--                            <li><a href="#">Tin tức</a></li>-->
+<!--                            <li><a href="#">Tuyển dụng</a></li>-->
+<!--                            <li><a href="#">Liên hệ</a></li>-->
+<!--                        </ul>-->
+<!--                    </div>-->
+<!--                    &lt;!&ndash; LIÊN HỆ & MẠNG XÃ HỘI &ndash;&gt;-->
+<!--                    <div class="col-md-2">-->
+<!--                        <h5 class="footer-title">Liên hệ</h5>-->
+<!--                        <ul class="footer-link-list">-->
+<!--                            <li><i class="fa-solid fa-phone"></i> <a href="tel:1900xxx">1900 6886</a></li>-->
+<!--                            <li><i class="fa-solid fa-envelope"></i> <a-->
+<!--                                    href="mailto:support@laptopshop.vn">support@laptopshop.vn</a></li>-->
+<!--                            <li>-->
+<!--                                <div class="footer-social d-flex gap-2 mt-2">-->
+<!--                                    <a href="https://facebook.com/" target="_blank" class="footer-social-link"-->
+<!--                                        title="Facebook"><i class="fab fa-facebook-f"></i></a>-->
+<!--                                    <a href="https://www.youtube.com/" target="_blank" class="footer-social-link"-->
+<!--                                        title="YouTube"><i class="fab fa-youtube"></i></a>-->
+<!--                                    <a href="https://www.tiktok.com/" target="_blank" class="footer-social-link"-->
+<!--                                        title="TikTok"><i class="fab fa-tiktok"></i></a>-->
+<!--                                    <a href="https://www.instagram.com/" target="_blank" class="footer-social-link"-->
+<!--                                        title="Instagram"><i class="fab fa-instagram"></i></a>-->
+<!--                                </div>-->
+<!--                            </li>-->
+<!--                        </ul>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="footer-bottom text-center py-3 mt-3"-->
+<!--            style="background: linear-gradient(90deg,#e140b4,#7e2bed 100%); color:#fff; border-radius:0 0 18px 18px; width:100vw; left:0; position:relative;">-->
+<!--            <div class="container-xl d-flex flex-column flex-lg-row justify-content-between align-items-center">-->
+<!--                <span class="mb-1 mb-lg-0" style="font-size:.98em;">© 2025 Laptop Shop. All rights reserved.</span>-->
+<!--                <a href="#" style="color: #fff; text-decoration: underline; font-size: .98em;">Điều khoản sử dụng</a>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <style>-->
+<!--            .footer-main {-->
+<!--                background: linear-gradient(99deg, #f6ecff 70%, #ede1f9 100%);-->
+<!--                border-radius: 20px 20px 0 0;-->
+<!--                box-shadow: 0 -2px 18px #7e2bed14;-->
+<!--                max-width: none;-->
+<!--                width: 100vw;-->
+<!--                min-width: 100vw;-->
+<!--                left: 0;-->
+<!--                position: relative;-->
+<!--            }-->
+
+<!--            .footer-title {-->
+<!--                color: #7e2bed;-->
+<!--                font-weight: 700;-->
+<!--                margin-bottom: 14px;-->
+<!--            }-->
+
+<!--            .footer-link-list {-->
+<!--                padding: 0;-->
+<!--                margin: 0;-->
+<!--                list-style: none;-->
+<!--            }-->
+
+<!--            .footer-link-list li {-->
+<!--                margin-bottom: 8px;-->
+<!--            }-->
+
+<!--            .footer-link-list a {-->
+<!--                color: #746491;-->
+<!--                text-decoration: none;-->
+<!--                transition: color .13s;-->
+<!--                font-weight: 500;-->
+<!--                font-size: 1.02em;-->
+<!--            }-->
+
+<!--            .footer-link-list a:hover {-->
+<!--                color: #e140b4;-->
+<!--                text-decoration: underline;-->
+<!--            }-->
+
+<!--            .footer-social-link {-->
+<!--                background: #fff;-->
+<!--                width: 34px;-->
+<!--                height: 34px;-->
+<!--                display: flex;-->
+<!--                align-items: center;-->
+<!--                justify-content: center;-->
+<!--                border-radius: 50%;-->
+<!--                box-shadow: 0 2px 12px #e140b41a;-->
+<!--                font-size: 1.3em;-->
+<!--                color: #7e2bed;-->
+<!--                transition: .16s, color .16s, transform .17s cubic-bezier(.4, 2, .6, 1);-->
+<!--            }-->
+
+<!--            .footer-social-link:hover {-->
+<!--                background: #7e2bed;-->
+<!--                color: #fff;-->
+<!--                transform: scale(1.12);-->
+<!--            }-->
+
+<!--            .footer-logo svg {-->
+<!--                border-radius: 14px;-->
+<!--                box-shadow: 0 2px 12px #e140b412;-->
+<!--            }-->
+
+<!--            .footer-bottom {-->
+<!--                font-size: 1.06em;-->
+<!--                font-weight: 500;-->
+<!--                width: 100vw !important;-->
+<!--                left: 0;-->
+<!--                border-radius: 0 0 18px 18px;-->
+<!--                position: relative;-->
+<!--            }-->
+
+<!--            @media (max-width: 991px) {-->
+<!--                .footer-main .row>div {-->
+<!--                    margin-bottom: 20px;-->
+<!--                }-->
+<!--            }-->
+<!--        </style>-->
+<!--    </footer>-->
+<!--</body>-->
+
+<!--</html>-->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <title>Trang chủ</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" th:href="@{/favicon.ico}">
+
+    <!-- Local CSS -->
+    <link rel="stylesheet" th:href="@{css/home.css}">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <!-- Owl Carousel CSS -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <!-- jQuery + Owl Carousel JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+
+    <style>
+        body {
+            background: #faf9ff;
+        }
+    </style>
+
+</head>
+
+<body>
+<div class="toast-container"></div>
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-dark">
+        <div class="container">
+            <!-- Logo -->
+            <a class="navbar-brand" th:href="@{/home}">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="50" height="50">
+                    <circle cx="50" cy="50" r="45" fill="rgb(240, 101, 197)" />
+                    <circle cx="50" cy="50" r="35" fill="rgb(127, 68, 255)" />
+                </svg>
+            </a>
+
+            <!-- Toggle Button (Responsive) -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Nav items -->
+            <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
+                <!-- Left -->
+                <ul class="navbar-nav d-flex flex-row align-items-center gap-3">
+                    <li class="nav-item">
+                        <a class="nav-link active text-white" th:href="@{/home}">Trang chủ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" th:href="@{/home}">Thông báo</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" th:href="@{/home}">Sản phẩm</a>
+                    </li>
+                </ul>
+
+                <!-- Center: Search box -->
+                <div class="search-container mx-auto">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" class="search-box" placeholder="Bạn tìm gì...">
+                </div>
+
+                <!-- Right -->
+                <ul class="navbar-nav d-flex flex-row align-items-center gap-3">
+                    <li class="nav-item">
+                        <a class="nav-link text-white" th:href="@{/cart}">
+                            <i class="fas fa-shopping-cart"></i> Giỏ hàng
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown" th:if="${user != null}">
+                        <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button"
+                           data-bs-toggle="dropdown" aria-expanded="false" th:text="${user.fullName}">Tên người dùng</a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" th:href="@{/profile}">Thông tin cá nhân</a></li>
+                            <li><a class="dropdown-item" th:href="@{/logout}">Đăng xuất</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item" th:if="${user == null}">
+                        <a class="nav-link text-white" th:href="@{/custom-login}">Đăng nhập</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+<section class="banner-laptop">
+    <div class="banner-content">
+        <h1>Chọn laptop hoàn hảo cho bạn</h1>
+        <p>Hãy để chúng tôi giúp bạn tìm được chiếc laptop phù hợp nhất</p>
+        <button>MUA NGAY</button>
+    </div>
+    <div class="banner-image">
+        <img th:src="@{https://cdn.tgdd.vn/Products/Images/44/289472/apple-macbook-air-m2-2022-16gb-256gb-1-2-750x500.jpg}"
+             alt="Laptop Image" />
+    </div>
+</section>
+<div class="container">
+    <section class="custom-banner">
+        <div class="slider-container owl-carousel owl-theme">
+            <div class="banner-item">
+                <a th:href="@{https://example.com/link1}" target="_blank" rel="nofollow">
+                    <img th:src="@{https://cdnv2.tgdd.vn/mwg-static/tgdd/Banner/82/8a/828aee5818229c8512f373520909b4bb.png}"
+                         alt="Banner 1" />
+                </a>
+            </div>
+            <div class="banner-item">
+                <a th:href="@{https://example.com/link2}" target="_blank" rel="nofollow">
+                    <img th:src="@{https://cdnv2.tgdd.vn/mwg-static/tgdd/Banner/61/63/61633d2c813b88b9cee25e7cd84ac923.png}"
+                         alt="Banner 2" />
+                </a>
+            </div>
+            <div class="banner-item">
+                <a th:href="@{https://example.com/link3}" target="_blank" rel="nofollow">
+                    <img th:src="@{https://cdnv2.tgdd.vn/mwg-static/tgdd/Banner/b2/83/b283533b3a31e2d02509f37b04b15a4f.png}"
+                         alt="Banner 3" />
+                </a>
+            </div>
+            <div class="banner-item">
+                <a th:href="@{https://example.com/link3}" target="_blank" rel="nofollow">
+                    <img th:src="@{https://cdnv2.tgdd.vn/mwg-static/tgdd/Banner/b2/83/b283533b3a31e2d02509f37b04b15a4f.png}"
+                         alt="Banner 3" />
+                </a>
+            </div>
+            <div class="banner-item">
+                <a th:href="@{https://example.com/link3}" target="_blank" rel="nofollow">
+                    <img th:src="@{https://cdnv2.tgdd.vn/mwg-static/tgdd/Banner/b2/83/b283533b3a31e2d02509f37b04b15a4f.png}"
+                         alt="Banner 3" />
+                </a>
+            </div>
+            <!-- Thêm banner-item tùy ý -->
+        </div>
+    </section>
+    <script>
+        $(document).ready(function () {
+            $('.slider-container').owlCarousel({
+                items: 2,               // Hiển thị 2 ảnh mỗi lần
+                loop: true,
+                margin: 10,
+                autoplay: true,
+                autoplayTimeout: 3000,
+                autoplayHoverPause: true,
+                responsive: {
+                    0: {
+                        items: 1
+                    },
+                    768: {
+                        items: 2
+                    }
+                }
+            });
+        });
+    </script>
+    <!-- Tìm kiếm và bộ lọc -->
+    <div class="search-box">
+        <div class="filter-bar container-fluid d-flex flex-wrap justify-content-between align-items-center mb-4">
+            <div class="filter-item">
+                <label for="brand-select" class="form-label fw-bold">Hãng:</label>
+                <select id="brand-select" class="form-select">
+                    <option selected disabled>Chọn hãng</option>
+                    <option>Tất cả</option>
+                    <option>ACER</option>
+                    <option>ASUS</option>
+                    <option>DELL</option>
+                    <option>LENOVO</option>
+                </select>
+            </div>
+
+            <div class="filter-item">
+                <label for="price-select" class="form-label fw-bold">Mức giá:</label>
+                <select id="price-select" class="form-select">
+                    <option selected disabled>Chọn mức giá</option>
+                    <option>Tất cả</option>
+                    <option>Dưới 10 triệu</option>
+                    <option>10 - 20 triệu</option>
+                    <option>20 - 30 triệu</option>
+                    <option>Trên 30 triệu</option>
+                </select>
+            </div>
+
+            <div class="filter-item">
+                <label for="sort-select" class="form-label fw-bold">Ưu tiên:</label>
+                <select id="sort-select" class="form-select">
+                    <option selected disabled>Sắp xếp theo</option>
+                    <option>Tất cả</option>
+                    <option>Tên A → Z</option>
+                    <option>Tên Z → A</option>
+                    <option>Giá tăng dần</option>
+                    <option>Giá giảm dần</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div id="hidden-products" style="display: none;">
+        <div class="product" th:each="product : ${products}" th:attr="data-id=${product.id},
+                  data-name=${product.name},
+                  data-price=${product.current_price},
+                  data-img=${product.firstImageUrl}">
+        </div>
+    </div>
+    <div class="row" id="product-container">
+
+    </div>
+    <div class="text-center mt-4">
+        <button id="loadMoreBtn" class="btn btn-outline-primary">Xem thêm</button>
+    </div>
+</div>
+<script>
+    const allProducts = Array.from(document.querySelectorAll('#hidden-products .product')).map(p => ({
+        id: p.dataset.id,
+        name: p.dataset.name,
+        price: p.dataset.price,
+        img: p.dataset.img
+    }));
+
+    const container = document.getElementById('product-container');
+    const loadMoreBtn = document.getElementById('loadMoreBtn');
+    const pageSize = 6;
+    let currentIndex = 0;
+
+    function loadProducts() {
+        const end = currentIndex + pageSize;
+        const productsToLoad = allProducts.slice(currentIndex, end);
+
+        productsToLoad.forEach(product => {
+            const html = `
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="product-item" data-id="${product.id}">
+                        <img src="${product.img}" alt="Ảnh sản phẩm" class="product-image img-fluid">
+                        <h3 class="product-name">${product.name}</h3>
+                        <p class="product-price">${Number(product.price).toLocaleString()}đ</p>
+                        <div class="product-actions">
+                            <a class="btn btn-primary" href="/detailproduct?id=${product.id}">Xem chi tiết</a>
+                            <button class="btn btn-success buy-now-btn" data-id="${product.id}">Mua ngay</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            container.innerHTML += html;
+        });
+
+        currentIndex += pageSize;
+        if (currentIndex >= allProducts.length) {
+            loadMoreBtn.style.display = 'none';
+        }
+    }
+
+    // Load sản phẩm lần đầu
+    loadProducts();
+    loadMoreBtn.addEventListener('click', loadProducts);
+
+    // Thông báo toast
+    function showToast(msg, type = "success") {
+        let toastContainer = document.querySelector('.toast-container');
+        if (!toastContainer) {
+            toastContainer = document.createElement('div');
+            toastContainer.className = 'toast-container';
+            document.body.appendChild(toastContainer);
+        }
+        let icon = '';
+        if (type === "success") icon = '<span style="font-size:1.3em;vertical-align:middle; margin-right:8px;">✅</span>';
+        else if (type === "danger") icon = '<span style="font-size:1.3em;vertical-align:middle; margin-right:8px;">❌</span>';
+        const toast = document.createElement('div');
+        toast.className = `toast align-items-center text-bg-${type} border-0 show mb-2`;
+        toast.setAttribute('role', 'alert');
+        toast.innerHTML = `<div class="d-flex align-items-center">
+            <div class="toast-body">${icon}${msg}</div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+        </div>`;
+        toastContainer.appendChild(toast);
+        setTimeout(() => toast.remove(), 2800);
+    }
+
+    // Gán sự kiện cho nút "Mua ngay"
+    document.addEventListener("DOMContentLoaded", function () {
+        container.addEventListener("click", function (e) {
+            if (e.target.classList.contains("buy-now-btn")) {
+                const id = e.target.getAttribute("data-id");
+                fetch("/api/cart/clear", { method: "DELETE" })
+                    .then(() =>
+                        fetch("/cart/api/add", {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify({ productId: parseInt(id), quantity: 1 })
+                        })
+                    )
+                    .then(res => {
+                        if (res.ok) window.location.href = "/order/orderconfirm";
+                        else showToast("Mua ngay thất bại! , Bạn cần LOGIN ngay ", "danger");
+                    });
+            }
+        });
+    });
+</script>
+
+<footer th:fragment="footer"
+        style="margin-top:48px; width:100vw; position:relative; left:50%; transform:translateX(-50%);">
+    <div class="footer-main py-4 px-2 px-lg-0" style="max-width:none;width:100vw;">
+        <div class="container-xl">
+            <div class="row align-items-stretch g-4">
+                <!-- LOGO & THÔNG TIN -->
+                <div class="col-md-4 d-flex flex-column align-items-start gap-2">
+                    <div class="footer-logo mb-2">
+                        <!-- Logo SVG -->
+                        <svg width="54" height="54" viewBox="0 0 54 54" fill="none"
+                             xmlns="http://www.w3.org/2000/svg"
+                             style="border-radius:13px;box-shadow:0 2px 8px #e140b422;">
+                            <defs>
+                                <linearGradient id="grad1" x1="0" y1="0" x2="1" y2="1">
+                                    <stop offset="0%" stop-color="#e140b4" />
+                                    <stop offset="100%" stop-color="#7e2bed" />
+                                </linearGradient>
+                            </defs>
+                            <rect width="54" height="54" rx="13" fill="url(#grad1)" />
+                            <rect x="10" y="20" width="34" height="16" rx="4" fill="#fff" stroke="#7e2bed"
+                                  stroke-width="2.2" />
+                            <rect x="20" y="36" width="14" height="4" rx="1.7" fill="#7e2bed" />
+                            <circle cx="27" cy="14.5" r="4.5" fill="#fff" stroke="#e140b4" stroke-width="2" />
+                            <text x="27" y="50" text-anchor="middle" fill="#fff" font-size="10"
+                                  font-family="Arial, Helvetica, sans-serif" font-weight="bold"
+                                  opacity="0.82">LAPTOP</text>
+                        </svg>
+                    </div>
+                    <div class="footer-brand">
+                        <h4 class="mb-2" style="color:#7e2bed;font-weight:700;">Laptop Shop</h4>
+                        <p class="mb-1" style="font-size:.98em;">Chuyên laptop gaming, văn phòng, đồ hoạ, bảo hành
+                            chính hãng 12 tháng toàn quốc.</p>
+                        <p class="mb-0" style="color:#7e2bed;"><i class="fa-solid fa-location-dot me-1"></i> 123
+                            Nguyễn Văn Cừ, Long Biên, Hà Nội</p>
+                    </div>
+                    <!--                    <div class="mt-3">-->
+                    <!--                        <img src="/images/logo-bct.png" alt="Đã thông báo Bộ Công Thương" style="height:38px;">-->
+                    <!--                    </div>-->
+                </div>
+                <!-- LIÊN KẾT NHANH -->
+                <div class="col-md-2">
+                    <h5 class="footer-title">Sản phẩm</h5>
+                    <ul class="footer-link-list">
+                        <li><a th:href="@{/}" href="/">Laptop Gaming</a></li>
+                        <li><a th:href="@{/}" href="/">Laptop Văn phòng</a></li>
+                        <li><a th:href="@{/}" href="/">Laptop Đồ hoạ</a></li>
+                        <li><a th:href="@{/}" href="/">Phụ kiện</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-2">
+                    <h5 class="footer-title">Hỗ trợ</h5>
+                    <ul class="footer-link-list">
+                        <li><a href="#">Chính sách bảo hành</a></li>
+                        <li><a href="#">Chính sách giao hàng</a></li>
+                        <li><a href="#">Đổi trả & hoàn tiền</a></li>
+                        <li><a href="#">Câu hỏi thường gặp</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-2">
+                    <h5 class="footer-title">Về chúng tôi</h5>
+                    <ul class="footer-link-list">
+                        <li><a href="#">Giới thiệu</a></li>
+                        <li><a href="#">Tin tức</a></li>
+                        <li><a href="#">Tuyển dụng</a></li>
+                        <li><a href="#">Liên hệ</a></li>
+                    </ul>
+                </div>
+                <!-- LIÊN HỆ & MẠNG XÃ HỘI -->
+                <div class="col-md-2">
+                    <h5 class="footer-title">Liên hệ</h5>
+                    <ul class="footer-link-list">
+                        <li><i class="fa-solid fa-phone"></i> <a href="tel:1900xxx">1900 6886</a></li>
+                        <li><i class="fa-solid fa-envelope"></i> <a
+                                href="mailto:support@laptopshop.vn">support@laptopshop.vn</a></li>
+                        <li>
+                            <div class="footer-social d-flex gap-2 mt-2">
+                                <a href="https://facebook.com/" target="_blank" class="footer-social-link"
+                                   title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                                <a href="https://www.youtube.com/" target="_blank" class="footer-social-link"
+                                   title="YouTube"><i class="fab fa-youtube"></i></a>
+                                <a href="https://www.tiktok.com/" target="_blank" class="footer-social-link"
+                                   title="TikTok"><i class="fab fa-tiktok"></i></a>
+                                <a href="https://www.instagram.com/" target="_blank" class="footer-social-link"
+                                   title="Instagram"><i class="fab fa-instagram"></i></a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom text-center py-3 mt-3"
+         style="background: linear-gradient(90deg,#e140b4,#7e2bed 100%); color:#fff; border-radius:0 0 18px 18px; width:100vw; left:0; position:relative;">
+        <div class="container-xl d-flex flex-column flex-lg-row justify-content-between align-items-center">
+            <span class="mb-1 mb-lg-0" style="font-size:.98em;">© 2025 Laptop Shop. All rights reserved.</span>
+            <a href="#" style="color: #fff; text-decoration: underline; font-size: .98em;">Điều khoản sử dụng</a>
+        </div>
+    </div>
+    <style>
+        .footer-main {
+            background: linear-gradient(99deg, #f6ecff 70%, #ede1f9 100%);
+            border-radius: 20px 20px 0 0;
+            box-shadow: 0 -2px 18px #7e2bed14;
+            max-width: none;
+            width: 100vw;
+            min-width: 100vw;
+            left: 0;
+            position: relative;
+        }
+
+        .footer-title {
+            color: #7e2bed;
+            font-weight: 700;
+            margin-bottom: 14px;
+        }
+
+        .footer-link-list {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+
+        .footer-link-list li {
+            margin-bottom: 8px;
+        }
+
+        .footer-link-list a {
+            color: #746491;
+            text-decoration: none;
+            transition: color .13s;
+            font-weight: 500;
+            font-size: 1.02em;
+        }
+
+        .footer-link-list a:hover {
+            color: #e140b4;
+            text-decoration: underline;
+        }
+
+        .footer-social-link {
+            background: #fff;
+            width: 34px;
+            height: 34px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            box-shadow: 0 2px 12px #e140b41a;
+            font-size: 1.3em;
+            color: #7e2bed;
+            transition: .16s, color .16s, transform .17s cubic-bezier(.4, 2, .6, 1);
+        }
+
+        .footer-social-link:hover {
+            background: #7e2bed;
+            color: #fff;
+            transform: scale(1.12);
+        }
+
+        .footer-logo svg {
+            border-radius: 14px;
+            box-shadow: 0 2px 12px #e140b412;
+        }
+
+        .footer-bottom {
+            font-size: 1.06em;
+            font-weight: 500;
+            width: 100vw !important;
+            left: 0;
+            border-radius: 0 0 18px 18px;
+            position: relative;
+        }
+
+        @media (max-width: 991px) {
+            .footer-main .row>div {
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</footer>
+</body>
+</html>

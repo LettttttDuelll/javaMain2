@@ -1,0 +1,745 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" xmlns:th="http://www.thymeleaf.org">-->
+
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Chi tiết sản phẩm</title>-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1">-->
+
+<!--    &lt;!&ndash; Sử dụng CDN &ndash;&gt;-->
+<!--    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">-->
+<!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">-->
+<!--    <link rel="stylesheet" th:href="@{assets/css/detailproduct.css}">-->
+<!--</head>-->
+<!--<div id="top-alert" class="alert alert-danger text-center" style="display: none;"></div>-->
+
+<!--<body>-->
+<!--    <header>-->
+<!--       <nav class="navbar navbar-expand-lg navbar-light bg-dark">-->
+<!--            <div class="container">-->
+<!--                &lt;!&ndash; Logo &ndash;&gt;-->
+<!--                <a class="navbar-brand" th:href="@{/}">-->
+<!--                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="50" height="50">-->
+<!--                        <circle cx="50" cy="50" r="45" fill="rgb(240, 101, 197)" />-->
+<!--                        <circle cx="50" cy="50" r="35" fill="rgb(127, 68, 255)" />-->
+<!--                    </svg>-->
+<!--                </a>-->
+
+<!--                &lt;!&ndash; Toggle Button (Responsive) &ndash;&gt;-->
+<!--                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"-->
+<!--                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">-->
+<!--                    <span class="navbar-toggler-icon"></span>-->
+<!--                </button>-->
+
+<!--                &lt;!&ndash; Nav items &ndash;&gt;-->
+<!--                <div class="collapse navbar-collapse justify-content-between" id="navbarNav">-->
+<!--                    &lt;!&ndash; Left &ndash;&gt;-->
+<!--                    <ul class="navbar-nav d-flex flex-row align-items-center gap-3">-->
+<!--                        <li class="nav-item">-->
+<!--                            <a class="nav-link active text-white" th:href="@{/}">Trang chủ</a>-->
+<!--                        </li>-->
+<!--                        <li class="nav-item">-->
+<!--                            <a class="nav-link text-white" th:href="@{/notifications}">Thông báo</a>-->
+<!--                        </li>-->
+<!--                        <li class="nav-item">-->
+<!--                            <a class="nav-link text-white" th:href="@{/}">Sản phẩm</a>-->
+<!--                        </li>-->
+<!--                    </ul>-->
+
+<!--                    &lt;!&ndash; Center: Search box &ndash;&gt;-->
+<!--                    <div class="search-container mx-auto">-->
+<!--                        <i class="fas fa-search search-icon"></i>-->
+<!--                        <input type="text" class="search-box" placeholder="Bạn tìm gì...">-->
+<!--                    </div>-->
+
+<!--                    &lt;!&ndash; Right &ndash;&gt;-->
+<!--                    <ul class="navbar-nav d-flex flex-row align-items-center gap-3">-->
+<!--                        <li class="nav-item">-->
+<!--                            <a class="nav-link text-white" th:href="@{/cart}">-->
+<!--                                <i class="fas fa-shopping-cart"></i> Giỏ hàng-->
+<!--                            </a>-->
+<!--                        </li>-->
+<!--                        <li class="nav-item">-->
+<!--                            <a class="nav-link text-white" th:href="@{/custom-login}">Đăng nhập</a>-->
+<!--                        </li>-->
+<!--                    </ul>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </nav>-->
+<!--    </header>-->
+
+<!--    <div class="container mt-5">-->
+<!--        <h2 id="title" class="mb-4 text-center"></h2>-->
+<!--        <div class="row">-->
+<!--            <div class="col-md-6">-->
+<!--                <div class="main-image-container text-center mb-3">-->
+<!--                    <img id="main-product-image" src="" class="img-fluid rounded" alt="Main Product Image" />-->
+<!--                </div>-->
+<!--                <div class="thumbnail-container mb-4"></div>-->
+<!--            </div>-->
+<!--            <div class="col-md-6">-->
+<!--                <h4>Thông tin chi tiết sản phẩm</h4>-->
+<!--                <div class="accordion" id="productAccordion">-->
+<!--                    <img th:src="@{${laptop.getFirstImageUrl()}}" alt="Ảnh sản phẩm" class="img-fluid mb-3" />-->
+<!--                    &lt;!&ndash; Bộ xử lý &ndash;&gt;-->
+<!--                    <div class="accordion-item">-->
+<!--                        <h2 class="accordion-header">-->
+<!--                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"-->
+<!--                                data-bs-target="#cpuSpec">-->
+<!--                                Bộ xử lý-->
+<!--                            </button>-->
+<!--                        </h2>-->
+<!--                        <div id="cpuSpec" class="accordion-collapse collapse">-->
+<!--                            <div class="accordion-body">-->
+<!--                                <ul>-->
+<!--                                    <li><strong>CPU:</strong> <span th:text="${laptop.cpu_name}"></span></li>-->
+<!--                                    <li><strong>Số nhân:</strong> <span th:text="${laptop.cores}"></span></li>-->
+<!--                                    <li><strong>Số luồng:</strong> <span th:text="${laptop.threads}"></span></li>-->
+<!--                                    <li><strong>Xung nhịp:</strong>-->
+<!--                                        <span th:text="${laptop.base_speed}"></span>-->
+<!--                                        - -->
+<!--                                        Boost <span th:text="${laptop.max_speed}"></span>-->
+<!--                                    </li>-->
+<!--                                </ul>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+
+<!--                    &lt;!&ndash; RAM & Ổ cứng &ndash;&gt;-->
+<!--                    <div class="accordion-item">-->
+<!--                        <h2 class="accordion-header">-->
+<!--                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"-->
+<!--                                data-bs-target="#ramSpec">-->
+<!--                                RAM &amp; Ổ cứng-->
+<!--                            </button>-->
+<!--                        </h2>-->
+<!--                        <div id="ramSpec" class="accordion-collapse collapse">-->
+<!--                            <div class="accordion-body">-->
+<!--                                <ul>-->
+<!--                                    <li><strong>RAM:</strong> <span th:text="${laptop.ram_type}"></span></li>-->
+<!--                                    <li><strong>Bus:</strong> <span th:text="${laptop.ram_speed}"></span></li>-->
+<!--                                    <li><strong>Ổ cứng:</strong> <span th:text="${laptop.hard_drive}"></span></li>-->
+<!--                                </ul>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+
+<!--                    &lt;!&ndash; Màn hình &ndash;&gt;-->
+<!--                    <div class="accordion-item">-->
+<!--                        <h2 class="accordion-header">-->
+<!--                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"-->
+<!--                                data-bs-target="#screenSpec">-->
+<!--                                Màn hình-->
+<!--                            </button>-->
+<!--                        </h2>-->
+<!--                        <div id="screenSpec" class="accordion-collapse collapse">-->
+<!--                            <div class="accordion-body">-->
+<!--                                <ul>-->
+<!--                                    <li><strong>Kích thước:</strong> <span th:text="${laptop.screen_type}"></span>-->
+<!--                                    </li>-->
+<!--                                    <li><strong>Độ phân giải:</strong> <span th:text="${laptop.resolution}"></span></li>-->
+<!--                                    <li><strong>Tần số:</strong> <span th:text="${laptop.refresh_rate}"></span></li>-->
+<!--                                </ul>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+
+<!--                    &lt;!&ndash; Kết nối & Âm thanh &ndash;&gt;-->
+<!--                    <div class="accordion-item">-->
+<!--                        <h2 class="accordion-header">-->
+<!--                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"-->
+<!--                                data-bs-target="#connectSpec">-->
+<!--                                Kết nối &amp; Âm thanh-->
+<!--                            </button>-->
+<!--                        </h2>-->
+<!--                        <div id="connectSpec" class="accordion-collapse collapse">-->
+<!--                            <div class="accordion-body">-->
+<!--                                <ul>-->
+<!--                                    <li><strong>Cổng:</strong> <span th:text="${laptop.connectivity_ports}"></span></li>-->
+<!--                                    <li><strong>Kết nối:</strong> <span th:text="${laptop.wireless}"></span></li>-->
+<!--                                    <li><strong>Loa:</strong> <span th:text="${laptop.sound_technology}">-->
+<!--                                        </span></li>-->
+<!--                                </ul>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+
+<!--                &lt;!&ndash; Giá &ndash;&gt;-->
+<!--                <p class="mt-4">-->
+<!--                    Giá:-->
+<!--                    <strong id="price"-->
+<!--                        th:text="${#numbers.formatDecimal(laptop.current_price, 0, 'COMMA', 0, 'POINT')} + ' đ'">-->
+
+<!--                    </strong>-->
+<!--                </p>-->
+<!--            </div>-->
+
+<!--            <div class="product-quantity mb-3">-->
+<!--                <label for="quantity" class="form-label">Số lượng:</label>-->
+<!--                <div class="d-flex align-items-center">-->
+<!--                    <button class="btn btn-outline-light px-3" onclick="changeQuantity(-1)">-</button>-->
+<!--                    <input type="number" id="quantity" class="form-control text-center mx-2" value="1" min="1"-->
+<!--                        style="width: 80px; color: red;" />-->
+<!--                    <button class="btn btn-outline-light px-3" onclick="changeQuantity(1)">+</button>-->
+<!--                    <span class="ms-3 text-muted">9993 sản phẩm có sẵn</span>-->
+<!--                </div>-->
+<!--                <div id="quantity-error" class="text-danger mt-1" style="display:none; font-size: 0.9em;"></div>-->
+<!--            </div>-->
+<!--            <div class="product-actions mb-3">-->
+<!--                <button class="btn btn-primary" onclick="addToCart()">Thêm vào giỏ hàng</button>-->
+<!--                <a th:href="@{/orderconfirm}" class="btn btn-success">Mua ngay</a>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    </div>-->
+<!--    <div id="alertBox" class="alert-overlay d-none">-->
+<!--        <div class="alert-box">-->
+<!--            <h5>Đã thêm vào giỏ hàng thành công!</h5>-->
+<!--            <div class="mt-3">-->
+<!--                <button class="btn btn-secondary me-2" onclick="closeAlert()">Tiếp tục mua sắm</button>-->
+<!--                <a th:href="@{/order}" class="btn btn-primary">Đi tới giỏ hàng</a>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    <div class="toast-container" id="toastContainer"></div>-->
+<!--    <footer>-->
+<!--        <div class="footer bg-light py-3 mt-5">-->
+<!--            <div class="container">-->
+<!--                <div class="row footer-description">-->
+<!--                    <div class="col-md-6">-->
+<!--                        <p>&copy; 2025 Your Company. All rights reserved.</p>-->
+<!--                    </div>-->
+<!--                    <div class="col-md-6">-->
+<!--                        <p class="text-end">Terms of Service | Privacy Policy</p>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </footer>-->
+<!--    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>-->
+<!--    <script src="/assets/js/filtered_images.js"></script>-->
+<!--    <script>-->
+<!--        function changeQuantity(amount) {-->
+<!--            const qtyInput = document.getElementById('quantity');-->
+<!--            let current = parseInt(qtyInput.value);-->
+
+<!--            if (!isNaN(current)) {-->
+<!--                let updated = current + amount;-->
+
+<!--                // ❌ Không giới hạn nữa (cho phép 0 hoặc âm)-->
+<!--                // if (updated < 1) updated = 1;-->
+
+<!--                qtyInput.value = updated;-->
+<!--            }-->
+<!--        }-->
+
+
+<!--        function validateProductInput() {-->
+<!--            const qtyInput = document.getElementById('quantity');-->
+<!--            const errorBox = document.getElementById('quantity-error');-->
+<!--            const value = qtyInput.value.trim();-->
+<!--            const number = parseInt(value);-->
+
+<!--            if (!value || isNaN(number) || number < 1) {-->
+<!--                errorBox.innerText = "Số lượng phải là số và lớn hơn 0.";-->
+<!--                errorBox.style.display = 'block';-->
+<!--                return false;-->
+<!--            }-->
+<!--            errorBox.style.display = 'none';-->
+<!--            return true;-->
+<!--        }-->
+
+<!--        function showTopAlert(message, isSuccess = false) {-->
+<!--            const alertBox = document.getElementById('top-alert');-->
+<!--            alertBox.className = 'alert text-center ' + (isSuccess ? 'alert-success' : 'alert-danger');-->
+<!--            alertBox.innerText = message;-->
+<!--            alertBox.style.display = 'block';-->
+
+<!--            setTimeout(() => {-->
+<!--                alertBox.style.display = 'none';-->
+<!--            }, 4000);-->
+<!--        }-->
+
+
+<!--        function showToast(message, isSuccess = true) {-->
+<!--            const toastContainer = document.getElementById('toastContainer');-->
+<!--            const toast = document.createElement('div');-->
+
+<!--            toast.className = 'toast ' + (isSuccess ? 'bg-success' : 'bg-danger');-->
+<!--            const timeString = new Date().toLocaleTimeString();-->
+
+<!--            toast.innerHTML = `${message}<small>${timeString}</small>`;-->
+<!--            toastContainer.appendChild(toast);-->
+
+<!--            setTimeout(() => toast.remove(), 4000);-->
+<!--        }-->
+
+
+<!--        function validateProductData() {-->
+<!--            const title = document.getElementById("title").innerText.trim();-->
+<!--            const quantityInput = document.getElementById("quantity");-->
+<!--            const quantity = parseInt(quantityInput.value);-->
+<!--            const price = 12690000;-->
+
+<!--            const errorBox = document.getElementById("quantity-error");-->
+
+<!--            if (title === "" || title === "Tên sản phẩm") {-->
+<!--                showTopAlert("Tên sản phẩm không hợp lệ!", false);-->
+<!--                return false;-->
+<!--            }-->
+
+<!--            if (isNaN(quantity) || quantity < 1) {-->
+<!--                errorBox.innerText = "Số lượng phải là số nguyên dương.";-->
+<!--                errorBox.style.display = "block";-->
+<!--                return false;-->
+<!--            } else {-->
+<!--                errorBox.style.display = "none";-->
+<!--            }-->
+
+<!--            if (isNaN(price) || price <= 0) {-->
+<!--                showTopAlert("Giá sản phẩm không hợp lệ!", false);-->
+<!--                return false;-->
+<!--            }-->
+
+<!--            showTopAlert("Dữ liệu sản phẩm hợp lệ. Có thể thêm vào giỏ hàng.", true);-->
+<!--            return true;-->
+<!--        }-->
+
+
+<!--        function addToCart() {-->
+<!--            if (!validateProductData()) return;-->
+
+<!--            const name = document.getElementById('title').innerText;-->
+<!--            const image = document.getElementById('main-product-image').src;-->
+<!--            const quantity = parseInt(document.getElementById('quantity').value);-->
+<!--            const price = 12690000;-->
+
+<!--            let cart = JSON.parse(localStorage.getItem('cart')) || [];-->
+
+<!--            const existing = cart.find(item => item.name === name);-->
+<!--            if (existing) {-->
+<!--                existing.quantity += quantity;-->
+<!--                showToast("Cập nhật số lượng sản phẩm trong giỏ hàng.");-->
+<!--            } else {-->
+<!--                cart.push({ name, image, quantity, price });-->
+<!--                showToast("Thêm sản phẩm mới vào giỏ hàng.");-->
+<!--            }-->
+
+<!--            localStorage.setItem('cart', JSON.stringify(cart));-->
+<!--            document.getElementById('alertBox').classList.remove('d-none');-->
+<!--        }-->
+
+<!--        function closeAlert() {-->
+<!--            document.getElementById('alertBox').classList.add('d-none');-->
+<!--        }-->
+
+<!--        document.addEventListener('DOMContentLoaded', function () {-->
+<!--            const params = new URLSearchParams(window.location.search);-->
+<!--            const productName = params.get('name');-->
+<!--            document.getElementById('title').innerText = productName || 'Tên sản phẩm';-->
+
+<!--            let images = filteredImages.find(item => item.name.trim() === productName?.trim())?.images || [];-->
+
+<!--            if (images.length === 0) {-->
+<!--                images = ["https://via.placeholder.com/600x600?text=No+Image"];-->
+<!--            }-->
+
+<!--            images = images.map(link => {-->
+<!--                if (link.startsWith('http')) return link;-->
+<!--                if (link.startsWith('//')) return 'https:' + link;-->
+<!--                return 'https://' + link;-->
+<!--            });-->
+
+<!--            const mainImage = document.getElementById('main-product-image');-->
+<!--            const thumbnailContainer = document.querySelector('.thumbnail-container');-->
+<!--            mainImage.src = images[0];-->
+
+<!--            thumbnailContainer.innerHTML = '';-->
+<!--            images.forEach((src, index) => {-->
+<!--                const thumb = document.createElement('img');-->
+<!--                thumb.src = src;-->
+<!--                thumb.className = 'thumbnail-image' + (index === 0 ? ' active' : '');-->
+<!--                thumb.addEventListener('click', () => {-->
+<!--                    mainImage.src = src;-->
+<!--                    document.querySelectorAll('.thumbnail-image').forEach(img => img.classList.remove('active'));-->
+<!--                    thumb.classList.add('active');-->
+<!--                });-->
+<!--                thumbnailContainer.appendChild(thumb);-->
+<!--            });-->
+<!--        });-->
+<!--    </script>-->
+<!--</body>-->
+
+<!--</html>-->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Chi tiết sản phẩm</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Sử dụng CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" th:href="@{assets/css/detailproduct.css}">
+</head>
+<div id="top-alert" class="alert alert-danger text-center" style="display: none;"></div>
+
+<body>
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-dark">
+        <div class="container">
+            <!-- Logo -->
+            <a class="navbar-brand" th:href="@{/home}">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="50" height="50">
+                    <circle cx="50" cy="50" r="45" fill="rgb(240, 101, 197)" />
+                    <circle cx="50" cy="50" r="35" fill="rgb(127, 68, 255)" />
+                </svg>
+            </a>
+
+            <!-- Toggle Button (Responsive) -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Nav items -->
+            <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
+                <!-- Left -->
+                <ul class="navbar-nav d-flex flex-row align-items-center gap-3">
+                    <li class="nav-item">
+                        <a class="nav-link active text-white" th:href="@{/home}">Trang chủ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" th:href="@{/notifications}">Thông báo</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" th:href="@{/}">Sản phẩm</a>
+                    </li>
+                </ul>
+
+                <!-- Center: Search box -->
+                <div class="search-container mx-auto">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" class="search-box" placeholder="Bạn tìm gì...">
+                </div>
+
+                <!-- Right -->
+                <ul class="navbar-nav d-flex flex-row align-items-center gap-3">
+                    <li class="nav-item">
+                        <a class="nav-link text-white" th:href="@{/cart}">
+                            <i class="fas fa-shopping-cart"></i> Giỏ hàng
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown" th:if="${user != null}">
+                    <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false" th:text="${user.fullName}">Tên người dùng</a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" th:href="@{/profile}">Thông tin cá nhân</a></li>
+                        <li><a class="dropdown-item" th:href="@{/logout}">Đăng xuất</a></li>
+                    </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<div class="container mt-5">
+    <h2 id="title" class="mb-4 text-center" th:text="${laptop.name}"></h2>
+    <div class="row">
+        <!-- Hiển thị ảnh sản phẩm kiểu Tiki/Lazada -->
+        <div class="container my-4">
+            <div class="row row-cols-2 row-cols-md-4 g-3">
+                <div class="col" th:each="imgUrl, iterStat : ${laptop.imageList}">
+                    <div class="border rounded-3 shadow-sm p-2 bg-white h-100">
+                        <img th:src="${imgUrl}"
+                             class="img-fluid rounded product-img"
+                             th:alt="'Ảnh ' + ${iterStat.index + 1}"
+                             th:attr="data-bs-toggle='modal', data-bs-target='#imageModal', data-img=${imgUrl}" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal hiển thị ảnh phóng to -->
+        <div class="modal fade" id="imageModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content bg-dark">
+                    <div class="modal-body p-0">
+                        <img id="modalImage" src="" class="img-fluid w-100 rounded" alt="Ảnh phóng to">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <h4>Thông tin chi tiết sản phẩm</h4>
+            <div class="accordion" id="productAccordion">
+                <img th:src="${laptop.getFirstImageUrl()}" alt="Ảnh sản phẩm" class="img-fluid mb-3" />
+                <!-- Bộ xử lý -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#cpuSpec">
+                            Bộ xử lý
+                        </button>
+                    </h2>
+                    <div id="cpuSpec" class="accordion-collapse collapse">
+                        <div class="accordion-body">
+                            <ul>
+                                <li><strong>CPU:</strong> <span th:text="${laptop.cpu_name}"></span></li>
+                                <li><strong>Số nhân:</strong> <span th:text="${laptop.cores}"></span></li>
+                                <li><strong>Số luồng:</strong> <span th:text="${laptop.threads}"></span></li>
+                                <li><strong>Xung nhịp:</strong>
+                                    <span th:text="${laptop.base_speed}"></span>
+                                    -
+                                    Boost <span th:text="${laptop.max_speed}"></span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RAM & Ổ cứng -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#ramSpec">
+                            RAM &amp; Ổ cứng
+                        </button>
+                    </h2>
+                    <div id="ramSpec" class="accordion-collapse collapse">
+                        <div class="accordion-body">
+                            <ul>
+                                <li><strong>RAM:</strong> <span th:text="${laptop.ram_type}"></span></li>
+                                <li><strong>Bus:</strong> <span th:text="${laptop.ram_speed}"></span></li>
+                                <li><strong>Ổ cứng:</strong> <span th:text="${laptop.hard_drive}"></span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Màn hình -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#screenSpec">
+                            Màn hình
+                        </button>
+                    </h2>
+                    <div id="screenSpec" class="accordion-collapse collapse">
+                        <div class="accordion-body">
+                            <ul>
+                                <li><strong>Kích thước:</strong> <span th:text="${laptop.screen_type}"></span>
+                                </li>
+                                <li><strong>Độ phân giải:</strong> <span th:text="${laptop.resolution}"></span></li>
+                                <li><strong>Tần số:</strong> <span th:text="${laptop.refresh_rate}"></span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Kết nối & Âm thanh -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#connectSpec">
+                            Kết nối &amp; Âm thanh
+                        </button>
+                    </h2>
+                    <div id="connectSpec" class="accordion-collapse collapse">
+                        <div class="accordion-body">
+                            <ul>
+                                <li><strong>Cổng:</strong> <span th:text="${laptop.connectivity_ports}"></span></li>
+                                <li><strong>Kết nối:</strong> <span th:text="${laptop.wireless}"></span></li>
+                                <li><strong>Loa:</strong> <span th:text="${laptop.sound_technology}">
+                                        </span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Giá -->
+            <p class="mt-4">
+                Giá:
+                <strong id="price"
+                        th:text="${#numbers.formatDecimal(laptop.current_price, 0, 'COMMA', 0, 'POINT')} + ' đ'">
+
+                </strong>
+            </p>
+        </div>
+
+        <div class="product-quantity mb-3">
+            <label for="quantity" class="form-label">Số lượng:</label>
+            <div class="d-flex align-items-center">
+                <button class="btn btn-outline-light px-3" onclick="changeQuantity(-1)">-</button>
+                <input type="number" id="quantity" class="form-control text-center mx-2" value="1" min="1"
+                       style="width: 80px; color: red;" />
+                <button class="btn btn-outline-light px-3" onclick="changeQuantity(1)">+</button>
+                <span class="ms-3 text-muted">9993 sản phẩm có sẵn</span>
+            </div>
+            <div id="quantity-error" class="text-danger mt-1" style="display:none; font-size: 0.9em;"></div>
+        </div>
+        <div class="product-actions mb-3">
+            <button class="btn btn-outline-primary" th:onclick="'addToCart(' + ${laptop.id} + ')'">Thêm vào giỏ hàng</button>
+            <button class="btn btn-success" th:onclick="'buyNow(' + ${laptop.id} + ')'">Mua ngay</button>
+        </div>
+    </div>
+</div>
+</div>
+<div id="alertBox" class="alert-overlay d-none">
+    <div class="alert-box">
+        <h5>Đã thêm vào giỏ hàng thành công!</h5>
+        <div class="mt-3">
+            <button class="btn btn-secondary me-2" onclick="closeAlert()">Tiếp tục mua sắm</button>
+            <a th:href="@{/cart}" class="btn btn-primary">Đi tới giỏ hàng</a>
+        </div>
+    </div>
+</div>
+<div class="toast-container" id="toastContainer"></div>
+<footer>
+    <div class="footer bg-light py-3 mt-5">
+        <div class="container">
+            <div class="row footer-description">
+                <div class="col-md-6">
+                    <p>&copy; 2025 Your Company. All rights reserved.</p>
+                </div>
+                <div class="col-md-6">
+                    <p class="text-end">Terms of Service | Privacy Policy</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/assets/js/filtered_images.js"></script>
+<!-- Truyền giá trị isLoggedIn từ Thymeleaf -->
+<script th:inline="javascript">
+    const isLoggedIn = [[${user != null}]];
+</script>
+<!-- Xử lý hiển thị ảnh modal -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const modalImage = document.getElementById('modalImage');
+        const productImages = document.querySelectorAll('.product-img');
+
+        productImages.forEach(img => {
+            img.addEventListener('click', function () {
+                const imageUrl = this.getAttribute('data-img');
+                modalImage.src = imageUrl;
+            });
+        });
+    });
+</script>
+
+<!-- Các hàm logic tương tác -->
+<script>
+    function showTopAlert(message, isSuccess = false) {
+        const alertBox = document.getElementById('top-alert');
+        alertBox.className = 'alert text-center ' + (isSuccess ? 'alert-success' : 'alert-danger');
+        alertBox.innerText = message;
+        alertBox.style.display = 'block';
+
+        setTimeout(() => {
+            alertBox.style.display = 'none';
+        }, 4000);
+    }
+
+    function validateProductData() {
+        const quantityInput = document.getElementById("quantity");
+        const quantity = parseInt(quantityInput.value);
+        const errorBox = document.getElementById("quantity-error");
+        if (isNaN(quantity) || quantity < 1) {
+            errorBox.innerText = "Số lượng phải là số nguyên dương.";
+            errorBox.style.display = "block";
+            return false;
+        } else {
+            errorBox.style.display = "none";
+        }
+        return true;
+    }
+
+    function addToCart(productId) {
+        if (!isLoggedIn) {
+            window.location.href = "/custom-login";
+            return;
+        }
+
+        const quantityInput = document.getElementById("quantity");
+        const quantity = parseInt(quantityInput.value);
+
+        fetch('/cart/api/add', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ productId: productId, quantity: 1 })
+        }).then(res => {
+            if (res.ok) alert("Đã thêm vào giỏ hàng");
+            else alert("Thêm giỏ hàng thất bại");
+        });
+    }
+
+    function buyNow(productId) {
+    if (!isLoggedIn) {
+        window.location.href = "/custom-login";
+        return;
+    }
+
+    const quantityInput = document.getElementById("quantity");
+    const quantity = parseInt(quantityInput.value);
+
+    if (isNaN(quantity) || quantity < 1) {
+        showTopAlert("Số lượng không hợp lệ.", false);
+        return;
+    }
+
+    fetch('/cart/api/add', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ productId: productId, quantity: quantity })
+    }).then(res => {
+        if (res.ok) {
+            // ✅ Sau khi thêm thành công thì chuyển sang giỏ hàng
+            window.location.href = "/cart";
+        } else {
+            alert("❌ Không thể mua ngay lúc này");
+        }
+    });
+}
+
+
+    function closeAlert() {
+        document.getElementById('alertBox').classList.add('d-none');
+    }
+
+    function changeQuantity(amount) {
+        const qtyInput = document.getElementById('quantity');
+        let current = parseInt(qtyInput.value);
+        if (!isNaN(current)) {
+            let updated = current + amount;
+            if (updated < 1) updated = 1;
+            qtyInput.value = updated;
+        }
+    }
+
+    // Lấy productId từ URL và gọi API để load thông tin
+    document.addEventListener('DOMContentLoaded', function () {
+        const params = new URLSearchParams(window.location.search);
+        const productId = params.get('id');
+
+        if (productId) {
+            fetch(`/api/laptops/${productId}`)
+                .then(res => res.json())
+                .then(product => {
+                    document.getElementById('title').innerText = product.name;
+                    document.getElementById('main-product-image').src = product.image;
+                    document.getElementById('price').innerText = product.price.toLocaleString() + " đ";
+                });
+        }
+    });
+</script>
+
+</body>
+
+</html>

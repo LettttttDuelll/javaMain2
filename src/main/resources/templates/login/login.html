@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng nhập</title>
+
+    <link rel="stylesheet" th:href="@{node_modules/bootstrap/dist/css/bootstrap.css}">
+    <link rel="stylesheet" th:href="@{node_modules/@fortawesome/fontawesome-free/css/all.css}">
+    <link rel="stylesheet" th:href="@{css/login.css}">
+</head>
+
+<body>
+<div class="container d-flex align-items-center justify-content-center vh-100 ">
+    <div class="row justify-content-center w-100">
+        <div class="col-12 col-sm-8 col-md-6 col-lg-4">
+            <div class="p-4  glass-container">
+                <h1 class="text-center"> Đăng Nhập</h1>
+                <form th:object="${loginRequest}" id="login_form">
+                    <div class="form-group input-group-sm mb-3">
+                        <label for="username">Tài Khoản</label>
+                        <input type="text" class="form-control mt-1" id="username" name="username" required>
+                        <span th:if="${#fields.hasErrors('username')}"
+                              th:errors="*{username}"></span>
+                    </div>
+                    <div class="form-group input-group-sm mb-3">
+                        <label for="password">Mật Khẩu</label>
+                        <input type="password" class="form-control m1-1" id="password" name="password" required>
+                    </div>
+                    <div class="form-group form-check">
+                        <input type="checkbox" class="form-check-input " id="remember-me" name="remember-me">
+                        <label for="remember-me" class="form-check-label">Nhớ mật khẩu</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100 mt-3">Đăng Nhập</button>
+                </form>
+                <div class="text-center mt-3">
+                    <p>Hoặc đăng nhập với</p>
+                    <div class="d-flex justify-content-around">
+                        <a th:href="@{/oauth2/authorization/google}" class="btn-google">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg"
+                                 width="40"
+                                 height="40" alt="Google">
+                        </a>
+                        <a href="#" class="btn-facebook">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/0/05/Facebook_Logo_%282019%29.png"
+                                 width="40"
+                                 height="40" alt="Facebook">
+                        </a>
+                    </div>
+                </div>
+                <div class="row text-center mt-3">
+                    <a class="col-6 col-sm-6 col-md-6 col-lg-6  another_link" th:href="@{forgot-password}">Quên mật
+                        khẩu?</a>
+                    <a class="col-6 col-sm-6 col-md-6 col-lg-6  another_link" th:href="@{register}">Đăng ký tài
+                        khoản</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="messageBox"></div>
+
+<script type="module" src="node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
+<script>
+    document.getElementById('login_form').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const username = e.target.username.value;
+      const password = e.target.password.value;
+
+      const response = await fetch('/api/v1/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',  // Bắt buộc để gửi/nhận cookie
+        body: JSON.stringify({ username, password })
+      });
+      const data = await response.json();
+
+      if (response.ok) {
+        const role = data.role;
+        if (role === 'ROLE_ADMIN') {
+          window.location.href = '/dashboard';
+        } else if (role === 'ROLE_EMPLOYEE') {
+          window.location.href = '/employee/home';
+        } else {
+          window.location.href = '/home';
+        }
+      } else {
+        // Đăng nhập thất bại
+        alert('Đăng nhập thất bại: ' + data.message);
+      }
+    });
+</script>
+</body>
+
+</html>

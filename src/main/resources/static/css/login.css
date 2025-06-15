@@ -1,0 +1,80 @@
+body {
+    background: url(../img/1.jpg);
+    color: #fff; 
+    font-family: 'Arial', sans-serif;
+    background-size: cover;
+  }
+  .glass-container {
+    background: rgba(255, 255, 255, 0.1); 
+    backdrop-filter: blur(10px); 
+    border-radius: 15px; 
+    border: 1px solid rgba(255, 255, 255, 0.2); 
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+    animation: fadeIn 1s ease; 
+  }
+  .form-control {
+    background: rgba(255, 255, 255, 0.2); 
+    border: 1px solid rgba(255, 255, 255, 0.3); 
+    border-radius: 10px; 
+  }
+  .form-control:focus {
+    background: rgba(255, 255, 255, 0.3); 
+    border-color: rgba(255, 255, 255, 0.5); 
+  }
+  .btn-primary {
+    border-radius: 10px; 
+    padding: 10px;
+    transition: all 0.3s ease; 
+  }
+  .btn-primary:hover {
+    background: #1a5bbf; 
+    transform: translateY(-2px); 
+  }
+  .btn-google,
+  .btn-facebook {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%; 
+    line-height: 45px;
+    transition: all 0.3s ease;
+    border: 2px solid transparent; 
+  }
+  .btn-google:hover,
+  .btn-facebook:hover {
+    transform: translateY(-5px); 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+  }
+  .btn-google {
+    background-color: #fff; 
+    border-color: #db4437; 
+  }
+  
+  .btn-facebook {
+    background-color: #fff; 
+    border-color: #1877f2; 
+  }
+  .another_link{
+    text-decoration: none;
+    color: #fff; 
+    transition: all 0.3s ease; 
+  }
+  .another_link:hover {
+    color: #2575fc; 
+  }
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+@media (max-width: 768px) {
+    body {
+        background: url(../img/1.jpg) no-repeat center center;
+        background-size: cover; 
+    }
+}

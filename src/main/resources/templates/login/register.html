@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Đăng kí</title>
+
+  <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
+  <link rel="stylesheet" href="node_modules/@fortawesome/fontawesome-free/css/all.css">
+  <link rel="stylesheet" href="css/register.css">
+</head>
+
+<body>
+  <div class="container d-flex align-items-center justify-content-center vh-100 ">
+    <div class="row justify-content-center w-100">
+      <div class="col-12 col-sm-8 col-md-6 col-lg-4">
+        <div class="p-4  glass-container">
+          <h1 class="text-center"> Đăng Kí</h1>
+          <form id="registerForm">
+            <div class="form-group input-group-sm mb-3">
+              <label for="username">Tài Khoản</label>
+              <input type="text" class="form-control" id="username" name="username" required>
+              <span id="Message_Username"></span>
+            </div>
+            <div class="form-group input-group-sm mb-3">
+              <label for="password">Mật Khẩu</label>
+              <input type="password" class="form-control" id="password" name="password" required>
+              <span id="Message_Password"></span>
+            </div>
+            <div class="form-group input-group-sm mb-3">
+              <label for="rePassword">Nhập Lại Mật Khẩu</label>
+              <input type="password" class="form-control" id="rePassword" name="rePassword" required>
+              <span id="Message_RePassword"></span>
+            </div>
+            <div class="form-group input-group-sm mb-3">
+              <label for="email">Email</label>
+              <input type="email" class="form-control" id="email" name="email" placeholder="abc@gmail.com" required>
+              <span id="Message_Email"></span>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Đăng Kí</button>
+          </form>
+          <div class="row mt-3 text-center" >
+            <div class="col-6 col-sm-6 col-md-6 col-lg-6">
+              <p >Bạn đã có tài khoản?</p>
+            </div>
+            <div class="col-6 col-sm-6 col-md-6 col-lg-6 another_link">
+              <a class=" text-decoration-none" th:href="@{/custom-login}">Đăng nhập</a>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script type="module" src="node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
+  <script src = "js/register.js"></script>
+  <script>
+  document.getElementById('registerForm').addEventListener('submit', async function (event) {
+    event.preventDefault(); 
+
+    
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+    const rePassword = document.getElementById('rePassword').value;
+    const email = document.getElementById('email').value;
+    const requestData = {
+      username: username,
+      password: password,
+      email: email,
+      rePassword: rePassword
+    };
+
+    try {
+      const response = await fetch('/api/v1/auth/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(requestData)
+      });
+      const result = await response.text();
+      if (response.ok) {
+        alert(result); 
+      } else {
+        alert(result); 
+      }
+    } catch (error) {
+      console.error('Lỗi:', error);
+      alert('Đã xảy ra lỗi khi gửi yêu cầu');
+    }
+  });
+</script>
+</body>
+</html>

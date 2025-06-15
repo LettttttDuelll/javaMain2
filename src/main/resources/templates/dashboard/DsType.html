@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{node_modules/bootstrap/dist/css/bootstrap.css}">
+    <link rel="stylesheet" th:href="@{node_modules/bootstrap-icons/font/bootstrap-icons.css}">
+    <link rel="stylesheet" th:href="@{css/dashboard.css}">
+    <title>Danh sách người dùng</title>
+</head>
+
+<body>
+    <header class="header d-flex fixed-top align-items-center row">
+        <div class="d-flex align-items-center justify-content-between col-auto">
+            <a th:href="@{dashboard.html}" class="logo d-flex align-items-center">
+                <img th:src="@{img/6380171.jpg}" alt="">
+                <span class="d-none d-lg-block">LaptopShop</span>
+            </a>
+            <i class="bi bi-list toggle-sidebar-btn"></i>
+        </div>
+        <div class="search-bar col-md-4 col-lg-5">
+            <form class="search-form d-flex align-items-center" method="POST" action="#">
+                <input type="text" name="query" placeholder="Tìm kiếm..." title="Enter search keyword">
+                <button type="submit" title="Search"><i class="bi bi-search"></i></button>
+            </form>
+        </div>
+        <nav class="header-nav ms-auto align-items-center col-auto ">
+            <ul class="d-flex align-items-center ">
+                <li class="nav-item dropdown">
+                    <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+                        <i class="bi bi-bell"></i>
+                        <span class="badge bg-primary badge-number">4</span>
+                    </a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+                        <i class="bi bi-chat-left-text"></i>
+                        <span class="badge bg-success badge-number">3</span>
+                    </a>
+                </li>
+                <li class="nav-item dropdown pe-3">
+                    <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+                        <img th:src="${user.imageUrl}" alt="Profile" class="rounded-circle mt-2">
+                        <span class="d-none d-md-block dropdown-toggle ps-4 mt-4" th:text="${user.fullName}"></span>
+                    </a>
+
+                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+                        <li class="dropdown-header">
+                            <h6>Vô Danh</h6>
+                            <span>Quản trị viên</span>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center" th:href="@{users-profile.html}">
+                                <i class="bi bi-person"></i>
+                                <span>Hồ sơ</span>
+                            </a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center" th:href="@{users-profile.html}">
+                                <i class="bi bi-gear"></i>
+                                <span>Cài đặt</span>
+                            </a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center" th:href="@{pages-faq.html}">
+                                <i class="bi bi-question-circle"></i>
+                                <span>Hỗ trợ</span>
+                            </a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center" th:href="@{login.html}">
+                                <i class="bi bi-box-arrow-right"></i>
+                                <span>Đăng xuất</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <aside id="sidebar" class="sidebar">
+        <ul class="sidebar-nav" id="sidebar-nav">
+
+            <li class="nav-item">
+                <a class="nav-link " th:href="@{dashboard.html}">
+                    <i class="bi bi-grid"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link [[${activeMenu == 'user'} ? '' : 'collapsed']]" data-bs-target="#components-nav"
+                    data-bs-toggle="collapse" href="#">
+                    <i class="bi bi-people"></i><span>Quản lí danh sách</span><i class="bi bi-chevron-down ms-3"></i>
+                </a>
+
+                <ul id="components-nav" class="nav-content collapse [[${activeMenu == 'user'} ? 'show' : '']]"
+                    data-bs-parent="#sidebar-nav">
+                    <li>
+                        <a th:href="@{/user_list}" th:classappend="${activeMenu == 'user'} ? 'active'">
+                            <i class="bi bi-person"></i><span>người sử dụng</span>
+                        </a>
+                    </li>
+
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" data-bs-target="#product-nav" data-bs-toggle="collapse" href="#">
+                    <i class="bi bi-box-seam"></i><span>Quản lí sản phẩm</span><i class="bi bi-chevron-down ms-3"></i>
+                </a>
+
+                <ul id="product-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                    <li>
+                        <a th:href="@{/productList}">
+                            <i class="bi bi-collection"></i><span>Danh sách</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a th:href="@{/bin}">
+                            <i class="bi bi-trash"></i><span>Thùng rác</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" data-bs-target="#support-nav" data-bs-toggle="collapse" href="#">
+                    <i class="bi bi-telephone"></i><span>Liên hệ & hỗ trợ </span><i class="bi bi-chevron-down ms-3"></i>
+                </a>
+
+                <ul id="support-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+
+                    <li>
+                        <a href="add.html">
+                            <i class="bi bi-envelope"></i><span>Hộp thư</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="grant-permission.html">
+                            <i class="bi bi-telephone-fill"></i><span>Tổng đài</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="bin.html">
+                            <i class="bi bi-shield-check"></i><span>Chính sách bảo hành</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </aside>
+    <main class="mt-4">
+        <h2 class="mt-4">Danh sách Laptop</h2>
+        <div class="d-flex justify-content-end mb-2">
+            <button type="button" class="btn btn-sm btn-success" title="Thêm Laptop" data-bs-toggle="modal"
+                data-bs-target="#addLaptopModal">
+                <i class="bi bi-plus-square me-1"></i> Thêm Laptop
+            </button>
+        </div>
+        <table id="laptopTable" class="table table-striped table-bordered">
+            <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Ảnh</th>
+                    <th>Tên Laptop</th>
+                    <th>Giá hiện tại</th>
+                    <th>Thao tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="laptop : ${laptops}">
+                    <td th:text="${laptop.id}"></td>
+                    <td>
+                        <img th:src="@{${laptop.firstImageUrl}}" alt="Ảnh laptop"
+                            style="width: 70px; height: 50px; object-fit: cover;" />
+                    </td>
+                    <td th:text="${laptop.name}"></td>
+                    <td th:text="${#numbers.formatDecimal(laptop.current_price, 0, 'COMMA', 0, 'POINT')} + ' đ'"></td>
+                    <td class="d-flex gap-2">
+                        <button type="button" class="btn btn-sm btn-info" title="Xem chi tiết"
+                            th:attr="data-laptop-id=${laptop.id}" data-bs-toggle="modal" data-bs-target="#viewModal">
+                            <i class="bi bi-eye"></i>
+                        </button>
+                        <button type="button" class="btn btn-sm btn-primary" title="Chỉnh sửa"
+                            th:attr="data-laptop-id=${laptop.id}" data-bs-toggle="modal" data-bs-target="#editModal">
+                            <i class="bi bi-pencil-square"></i>
+                        </button>
+                        <button type="button" class="btn btn-sm btn-danger" title="Xoá"
+                            th:attr="data-laptop-id=${laptop.id}" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </main>
+
+
+    <div class="modal fade" id="viewModal" tabindex="-1">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Chi tiết Laptop</h5>
+                </div>
+                <div class="modal-body">
+                    <div class="row g-3">
+                        <div class="col-md-12">
+                            <strong>Hình ảnh:</strong>
+                            <div id="view-images" class="d-flex flex-wrap gap-2 mt-2"></div>
+                        </div>
+                        <!-- Thông tin cơ bản -->
+                        <div class="col-md-6"><strong>Tên:</strong> <span id="view-name"></span></div>
+                        <div class="col-md-6"><strong>Model:</strong> <span id="view-model"></span></div>
+                        <div class="col-md-4"><strong>Giá gốc:</strong> <span id="view-originalPrice"></span></div>
+                        <div class="col-md-4"><strong>Giá hiện tại:</strong> <span id="view-currentPrice"></span></div>
+                        <div class="col-md-4"><strong>Giảm giá:</strong> <span id="view-discount"></span></div>
+                        <div class="col-md-12"><strong>Mô tả:</strong> <span id="view-description"></span></div>
+
+                        <!-- CPU -->
+                        <div class="col-md-4"><strong>CPU:</strong> <span id="view-cpuName"></span></div>
+                        <div class="col-md-4"><strong>Nhân:</strong> <span id="view-cores"></span></div>
+                        <div class="col-md-4"><strong>Luồng:</strong> <span id="view-threads"></span></div>
+                        <div class="col-md-6"><strong>Tốc độ cơ bản:</strong> <span id="view-baseSpeed"></span></div>
+                        <div class="col-md-6"><strong>Tốc độ tối đa:</strong> <span id="view-maxSpeed"></span></div>
+
+                        <!-- RAM và Ổ cứng -->
+                        <div class="col-md-4"><strong>Loại RAM:</strong> <span id="view-ramType"></span></div>
+                        <div class="col-md-4"><strong>Tốc độ RAM:</strong> <span id="view-ramSpeed"></span></div>
+                        <div class="col-md-4"><strong>RAM tối đa:</strong> <span id="view-maxRamSize"></span></div>
+                        <div class="col-md-12"><strong>Ổ cứng:</strong> <span id="view-hardDrive"></span></div>
+
+                        <!-- Màn hình -->
+                        <div class="col-md-4"><strong>Loại màn hình:</strong> <span id="view-screenType"></span></div>
+                        <div class="col-md-4"><strong>Độ phân giải:</strong> <span id="view-resolution"></span></div>
+                        <div class="col-md-4"><strong>Tần số quét:</strong> <span id="view-refreshRate"></span></div>
+                        <div class="col-md-6"><strong>Độ sâu màu:</strong> <span id="view-colorDepth"></span></div>
+                        <div class="col-md-6"><strong>Công nghệ màn hình:</strong> <span
+                                id="view-screenTechnology"></span></div>
+                        <div class="col-md-12"><strong>Card màn hình:</strong> <span id="view-screenCard"></span></div>
+
+                        <!-- Âm thanh & hệ điều hành -->
+                        <div class="col-md-12"><strong>Công nghệ âm thanh:</strong> <span
+                                id="view-soundTechnology"></span></div>
+                        <div class="col-md-6"><strong>Hệ điều hành:</strong> <span id="view-osSystem"></span></div>
+                        <div class="col-md-6"><strong>Đèn bàn phím:</strong> <span id="view-keyboardLights"></span>
+                        </div>
+
+                        <!-- Cổng kết nối -->
+                        <div class="col-md-12"><strong>Cổng kết nối:</strong> <span id="view-connectivityPorts"></span>
+                        </div>
+                        <div class="col-md-6"><strong>Kết nối không dây:</strong> <span id="view-wireless"></span></div>
+                        <div class="col-md-6"><strong>Webcam:</strong> <span id="view-webcams"></span></div>
+
+                        <!-- Pin & kích thước -->
+                        <div class="col-md-6"><strong>Pin:</strong> <span id="view-batterySystem"></span></div>
+                        <div class="col-md-6"><strong>Chất liệu vỏ:</strong> <span id="view-materialType"></span></div>
+                        <div class="col-md-6"><strong>Kích thước:</strong> <span id="view-size"></span></div>
+                        <div class="col-md-6"><strong>Ra mắt:</strong> <span id="view-releaseTime"></span></div>
+
+                        <!-- Tính năng & đánh giá -->
+                        <div class="col-md-12"><strong>Tính năng:</strong> <span id="view-features"></span></div>
+                        <div class="col-md-12"><strong>Đánh giá:</strong> <span id="view-review"></span></div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="addLaptopModal" tabindex="-1" aria-labelledby="addLaptopModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-scrollable">
+            <div class="modal-content">
+                <form id="addLaptopForm">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addLaptopModalLabel">Thêm Laptop</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+                    </div>
+                    <div class="modal-body row g-3" style="max-height: 70vh; overflow-y: auto;">
+
+                        <!-- Hình ảnh -->
+                        <div id="imagePreview" class="image-upload-wrapper d-flex flex-wrap gap-2">
+                            <label for="imageFiles" class="add-image-box">
+                                <span class="plus-icon">+</span>
+                            </label>
+                            <input type="file" id="imageFiles" name="imageFiles" accept="image/*" multiple hidden>
+                        </div>
+
+                        <!-- Thông tin chung -->
+                        <div class="col-md-6">
+                            <label class="form-label">Tên laptop</label>
+                            <input type="text" class="form-control" id="name">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Model</label>
+                            <input type="text" class="form-control" id="model">
+                        </div>
+
+                        <!-- Giá -->
+                        <div class="col-md-4">
+                            <label class="form-label">Giá gốc</label>
+                            <input type="text" class="form-control" id="original_price">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Giá hiện tại</label>
+                            <input type="text" class="form-control" id="current_price">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Giảm giá</label>
+                            <input type="text" class="form-control" id="discount">
+                        </div>
+
+                        <!-- CPU -->
+                        <div class="col-md-4">
+                            <label class="form-label">CPU Name</label>
+                            <input type="text" class="form-control" id="cpu_name">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Số nhân</label>
+                            <input type="text" class="form-control" id="cores">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Số luồng</label>
+                            <input type="text" class="form-control" id="threads">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Tốc độ cơ bản</label>
+                            <input type="text" class="form-control" id="base_speed">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Tốc độ tối đa</label>
+                            <input type="text" class="form-control" id="max_speed">
+                        </div>
+
+                        <!-- RAM -->
+                        <div class="col-md-4">
+                            <label class="form-label">Loại RAM</label>
+                            <input type="text" class="form-control" id="ram_type">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Tốc độ RAM</label>
+                            <input type="text" class="form-control" id="ram_speed">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Dung lượng RAM tối đa</label>
+                            <input type="text" class="form-control" id="max_ram_size">
+                        </div>
+
+                        <!-- Ổ cứng -->
+                        <div class="col-md-12">
+                            <label class="form-label">Ổ cứng</label>
+                            <input type="text" class="form-control" id="hard_drive">
+                        </div>
+
+                        <!-- Màn hình -->
+                        <div class="col-md-4">
+                            <label class="form-label">Loại màn hình</label>
+                            <input type="text" class="form-control" id="screen_type">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Độ phân giải</label>
+                            <input type="text" class="form-control" id="resolution">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Tần số quét</label>
+                            <input type="text" class="form-control" id="refresh_rate">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Độ sâu màu</label>
+                            <input type="text" class="form-control" id="color_depth">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Công nghệ màn hình</label>
+                            <input type="text" class="form-control" id="screen_technology">
+                        </div>
+
+                        <!-- Âm thanh & card màn hình -->
+                        <div class="col-md-6">
+                            <label class="form-label">Card màn hình</label>
+                            <input type="text" class="form-control" id="screen_card">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Công nghệ âm thanh</label>
+                            <input type="text" class="form-control" id="sound_technology">
+                        </div>
+
+                        <!-- Khác -->
+                        <div class="col-md-6">
+                            <label class="form-label">Hệ điều hành</label>
+                            <input type="text" class="form-control" id="os_system">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Pin</label>
+                            <input type="text" class="form-control" id="battery_system">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Thời gian ra mắt</label>
+                            <input type="text" class="form-control" id="release_time">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Chất liệu</label>
+                            <input type="text" class="form-control" id="material_type">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Kích thước</label>
+                            <input type="text" class="form-control" id="size">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Kết nối không dây</label>
+                            <input type="text" class="form-control" id="wireless">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Webcam</label>
+                            <input type="text" class="form-control" id="webcams">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Đèn bàn phím</label>
+                            <input type="text" class="form-control" id="keyboard_lights">
+                        </div>
+
+                        <!-- Mô tả dài -->
+                        <div class="col-md-12">
+                            <label class="form-label">Mô tả</label>
+                            <textarea class="form-control" id="description" rows="2"></textarea>
+                        </div>
+                        <div class="col-md-12">
+                            <label class="form-label">Cổng kết nối</label>
+                            <textarea class="form-control" id="connectivity_ports" rows="2"></textarea>
+                        </div>
+                        <div class="col-md-12">
+                            <label class="form-label">Tính năng</label>
+                            <textarea class="form-control" id="features" rows="2"></textarea>
+                        </div>
+                        <div class="col-md-12">
+                            <label class="form-label">Đánh giá</label>
+                            <textarea class="form-control" id="review" rows="2"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-success">Lưu</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="editModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Chỉnh sửa người dùng</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editForm">
+                        <input type="hidden" id="edit-id" name="id">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label for="edit-fullName" class="form-label">Họ và tên</label>
+                                <input type="text" id="edit-fullName" name="fullName" class="form-control">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="edit-birthday" class="form-label">Ngày sinh</label>
+                                <input type="date" id="edit-birthday" name="birthday" class="form-control">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="edit-phone" class="form-label">Số điện thoại</label>
+                                <input type="text" id="edit-phone" name="phone" class="form-control">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="edit-email" class="form-label">Email</label>
+                                <input type="email" id="edit-email" name="email" class="form-control">
+                            </div>
+                            <div class="col-12">
+                                <label for="edit-address" class="form-label">Địa chỉ</label>
+                                <input type="text" id="edit-address" name="address" class="form-control">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="edit-jobArea" class="form-label">Khu vực công việc</label>
+                                <input type="text" id="edit-jobArea" name="jobArea" class="form-control">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="edit-job" class="form-label">Công việc</label>
+                                <input type="text" id="edit-job" name="job" class="form-control">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="edit-position" class="form-label">Chức vụ</label>
+                                <input type="text" id="edit-position" name="position" class="form-control">
+                            </div>
+
+                            <div class="col-md-4">
+                                <label for="edit-applyYear" class="form-label">Năm ứng tuyển</label>
+                                <input type="number" id="edit-applyYear" name="applyYear" class="form-control">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="edit-roles" class="form-label">Quyền</label>
+                                <input type="text" id="edit-roles" name="roles" class="form-control">
+                            </div>
+                            <div class="col-12">
+                                <label for="edit-userNotes" class="form-label">Ghi chú</label>
+                                <textarea id="edit-userNotes" name="userNotes" class="form-control"></textarea>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                    <button class="btn btn-primary" onclick="submitEditForm()">Lưu thay đổi</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Xóa -->
+    <div class="modal fade" id="deleteModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-danger text-white">
+                    <h5 class="modal-title">Xác nhận xoá</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    Bạn có chắc chắn muốn xoá laptop có ID:
+                    <span id="delete-laptop-id" class="fw-bold text-danger"></span>?
+                    <input type="hidden" id="delete-laptop-id-hidden">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Huỷ</button>
+                    <button type="button" class="btn btn-danger" id="confirm-delete">Xoá</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer clearfix">
+            <div class="copyright">
+                &copy; 2025 LaptopShop
+            </div>
+        </div>
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Đặt sau bảng, trước thẻ </body> -->
+    <script>
+        $(document).ready(function () {
+            $('#laptopTable').DataTable({
+                pageLength: 3,
+                ordering: false,
+                "language": {
+                    "search": "Tìm kiếm:",
+                    "lengthMenu": "Hiển thị _MENU_ dòng",
+                    "info": "Hiển thị _START_ đến _END_ của _TOTAL_ dòng",
+                    "paginate": {
+                        "first": "Đầu",
+                        "last": "Cuối",
+                        "next": "Tiếp",
+                        "previous": "Trước"
+                    }
+                }
+            });
+        });
+    </script>
+
+    <script>
+        const viewModal = document.getElementById('viewModal');
+        const editModal = document.getElementById('editModal');
+        const deleteModal = document.getElementById('deleteModal');
+        const addModal = document.getElementById('addModal');
+        viewModal.addEventListener('show.bs.modal', function (event) {
+            const button = event.relatedTarget;
+            const laptopId = button.getAttribute('data-laptop-id');  // đổi thành laptopId
+
+            fetch(`/api/v1/laptops/laptop/${laptopId}`)  // URL API lấy thông tin laptop
+                .then(response => response.json())
+                .then(laptop => {
+                    document.getElementById("view-name").textContent = laptop.name;
+                    document.getElementById("view-model").textContent = laptop.model;
+                    document.getElementById("view-cpuName").textContent = laptop.cpu_name;
+                    document.getElementById("view-cores").textContent = laptop.cores;
+                    document.getElementById("view-threads").textContent = laptop.threads;
+                    document.getElementById("view-baseSpeed").textContent = laptop.base_speed;
+                    document.getElementById("view-maxSpeed").textContent = laptop.max_speed;
+                    document.getElementById("view-originalPrice").textContent = laptop.original_price;
+                    document.getElementById("view-currentPrice").textContent = laptop.current_price;
+                    document.getElementById("view-discount").textContent = laptop.discount;
+                    document.getElementById("view-description").textContent = laptop.description;
+                    document.getElementById("view-size").textContent = laptop.size;
+                    document.getElementById("view-materialType").textContent = laptop.material_type;
+                    document.getElementById("view-batterySystem").textContent = laptop.battery_system;
+                    document.getElementById("view-osSystem").textContent = laptop.os_system;
+                    document.getElementById("view-releaseTime").textContent = laptop.release_time;
+                    document.getElementById("view-connectivityPorts").textContent = laptop.connectivity_ports;
+                    document.getElementById("view-wireless").textContent = laptop.wireless;
+                    document.getElementById("view-webcams").textContent = laptop.webcams;
+                    document.getElementById("view-features").textContent = laptop.features;
+                    document.getElementById("view-keyboardLights").textContent = laptop.keyboard_lights;
+                    document.getElementById("view-ramType").textContent = laptop.ram_type;
+                    document.getElementById("view-ramSpeed").textContent = laptop.ram_speed;
+                    document.getElementById("view-maxRamSize").textContent = laptop.max_ram_size;
+                    document.getElementById("view-hardDrive").textContent = laptop.hard_drive;
+                    document.getElementById("view-review").textContent = laptop.review;
+                    document.getElementById("view-screenType").textContent = laptop.screen_type;
+                    document.getElementById("view-resolution").textContent = laptop.resolution;
+                    document.getElementById("view-refreshRate").textContent = laptop.refresh_rate;
+                    document.getElementById("view-colorDepth").textContent = laptop.color_depth;
+                    document.getElementById("view-screenTechnology").textContent = laptop.screen_technology;
+                    document.getElementById("view-screenCard").textContent = laptop.screen_card;
+                    document.getElementById("view-soundTechnology").textContent = laptop.sound_technology;
+                    const imageContainer = document.getElementById("view-images");
+                    imageContainer.innerHTML = ""; // Clear ảnh cũ
+
+                    if (laptop.image_url) {
+                        const imageArray = laptop.image_url
+                            .split('|')
+                            .map(img => img.trim())
+                            .filter(img => img.length > 0);
+
+                        imageArray.forEach(imgUrl => {
+                            const img = document.createElement("img");
+                            img.src = imgUrl.startsWith("http") ? imgUrl : "/laptop_img/" + imgUrl;
+                            img.className = "img-thumbnail m-1";
+                            img.style.width = "150px";
+                            img.style.height = "auto";
+                            imageContainer.appendChild(img);
+                        });
+                    }
+                });
+        });
+        document.getElementById("addLaptopForm").addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            const laptop = {
+                name: document.getElementById("name").value,
+                model: document.getElementById("model").value,
+                original_price: document.getElementById("original_price").value,
+                current_price: document.getElementById("current_price").value,
+                discount: document.getElementById("discount").value,
+                cpu_name: document.getElementById("cpu_name").value,
+                cores: document.getElementById("cores").value,
+                threads: document.getElementById("threads").value,
+                base_speed: document.getElementById("base_speed").value,
+                max_speed: document.getElementById("max_speed").value,
+                ram_type: document.getElementById("ram_type").value,
+                ram_speed: document.getElementById("ram_speed").value,
+                max_ram_size: document.getElementById("max_ram_size").value,
+                hard_drive: document.getElementById("hard_drive").value,
+                screen_type: document.getElementById("screen_type").value,
+                resolution: document.getElementById("resolution").value,
+                refresh_rate: document.getElementById("refresh_rate").value,
+                color_depth: document.getElementById("color_depth").value,
+                screen_technology: document.getElementById("screen_technology").value,
+                screen_card: document.getElementById("screen_card").value,
+                sound_technology: document.getElementById("sound_technology").value,
+                os_system: document.getElementById("os_system").value,
+                battery_system: document.getElementById("battery_system").value,
+                release_time: document.getElementById("release_time").value,
+                material_type: document.getElementById("material_type").value,
+                size: document.getElementById("size").value,
+                wireless: document.getElementById("wireless").value,
+                webcams: document.getElementById("webcams").value,
+                keyboard_lights: document.getElementById("keyboard_lights").value,
+                description: document.getElementById("description").value,
+                connectivity_ports: document.getElementById("connectivity_ports").value,
+                features: document.getElementById("features").value,
+                review: document.getElementById("review").value
+            };
+
+            const formData = new FormData();
+            formData.append("laptop", new Blob([JSON.stringify(laptop)], { type: "application/json" }));
+
+
+            for (let i = 0; i < selectedFiles.length; i++) {
+                formData.append("imageFiles", selectedFiles[i]); // nhiều ảnh nên dùng tên giống nhau
+            }
+            console.log("Tổng ảnh:", selectedFiles.length);
+            fetch("/api/v1/laptops/add", {
+                method: "POST",
+                body: formData
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        return response.text().then(text => { throw new Error(text); });
+                    }
+                    return response.text();
+                })
+                .then(message => {
+                    alert(message);
+                    const modal = bootstrap.Modal.getInstance(document.getElementById('addLaptopModal'));
+                    modal.hide();
+                    location.reload();
+                })
+                .catch(error => {
+                    alert("Lỗi: " + error.message);
+                });
+        });
+
+        editModal.addEventListener('show.bs.modal', function (event) {
+            const button = event.relatedTarget;
+            const userId = button.getAttribute('data-user-id');
+            fetch(`/api/v1/users/user/${userId}`)
+                .then(response => response.json())
+                .then(user => {
+                    document.getElementById('edit-id').value = user.id;
+                    document.getElementById('edit-fullName').value = user.fullName;
+                    document.getElementById('edit-birthday').value = user.birthday;
+                    document.getElementById('edit-phone').value = user.phone;
+                    document.getElementById('edit-email').value = user.email;
+                    document.getElementById('edit-address').value = user.address;
+                    document.getElementById('edit-jobArea').value = user.jobArea;
+                    document.getElementById('edit-job').value = user.job;
+                    document.getElementById('edit-position').value = user.position;
+                    document.getElementById('edit-applyYear').value = user.applyYear;
+                    document.getElementById('edit-userNotes').value = user.userNotes;
+                    document.getElementById('edit-roles').value = user.roles;
+                    document.getElementById('edit-logined').checked = user.logined;
+                    document.getElementById('edit-userActions').value = user.userActions;
+                });
+        });
+        function submitEditForm() {
+            const form = document.getElementById('editForm');
+            const formData = new FormData(form);
+            const userId = formData.get("id");
+            const data = {};
+            formData.forEach((value, key) => {
+                data[key] = value;
+            });
+
+            fetch(`/api/v1/users/edit/${userId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+                .then(response => {
+                    if (response.ok) {
+                        alert("Cập nhật thành công!");
+                        location.reload();
+                    } else {
+                        alert("Cập nhật thất bại.");
+                    }
+                })
+                .catch(error => {
+                    console.error("Lỗi khi gửi dữ liệu:", error);
+                    alert("Đã xảy ra lỗi.");
+                });
+        }
+        deleteModal.addEventListener('show.bs.modal', function (event) {
+            const button = event.relatedTarget;
+            const laptopId = button.getAttribute('data-laptop-id');
+            document.getElementById('delete-laptop-id').textContent = laptopId;
+            document.getElementById('delete-laptop-id-hidden').value = laptopId;
+        });
+
+        document.getElementById('confirm-delete').addEventListener('click', function () {
+            const laptopId = document.getElementById('delete-laptop-id-hidden').value;
+
+            fetch(`/api/v1/laptops/delete/${laptopId}`, {
+                method: 'DELETE'
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        return response.text().then(text => { throw new Error(text); });
+                    }
+                    return response.text();
+                })
+                .then(message => {
+                    alert(message);
+                    const modalInstance = bootstrap.Modal.getInstance(deleteModal);
+                    modalInstance.hide();
+                    location.reload();
+                })
+                .catch(error => {
+                    alert("Lỗi: " + error.message);
+                });
+        });
+
+    </script>
+    <script>
+        const maxImages = 4;
+        const imageInput = document.getElementById('imageFiles');
+        const previewContainer = document.getElementById('imagePreview');
+        const addButton = previewContainer.querySelector('.add-image-box');
+
+        function updateAddButtonVisibility() {
+            const count = previewContainer.querySelectorAll('.image-wrapper').length;
+            addButton.style.display = count < maxImages ? 'flex' : 'none';
+        }
+        const selectedFiles = [];
+        imageInput.addEventListener('change', function (e) {
+            const files = Array.from(e.target.files);
+            const existingCount = previewContainer.querySelectorAll('.image-wrapper').length;
+
+            const availableSlots = maxImages - existingCount;
+
+            files.slice(0, availableSlots).forEach(file => {
+                const reader = new FileReader();
+                reader.onload = function (event) {
+                    const wrapper = document.createElement('div');
+                    wrapper.classList.add('image-wrapper');
+
+                    const img = document.createElement('img');
+                    img.src = event.target.result;
+                    img.classList.add('preview-img');
+
+                    const removeBtn = document.createElement('div');
+                    removeBtn.classList.add('remove-btn');
+                    removeBtn.innerHTML = '&times;';
+                    removeBtn.onclick = () => {
+                        wrapper.remove();
+                        updateAddButtonVisibility();
+                    };
+
+                    wrapper.appendChild(img);
+                    wrapper.appendChild(removeBtn);
+                    previewContainer.insertBefore(wrapper, addButton);
+
+                    updateAddButtonVisibility();
+                };
+                reader.readAsDataURL(file);
+            });
+            files.slice(0, availableSlots).forEach(file => {
+                selectedFiles.push(file);
+
+            });
+            // Reset input để có thể chọn lại ảnh cũ nếu cần
+            e.target.value = '';
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>Danh Sách Đơn Hàng</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+    <link th:href="@{/assets/img/favicon.png}" rel="icon">
+    <link th:href="@{/assets/img/apple-touch-icon.png}" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link th:href="@{/assets/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/assets/vendor/bootstrap-icons/bootstrap-icons.css}" rel="stylesheet">
+    <link th:href="@{/assets/vendor/boxicons/css/boxicons.min.css}" rel="stylesheet">
+    <link th:href="@{/assets/vendor/quill/quill.snow.css}" rel="stylesheet">
+    <link th:href="@{/assets/vendor/quill/quill.bubble.css}" rel="stylesheet">
+    <link th:href="@{/assets/vendor/remixicon/remixicon.css}" rel="stylesheet">
+    <link th:href="@{/assets/vendor/simple-datatables/style.css}" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{css/dashboard.css}">
+    <!-- Template Main CSS File -->
+    <link th:href="@{/assets/css/style.css}" rel="stylesheet">
+    <style>
+        /* Tăng khoảng cách giữa control và bảng theo Bootstrap */
+        .dataTables_wrapper .dataTables_length,
+        .dataTables_wrapper .dataTables_filter {
+          margin-bottom: 1rem;
+        }
+    </style>
+</head>
+
+<body>
+<!-- ======= Header ======= -->
+<header class="header d-flex fixed-top align-items-center row">
+    <div class="d-flex align-items-center justify-content-between col-auto">
+        <a th:href="@{/dashboard}" class="logo d-flex align-items-center">
+            <img th:src="@{img/6380171.jpg}" alt="">
+            <span class="d-none d-lg-block">LaptopShop</span>
+        </a>
+        <i class="bi bi-list toggle-sidebar-btn"></i>
+    </div>
+    <div class="search-bar col-md-4 col-lg-5">
+        <form class="search-form d-flex align-items-center" method="POST" action="#">
+            <input type="text" name="query" placeholder="Tìm kiếm..." title="Enter search keyword">
+            <button type="submit" title="Search"><i class="bi bi-search"></i></button>
+        </form>
+    </div>
+    <nav class="header-nav ms-auto align-items-center col-auto ">
+        <ul class="d-flex align-items-center ">
+            <li class="nav-item dropdown">
+                <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+                    <i class="bi bi-bell"></i>
+                    <span class="badge bg-primary badge-number">4</span>
+                </a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+                    <i class="bi bi-chat-left-text"></i>
+                    <span class="badge bg-success badge-number">3</span>
+                </a>
+            </li>
+            <li class="nav-item dropdown pe-3">
+
+                <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+                    <img th:src="${user.imageUrl}" alt="Profile" class="rounded-circle mt-2">
+                    <span class="d-none d-md-block dropdown-toggle ps-4 mt-4" th:text="${user.fullName}"></span>
+                </a>
+
+                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+                    <li class="dropdown-header">
+                        <h6>Vô Danh</h6>
+                        <span>Quản trị viên</span>
+                    </li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li>
+                        <a class="dropdown-item d-flex align-items-center" th:href="@{users-profile.html}">
+                            <i class="bi bi-person"></i>
+                            <span>Hồ sơ</span>
+                        </a>
+                    </li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li>
+                        <a class="dropdown-item d-flex align-items-center" th:href="@{users-profile.html}">
+                            <i class="bi bi-gear"></i>
+                            <span>Cài đặt</span>
+                        </a>
+                    </li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li>
+                        <a class="dropdown-item d-flex align-items-center" th:href="@{pages-faq.html}">
+                            <i class="bi bi-question-circle"></i>
+                            <span>Hỗ trợ</span>
+                        </a>
+                    </li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li>
+                        <a class="dropdown-item d-flex align-items-center" th:href="@{login.html}">
+                            <i class="bi bi-box-arrow-right"></i>
+                            <span>Đăng xuất</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+</header>
+<aside id="sidebar" class="sidebar">
+    <ul class="sidebar-nav" id="sidebar-nav">
+
+        <li class="nav-item">
+            <a class="nav-link " th:href="@{/dashboard}">
+                <i class="bi bi-grid"></i>
+                <span>Dashboard</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link " th:href="@{/admin/orderList}">
+                <i class="bi bi-cart"></i>
+                <span>Quản lý Đơn Hàng </span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link [[${activeMenu == 'user'} ? '' : 'collapsed']]" data-bs-target="#components-nav"
+               data-bs-toggle="collapse" href="#">
+                <i class="bi bi-people"></i><span>Quản lí danh sách</span><i class="bi bi-chevron-down ms-3"></i>
+            </a>
+            <ul id="components-nav" class="nav-content collapse [[${activeMenu == 'user'} ? 'show' : '']]"
+                data-bs-parent="#sidebar-nav">
+                <li>
+                    <a th:href="@{/user_list}" th:classappend="${activeMenu == 'user'} ? 'active'">
+                        <i class="bi bi-person"></i><span>người sử dụng</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#product-nav" data-bs-toggle="collapse" href="#">
+                <i class="bi bi-box-seam"></i><span>Quản lí sản phẩm</span><i class="bi bi-chevron-down ms-3"></i>
+            </a>
+
+            <ul id="product-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                <li>
+                    <a th:href="@{/productList}">
+                        <i class="bi bi-collection"></i><span>Danh sách</span>
+                    </a>
+                </li>
+                <li>
+                    <a th:href="@{/bin}">
+                        <i class="bi bi-trash"></i><span>Thùng rác</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#support-nav" data-bs-toggle="collapse" href="#">
+                <i class="bi bi-telephone"></i><span>Liên hệ & hỗ trợ </span><i class="bi bi-chevron-down ms-3"></i>
+            </a>
+
+            <ul id="support-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+
+                <li>
+                    <a href="add.html">
+                        <i class="bi bi-envelope"></i><span>Hộp thư</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="grant-permission.html">
+                        <i class="bi bi-telephone-fill"></i><span>Tổng đài</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="bin.html">
+                        <i class="bi bi-shield-check"></i><span>Chính sách bảo hành</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</aside>
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>Danh sách đơn hàng</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index1.html">Home</a></li>
+                <li class="breadcrumb-item">Đơn Hàng</li>
+                <li class="breadcrumb-item active">Danh sách đơn hàng</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section">
+        <div class="row">
+            <div class="col-lg-12">
+
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Datatables</h5>
+                        <a th:href="@{/order/orders/export}"class="btn btn-success me-2 mb-3 " title="Xuất">Xuất PDF</a>
+                        <!-- Table with stripped rows -->
+                        <table class="table datatable table-striped mb-3 ">
+                            <thead class="table-dark mb-3" >
+                            <tr>
+                                <th>ID</th>
+                                <th>Người dùng</th>
+                                <th>Ngày đặt</th>
+                                <th>Tổng tiền</th>
+                                <th>Trạng thái</th>
+                                <th>Địa chỉ</th>
+                                <th>Số điện thoại</th>
+                                <th>Thao tác</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="order : ${list}">
+                                <td th:text="${order.id}"></td>
+                                <td th:text="${order.user.fullName}"></td>
+                                <td th:text="${#temporals.format(order.orderDate, 'dd/MM/yyyy HH:mm')}"></td>
+                                <td th:text="${#numbers.formatDecimal(order.totalPrice, 0, 'COMMA', 0, 'POINT')} + ' VNĐ'"></td>
+                                <td th:text="${order.status}"></td>
+                                <td th:text="${order.address}"></td>
+                                <td th:text="${order.phone}"></td>
+                                <td>
+                                    <a th:href="@{/order/orders/export/{id}(id=${order.id})}"
+                                       class="btn btn-info me-2"
+                                       title="Xuất PDF đơn hàng">
+                                        <i class="bi bi-filetype-pdf"></i>
+                                    </a>
+                                    <a data-bs-toggle="modal"
+                                       th:attr="data-bs-target='#editStatusModal_' + ${order.id}"
+                                       class="btn btn-warning me-2 text-white" title="Sửa"><i class="bi bi-pencil-square"></i></a>
+                                    <a class="btn btn-primary" data-bs-toggle="modal"
+                                        th:attr="data-bs-target='#orderDetailModal_' + ${order.id}"
+                                        title="Xem chi tiết"><i class="bi bi-eye"></i></a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <!-- Modal Chi tiết đơn hàng -->
+                        <div th:each="order : ${list}">
+                            <div class="modal fade" th:id="'orderDetailModal_' + ${order.id}" tabindex="-1" aria-labelledby="orderDetailModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-lg modal-dialog-scrollable">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="orderDetailModalLabel" th:text="'Chi tiết đơn hàng #' + ${order.id}"></h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p><strong>Người đặt:</strong> <span th:text="${order.user.fullName}"></span></p>
+                                            <p><strong>Ngày đặt:</strong> <span th:text="${#temporals.format(order.orderDate, 'dd/MM/yyyy HH:mm')}"></span></p>
+                                            <p><strong>Trạng thái:</strong> <span th:text="${order.status}"></span></p>
+                                            <p><strong>Địa chỉ:</strong> <span th:text="${order.address}"></span></p>
+                                            <p><strong>Số điện thoại:</strong> <span th:text="${order.phone}"></span></p>
+                                            <p class="text-end fw-bold">Tổng tiền: <span th:text="${#numbers.formatDecimal(order.totalPrice, 0, 'COMMA', 0, 'POINT')} + ' VNĐ'"></span></p>
+                                            <!-- Bảng chi tiết sản phẩm -->
+                                            <h6 class="mt-4">Sản phẩm đã đặt:</h6>
+                                            <table class="table table-bordered">
+                                                <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Tên Laptop</th>
+                                                    <th>Số lượng</th>
+                                                    <th>Đơn giá</th>
+                                                    <th>Thành tiền</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr th:each="item, iterStat : ${order.orderItems}">
+                                                    <td th:text="${iterStat.index + 1}"></td>
+                                                    <td th:text="${item.laptop.name}"></td>
+                                                    <td th:text="${item.quantity}"></td>
+                                                    <td th:text="${#numbers.formatDecimal(item.price, 0, 'COMMA', 0, 'POINT')} + ' VNĐ'"></td>
+                                                    <td th:text="${#numbers.formatDecimal(item.price * item.quantity, 0, 'COMMA', 0, 'POINT')} + ' VNĐ'"></td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Modal Sửa Trạng Thái -->
+                        <div th:each="order : ${list}">
+                            <div class="modal fade" th:id="'editStatusModal_' + ${order.id}" tabindex="-1" aria-labelledby="editStatusModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <form th:action="@{/order/orders/update-status}" method="post">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="editStatusModalLabel" th:text="'Sửa trạng thái đơn hàng #' + ${order.id} +' của '+ ${order.user.fullName}"></h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <input type="hidden" name="orderId" th:value="${order.id}" />
+                                                <div class="mb-3">
+                                                    <label for="status" class="form-label">Trạng thái</label>
+                                                    <select class="form-select" id="status" name="status">
+                                                        <option th:selected="${order.status == 'PENDING'}" value="PENDING">Chờ xử lý</option>
+                                                        <option th:selected="${order.status == 'SHIPPING'}" value="SHIPPING">Đang giao</option>
+                                                        <option th:selected="${order.status == 'DELIVERED'}" value="DELIVERED">Đã giao</option>
+                                                        <option th:selected="${order.status == 'CANCELLED'}" value="CANCELLED">Đã hủy</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Table with stripped rows -->
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+</main><!-- End #main -->
+
+<!-- ======= Footer ======= -->
+<footer id="footer" class="footer">
+</footer><!-- End Footer -->
+
+<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+<!-- Vendor JS Files -->
+<script th:src="@{/assets/vendor/apexcharts/apexcharts.min.js}"></script>
+<script th:src="@{/assets/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/assets/vendor/chart.js/chart.umd.js}"></script>
+<script th:src="@{/assets/vendor/echarts/echarts.min.js}"></script>
+<script th:src="@{/assets/vendor/quill/quill.js}"></script>
+<!--<script th:src="@{/assets/vendor/simple-datatables/simple-datatables.js}"></script>-->
+<script th:src="@{/assets/vendor/tinymce/tinymce.min.js}"></script>
+<script th:src="@{/assets/vendor/php-email-form/validate.js}"></script>
+
+<!-- Template Main JS File -->
+<script th:src="@{/assets/js/main.js}"></script>
+<!-- DataTables CSS -->
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- DataTables JS -->
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
+<!-- Khởi tạo DataTable -->
+<script>
+    $(document).ready(function () {
+      $('.datatable').DataTable({
+          order: [],
+        language: {
+          search: "Tìm kiếm:",
+          lengthMenu: "Hiển thị _MENU_ mục",
+          info: "Hiển thị _START_ đến _END_ của _TOTAL_ mục",
+          paginate: {
+            previous: "Trước",
+            next: "Sau"
+          },
+          zeroRecords: "Không tìm thấy kết quả phù hợp"
+        }
+      });
+    });
+</script>
+<script>
+    $(document).ready(function () {
+      $('#orders-table').DataTable({
+        "order": [] // <== Tắt sắp xếp mặc định
+      });
+    });
+</script>
+
+</body>
+
+</html>

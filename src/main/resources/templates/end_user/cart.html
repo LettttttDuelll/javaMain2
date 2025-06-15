@@ -1,0 +1,656 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="vi" xmlns:th="http://www.thymeleaf.org">-->
+
+<!--<head>-->
+<!--    <meta charset="UTF-8" />-->
+<!--    <title>Giỏ hàng của bạn</title>-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1" />-->
+<!--    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />-->
+<!--    <link rel="stylesheet" th:href="@{css/home.css}">-->
+<!--    <style>-->
+<!--        body {-->
+<!--            background: #f7f7fa;-->
+<!--        }-->
+
+<!--        .cart-container {-->
+<!--            max-width: 930px;-->
+<!--            margin: 46px auto 38px auto;-->
+<!--            background: #fff;-->
+<!--            border-radius: 18px;-->
+<!--            box-shadow: 0 4px 24px #7e2bed0f;-->
+<!--            padding: 38px 26px 44px 26px;-->
+<!--        }-->
+
+<!--        .cart-title {-->
+<!--            background: linear-gradient(90deg, #e140b4 0%, #7e2bed 70%);-->
+<!--            -webkit-background-clip: text;-->
+<!--            -webkit-text-fill-color: transparent;-->
+<!--            font-weight: 700;-->
+<!--            font-size: 2rem;-->
+<!--            margin-bottom: 24px;-->
+<!--        }-->
+
+<!--        .table-wrapper {-->
+<!--            border-radius: 16px;-->
+<!--            box-shadow: 0 2px 16px #7e2bed0a;-->
+<!--            background: #f9f7fe;-->
+<!--            padding: 12px 8px;-->
+<!--        }-->
+
+<!--        .table thead th {-->
+<!--            background: #f6ebfc;-->
+<!--            color: #7e2bed;-->
+<!--            border: none;-->
+<!--            font-weight: 600;-->
+<!--        }-->
+
+<!--        .table td,-->
+<!--        .table th {-->
+<!--            vertical-align: middle;-->
+<!--        }-->
+
+<!--        .product-image {-->
+<!--            width: 60px;-->
+<!--            height: 60px;-->
+<!--            border-radius: 8px;-->
+<!--            margin-right: 10px;-->
+<!--            object-fit: cover;-->
+<!--        }-->
+
+<!--        .btn-remove {-->
+<!--            background: linear-gradient(90deg, #f96b8a, #f44141 80%);-->
+<!--            border: none;-->
+<!--            color: #fff;-->
+<!--            padding: 5px 16px;-->
+<!--            border-radius: 24px;-->
+<!--            font-weight: 500;-->
+<!--            font-size: .98em;-->
+<!--            transition: background 0.16s, transform 0.13s;-->
+<!--        }-->
+
+<!--        .btn-remove:hover {-->
+<!--            background: linear-gradient(90deg, #e140b4 10%, #7e2bed 90%);-->
+<!--            transform: scale(1.08);-->
+<!--            color: #fff;-->
+<!--        }-->
+
+<!--        .btn-gradient {-->
+<!--            background: linear-gradient(90deg, #e140b4, #7e2bed 70%);-->
+<!--            color: #fff;-->
+<!--            font-weight: 600;-->
+<!--            border: none;-->
+<!--            border-radius: 32px;-->
+<!--            font-size: 1.12rem;-->
+<!--            box-shadow: 0 4px 16px #e140b422;-->
+<!--            transition: all .18s cubic-bezier(.4, 2, .6, 1);-->
+<!--            padding: 10px 36px;-->
+<!--        }-->
+
+<!--        .btn-gradient:hover {-->
+<!--            background: linear-gradient(90deg, #7e2bed 40%, #e140b4 100%);-->
+<!--            color: #fff;-->
+<!--            transform: translateY(-2px) scale(1.05);-->
+<!--        }-->
+
+<!--        .toast-container {-->
+<!--            position: fixed;-->
+<!--            top: 28px;-->
+<!--            right: 28px;-->
+<!--            z-index: 9999;-->
+<!--            min-width: 240px;-->
+<!--            display: flex;-->
+<!--            flex-direction: column;-->
+<!--            align-items: flex-end;-->
+<!--            gap: 10px;-->
+<!--        }-->
+
+<!--        .toast {-->
+<!--            border-radius: 16px !important;-->
+<!--            box-shadow: 0 6px 24px #7e2bed17;-->
+<!--            font-size: 1rem;-->
+<!--            animation: fadeInUp .45s, fadeOut .8s 2.3s forwards;-->
+<!--            background: linear-gradient(100deg, #e140b4 0%, #7e2bed 85%);-->
+<!--            color: #fff !important;-->
+<!--            border: none !important;-->
+<!--            opacity: 0.96;-->
+<!--        }-->
+
+<!--        .toast.text-bg-danger {-->
+<!--            background: linear-gradient(90deg, #f96b8a, #f44141 60%);-->
+<!--        }-->
+
+<!--        .toast.text-bg-success {-->
+<!--            background: linear-gradient(90deg, #51e4a7, #2eb26d 70%);-->
+<!--        }-->
+
+<!--        @keyframes fadeInUp {-->
+<!--            from {-->
+<!--                opacity: 0;-->
+<!--                transform: translateY(22px) scale(.98);-->
+<!--            }-->
+
+<!--            to {-->
+<!--                opacity: 1;-->
+<!--                transform: none;-->
+<!--            }-->
+<!--        }-->
+
+<!--        @keyframes fadeOut {-->
+<!--            to {-->
+<!--                opacity: 0;-->
+<!--                transform: translateY(-16px) scale(.97);-->
+<!--            }-->
+<!--        }-->
+
+<!--        .text-muted {-->
+<!--            font-size: 1.06em;-->
+<!--        }-->
+<!--    </style>-->
+<!--</head>-->
+
+<!--<body>-->
+<!--    <header>-->
+<!--        <nav class="navbar navbar-expand-lg navbar-light bg-dark">-->
+<!--            <div class="container">-->
+<!--                &lt;!&ndash; Logo &ndash;&gt;-->
+<!--                <a class="navbar-brand" th:href="@{/}">-->
+<!--                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="50" height="50">-->
+<!--                        <circle cx="50" cy="50" r="45" fill="rgb(240, 101, 197)" />-->
+<!--                        <circle cx="50" cy="50" r="35" fill="rgb(127, 68, 255)" />-->
+<!--                    </svg>-->
+<!--                </a>-->
+
+<!--                &lt;!&ndash; Toggle Button (Responsive) &ndash;&gt;-->
+<!--                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"-->
+<!--                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">-->
+<!--                    <span class="navbar-toggler-icon"></span>-->
+<!--                </button>-->
+
+<!--                &lt;!&ndash; Nav items &ndash;&gt;-->
+<!--                <div class="collapse navbar-collapse justify-content-between" id="navbarNav">-->
+<!--                    &lt;!&ndash; Left &ndash;&gt;-->
+<!--                    <ul class="navbar-nav d-flex flex-row align-items-center gap-3">-->
+<!--                        <li class="nav-item">-->
+<!--                            <a class="nav-link active text-white" th:href="@{/}">Trang chủ</a>-->
+<!--                        </li>-->
+<!--                        <li class="nav-item">-->
+<!--                            <a class="nav-link text-white" th:href="@{/notifications}">Thông báo</a>-->
+<!--                        </li>-->
+<!--                        <li class="nav-item">-->
+<!--                            <a class="nav-link text-white" th:href="@{/}">Sản phẩm</a>-->
+<!--                        </li>-->
+<!--                    </ul>-->
+
+<!--                    &lt;!&ndash; Center: Search box &ndash;&gt;-->
+<!--                    <div class="search-container mx-auto">-->
+<!--                        <i class="fas fa-search search-icon"></i>-->
+<!--                        <input type="text" class="search-box" placeholder="Bạn tìm gì...">-->
+<!--                    </div>-->
+
+<!--                    &lt;!&ndash; Right &ndash;&gt;-->
+<!--                    <ul class="navbar-nav d-flex flex-row align-items-center gap-3">-->
+<!--                        <li class="nav-item">-->
+<!--                            <a class="nav-link text-white" th:href="@{/cart}">-->
+<!--                                <i class="fas fa-shopping-cart"></i> Giỏ hàng-->
+<!--                            </a>-->
+<!--                        </li>-->
+<!--                        <li class="nav-item">-->
+<!--                            <a class="nav-link text-white" th:href="@{/login}">Đăng nhập</a>-->
+<!--                        </li>-->
+<!--                    </ul>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </nav>-->
+<!--    </header>-->
+<!--    <div class="toast-container"></div>-->
+<!--    <div class="cart-container">-->
+<!--        <h2 class="cart-title text-center mb-4">🛒 Giỏ hàng của bạn</h2>-->
+<!--        <div class="table-responsive mb-3">-->
+<!--            <table class="table table-bordered align-middle">-->
+<!--                <thead>-->
+<!--                    <tr>-->
+<!--                        <th>Sản phẩm</th>-->
+<!--                        <th>Số lượng</th>-->
+<!--                        <th>Đơn giá</th>-->
+<!--                        <th>Tổng giá</th>-->
+<!--                        <th>Xoá</th>-->
+<!--                    </tr>-->
+<!--                </thead>-->
+<!--                <tbody id="cart-body">-->
+<!--                    <tr>-->
+<!--                        <td colspan="5" class="text-center text-muted">Đang tải...</td>-->
+<!--                    </tr>-->
+<!--                </tbody>-->
+<!--            </table>-->
+<!--        </div>-->
+<!--        <div class="text-end mb-4">-->
+<!--            <h5 id="total-price" class="text-info">Tổng giá: 0 đ</h5>-->
+<!--        </div>-->
+<!--        <div class="text-center">-->
+<!--            <button id="btn-pay" class="btn btn-gradient btn-lg">Thanh toán</button>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    <script>-->
+<!--        function showToast(msg, type = "success") {-->
+<!--            let toastContainer = document.querySelector('.toast-container');-->
+<!--            if (!toastContainer) {-->
+<!--                toastContainer = document.createElement('div');-->
+<!--                toastContainer.className = 'toast-container';-->
+<!--                document.body.appendChild(toastContainer);-->
+<!--            }-->
+<!--            // Thêm icon đẹp tuỳ theo kiểu toast-->
+<!--            let icon = '';-->
+<!--            if (type === "success") icon = '<span style="font-size:1.3em;vertical-align:middle; margin-right:8px;">✅</span>';-->
+<!--            else if (type === "danger") icon = '<span style="font-size:1.3em;vertical-align:middle; margin-right:8px;">❌</span>';-->
+<!--            else icon = '<span style="font-size:1.3em;vertical-align:middle; margin-right:8px;">ℹ️</span>';-->
+
+<!--            const toast = document.createElement('div');-->
+<!--            toast.className = `toast align-items-center text-bg-${type === 'success' ? 'success' : 'danger'} border-0 show mb-2`;-->
+<!--            toast.setAttribute('role', 'alert');-->
+<!--            toast.style.cursor = 'pointer';-->
+<!--            toast.innerHTML = `<div class="d-flex align-items-center">-->
+<!--            <div class="toast-body" style="font-size:1.05em;font-weight:500">${icon}${msg}</div>-->
+<!--            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>-->
+<!--        </div>`;-->
+<!--            toastContainer.appendChild(toast);-->
+<!--            // Scroll lên đầu để toast không bị khuất nếu user kéo xuống-->
+<!--            window.scrollTo({ top: 0, behavior: "smooth" });-->
+<!--            setTimeout(() => toast.remove(), 2600);-->
+<!--        }-->
+
+
+<!--        // Hiển thị giỏ hàng-->
+<!--        function loadCart() {-->
+<!--            fetch('/api/cart')-->
+<!--                .then(res => res.json())-->
+<!--                .then(cart => {-->
+<!--                    const tbody = document.getElementById("cart-body");-->
+<!--                    const btnPay = document.getElementById("btn-pay");-->
+<!--                    const totalPriceEl = document.getElementById("total-price");-->
+
+<!--                    tbody.innerHTML = '';-->
+<!--                    let total = 0;-->
+
+<!--                    if (cart.length === 0) {-->
+<!--                        tbody.innerHTML = `<tr><td colspan="5" class="text-center text-muted">Giỏ hàng trống</td></tr>`;-->
+<!--                        // Ẩn tổng giá và nút thanh toán-->
+<!--                        btnPay.style.display = "none";-->
+<!--                        totalPriceEl.style.display = "none";-->
+<!--                    } else {-->
+<!--                        cart.forEach(item => {-->
+<!--                            const itemTotal = item.quantity * item.product.price;-->
+<!--                            total += itemTotal;-->
+<!--                            const row = document.createElement("tr");-->
+<!--                            row.innerHTML = `-->
+<!--                      <td>-->
+<!--                        <div class="d-flex align-items-center">-->
+<!--                          <img src="${item.product.image}" class="product-image" alt="">-->
+<!--                          <span>${item.product.name}</span>-->
+<!--                        </div>-->
+<!--                      </td>-->
+<!--                      <td>${item.quantity}</td>-->
+<!--                      <td>${item.product.price.toLocaleString()} đ</td>-->
+<!--                      <td>${itemTotal.toLocaleString()} đ</td>-->
+<!--                      <td><button class="btn-remove" onclick="removeItem(${item.id})">Xoá</button></td>-->
+<!--                    `;-->
+<!--                            tbody.appendChild(row);-->
+<!--                        });-->
+<!--                        btnPay.style.display = "inline-block"; // hoặc "block"-->
+<!--                        totalPriceEl.style.display = "block";-->
+<!--                        totalPriceEl.innerText = `Tổng giá: ${total.toLocaleString()} đ`;-->
+<!--                    }-->
+<!--                });-->
+<!--        }-->
+
+
+<!--        function removeItem(itemId) {-->
+<!--            fetch('/api/cart/' + itemId, { method: "DELETE" })-->
+<!--                .then(() => {-->
+<!--                    showToast("Đã xoá khỏi giỏ hàng", "success");-->
+<!--                    loadCart();-->
+<!--                });-->
+<!--        }-->
+
+<!--        document.addEventListener("DOMContentLoaded", function () {-->
+<!--            loadCart();-->
+<!--            document.getElementById("btn-pay").onclick = function () {-->
+<!--                // Giả lập thanh toán: chỉ cần chuyển trang (nâng cao có thể lấy thêm thông tin giao hàng)-->
+<!--                showToast("Đang chuyển đến xác nhận...", "success");-->
+<!--                setTimeout(() => window.location.href = "/order", 800);-->
+<!--            };-->
+<!--        });-->
+<!--    </script>-->
+<!--</body>-->
+
+<!--</html>-->
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Giỏ hàng của bạn</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" th:href="@{css/home.css}">
+    <style>
+        body {
+            background: #f7f7fa;
+        }
+
+        .cart-container {
+            max-width: 930px;
+            margin: 46px auto 38px auto;
+            background: #fff;
+            border-radius: 18px;
+            box-shadow: 0 4px 24px #7e2bed0f;
+            padding: 38px 26px 44px 26px;
+        }
+
+        .cart-title {
+            background: linear-gradient(90deg, #e140b4 0%, #7e2bed 70%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+            font-size: 2rem;
+            margin-bottom: 24px;
+        }
+
+        .table-wrapper {
+            border-radius: 16px;
+            box-shadow: 0 2px 16px #7e2bed0a;
+            background: #f9f7fe;
+            padding: 12px 8px;
+        }
+
+        .table thead th {
+            background: #f6ebfc;
+            color: #7e2bed;
+            border: none;
+            font-weight: 600;
+        }
+
+        .table td,
+        .table th {
+            vertical-align: middle;
+        }
+
+        .product-image {
+            width: 60px;
+            height: 60px;
+            border-radius: 8px;
+            margin-right: 10px;
+            object-fit: cover;
+        }
+
+        .btn-remove {
+            background: linear-gradient(90deg, #f96b8a, #f44141 80%);
+            border: none;
+            color: #fff;
+            padding: 5px 16px;
+            border-radius: 24px;
+            font-weight: 500;
+            font-size: .98em;
+            transition: background 0.16s, transform 0.13s;
+        }
+
+        .btn-remove:hover {
+            background: linear-gradient(90deg, #e140b4 10%, #7e2bed 90%);
+            transform: scale(1.08);
+            color: #fff;
+        }
+
+        .btn-gradient {
+            background: linear-gradient(90deg, #e140b4, #7e2bed 70%);
+            color: #fff;
+            font-weight: 600;
+            border: none;
+            border-radius: 32px;
+            font-size: 1.12rem;
+            box-shadow: 0 4px 16px #e140b422;
+            transition: all .18s cubic-bezier(.4, 2, .6, 1);
+            padding: 10px 36px;
+        }
+
+        .btn-gradient:hover {
+            background: linear-gradient(90deg, #7e2bed 40%, #e140b4 100%);
+            color: #fff;
+            transform: translateY(-2px) scale(1.05);
+        }
+
+        .toast-container {
+            position: fixed;
+            top: 28px;
+            right: 28px;
+            z-index: 9999;
+            min-width: 240px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 10px;
+        }
+
+        .toast {
+            border-radius: 16px !important;
+            box-shadow: 0 6px 24px #7e2bed17;
+            font-size: 1rem;
+            animation: fadeInUp .45s, fadeOut .8s 2.3s forwards;
+            background: linear-gradient(100deg, #e140b4 0%, #7e2bed 85%);
+            color: #fff !important;
+            border: none !important;
+            opacity: 0.96;
+        }
+
+        .toast.text-bg-danger {
+            background: linear-gradient(90deg, #f96b8a, #f44141 60%);
+        }
+
+        .toast.text-bg-success {
+            background: linear-gradient(90deg, #51e4a7, #2eb26d 70%);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(22px) scale(.98);
+            }
+
+            to {
+                opacity: 1;
+                transform: none;
+            }
+        }
+
+        @keyframes fadeOut {
+            to {
+                opacity: 0;
+                transform: translateY(-16px) scale(.97);
+            }
+        }
+
+        .text-muted {
+            font-size: 1.06em;
+        }
+    </style>
+</head>
+
+<body>
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-dark">
+        <div class="container">
+            <!-- Logo -->
+            <a class="navbar-brand" th:href="@{/}">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="50" height="50">
+                    <circle cx="50" cy="50" r="45" fill="rgb(240, 101, 197)" />
+                    <circle cx="50" cy="50" r="35" fill="rgb(127, 68, 255)" />
+                </svg>
+            </a>
+
+            <!-- Toggle Button (Responsive) -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Nav items -->
+            <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
+                <!-- Left -->
+                <ul class="navbar-nav d-flex flex-row align-items-center gap-3">
+                    <li class="nav-item">
+                        <a class="nav-link active text-white" th:href="@{/home}">Trang chủ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" th:href="@{/notifications}">Thông báo</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" th:href="@{/}">Sản phẩm</a>
+                    </li>
+                </ul>
+
+                <!-- Center: Search box -->
+                <div class="search-container mx-auto">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" class="search-box" placeholder="Bạn tìm gì...">
+                </div>
+
+                <!-- Right -->
+                <ul class="navbar-nav d-flex flex-row align-items-center gap-3">
+                    <li class="nav-item">
+                        <a class="nav-link text-white" th:href="@{/cart}">
+                            <i class="fas fa-shopping-cart"></i> Giỏ hàng
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" th:href="@{/custom-login}">Đăng nhập</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+<div class="toast-container"></div>
+<div class="cart-container">
+    <h2 class="cart-title text-center mb-4">🛒 Giỏ hàng của bạn</h2>
+    <div class="table-responsive mb-3">
+        <table class="table table-bordered align-middle">
+            <thead>
+            <tr>
+                <th>Sản phẩm</th>
+                <th>Số lượng</th>
+                <th>Đơn giá</th>
+                <th>Tổng giá</th>
+                <th>Xoá</th>
+            </tr>
+            </thead>
+            <tbody id="cart-body">
+            <tr>
+                <td colspan="5" class="text-center text-muted">Đang tải...</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="text-end mb-4">
+        <h5 id="total-price" class="text-info">Tổng giá: 0 đ</h5>
+    </div>
+    <div class="text-center">
+        <button id="btn-pay" class="btn btn-gradient btn-lg">Thanh toán</button>
+    </div>
+</div>
+<script>
+    function showToast(msg, type = "success") {
+        let toastContainer = document.querySelector('.toast-container');
+        if (!toastContainer) {
+            toastContainer = document.createElement('div');
+            toastContainer.className = 'toast-container';
+            document.body.appendChild(toastContainer);
+        }
+        let icon = '';
+        if (type === "success") icon = '<span style="font-size:1.3em;vertical-align:middle; margin-right:8px;">✅</span>';
+        else if (type === "danger") icon = '<span style="font-size:1.3em;vertical-align:middle; margin-right:8px;">❌</span>';
+        else icon = '<span style="font-size:1.3em;vertical-align:middle; margin-right:8px;">ℹ️</span>';
+
+        const toast = document.createElement('div');
+        toast.className = `toast align-items-center text-bg-${type === 'success' ? 'success' : 'danger'} border-0 show mb-2`;
+        toast.setAttribute('role', 'alert');
+        toast.style.cursor = 'pointer';
+        toast.innerHTML = `<div class="d-flex align-items-center">
+            <div class="toast-body" style="font-size:1.05em;font-weight:500">${icon}${msg}</div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+        </div>`;
+        toastContainer.appendChild(toast);
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        setTimeout(() => toast.remove(), 2600);
+    }
+
+function loadCart() {
+    fetch('/cart/api')
+        .then(res => res.json())
+        .then(cart => {
+            const tbody = document.getElementById("cart-body");
+            const btnPay = document.getElementById("btn-pay");
+            const totalPriceEl = document.getElementById("total-price");
+
+            tbody.innerHTML = '';
+            let total = 0;
+
+            if (cart.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="5" class="text-center text-muted">Giỏ hàng trống</td></tr>`;
+                btnPay.style.display = "none";
+                totalPriceEl.style.display = "none";
+            } else {
+                cart.forEach(item => {
+                    const itemTotal = item.quantity * item.price;
+                    total += itemTotal;
+                    const row = document.createElement("tr");
+                    row.innerHTML = `
+                        <td>
+                            <div class="d-flex align-items-center">
+                                <img src="${item.image}" class="product-image" alt="">
+                                <span>${item.laptopName}</span>
+                            </div>
+                        </td>
+                        <td>${item.quantity}</td>
+                        <td>${item.price.toLocaleString()} đ</td>
+                        <td>${itemTotal.toLocaleString()} đ</td>
+                        <td><button class="btn-remove" onclick="removeItem(${item.id})">Xoá</button></td>
+                    `;
+                    tbody.appendChild(row);
+                });
+                btnPay.style.display = "inline-block";
+                totalPriceEl.style.display = "block";
+                totalPriceEl.innerText = `Tổng giá: ${total.toLocaleString()} đ`;
+            }
+        });
+}
+
+
+
+   function removeItem(itemId) {
+      toggleLoading(true);
+      fetch('/cart/api/remove?productId=' + itemId, { method: "DELETE" })
+          .then(() => {
+              showToast("Đã xoá khỏi giỏ hàng", "success");
+              loadCart(); // reload giỏ hàng
+              toggleLoading(false);
+          });
+  }
+
+    function toggleLoading(show) {
+            const loadingEl = document.getElementById("loading");
+            if (!loadingEl) return;
+            if (show) {
+                loadingEl.classList.remove("d-none");
+            } else {
+                loadingEl.classList.add("d-none");
+            }
+        }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        loadCart();
+        document.getElementById("btn-pay").onclick = function () {
+            window.location.href = "/order";
+        };
+    });
+</script>
+</body>
+
+</html>
