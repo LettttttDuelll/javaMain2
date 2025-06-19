@@ -262,8 +262,8 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
+    <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true" >
+        <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <form id="addUserForm">
                     <div class="modal-header">
@@ -441,7 +441,8 @@
     <script>
         $(document).ready(function () {
             $('#usersTable').DataTable({
-                pageLength: 3,
+                pageLength: 10,
+                ordering : false,
                 "language": {
                     "search": "Tìm kiếm:",
                     "lengthMenu": "Hiển thị _MENU_ dòng",

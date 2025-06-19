@@ -574,13 +574,13 @@
                 <!-- Left -->
                 <ul class="navbar-nav d-flex flex-row align-items-center gap-3">
                     <li class="nav-item">
-                        <a class="nav-link active text-white" th:href="@{/home}">Trang chủ</a>
+                        <a class="nav-link active text-white" th:href="@{end-user/home}">Trang chủ</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white" th:href="@{/home}">Thông báo</a>
+                        <a class="nav-link text-white" th:href="@{end-user/home}">Thông báo</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white" th:href="@{/home}">Sản phẩm</a>
+                        <a class="nav-link text-white" th:href="@{end-user/home}">Sản phẩm</a>
                     </li>
                 </ul>
 
@@ -815,7 +815,7 @@
                         })
                     )
                     .then(res => {
-                        if (res.ok) window.location.href = "/order/orderconfirm";
+                        if (res.ok) window.location.href = "/order";
                         else showToast("Mua ngay thất bại! , Bạn cần LOGIN ngay ", "danger");
                     });
             }

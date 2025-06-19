@@ -478,7 +478,7 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-dark">
         <div class="container">
             <!-- Logo -->
-            <a class="navbar-brand" th:href="@{/}">
+            <a class="navbar-brand" th:href="@{/home}">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="50" height="50">
                     <circle cx="50" cy="50" r="45" fill="rgb(240, 101, 197)" />
                     <circle cx="50" cy="50" r="35" fill="rgb(127, 68, 255)" />
@@ -502,7 +502,7 @@
                         <a class="nav-link text-white" th:href="@{/notifications}">Thông báo</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white" th:href="@{/}">Sản phẩm</a>
+                        <a class="nav-link text-white" th:href="@{/home}">Sản phẩm</a>
                     </li>
                 </ul>
 
@@ -605,7 +605,7 @@ function loadCart() {
                         <td>
                             <div class="d-flex align-items-center">
                                 <img src="${item.image}" class="product-image" alt="">
-                                <span>${item.laptopName}</span>
+                                <span>${item.laptopName}<span>
                             </div>
                         </td>
                         <td>${item.quantity}</td>

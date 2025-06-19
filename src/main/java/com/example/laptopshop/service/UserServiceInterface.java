@@ -15,6 +15,6 @@ public interface UserServiceInterface {
     public Optional<User> findByUserName(String username);
 
     public boolean editUser(Long id , ProfileForm pf);
-    public boolean deleteUser(Long id);
+    public boolean deleteUser(Long id,String currentUsername);
     public boolean addUser(ProfileForm pf , MultipartFile imageFile);
 }

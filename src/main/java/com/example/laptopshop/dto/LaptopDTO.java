@@ -1,12 +1,9 @@
 package com.example.laptopshop.dto;
 
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 @Data
-@Getter
-@Setter
+
 public class LaptopDTO {
     private int id;
     private String link;
@@ -68,6 +65,4 @@ public class LaptopDTO {
     private String screenCard;
     private String soundTechnology;
     private boolean deleted;
-
-
 }

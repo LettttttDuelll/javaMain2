@@ -72,7 +72,7 @@ public class LaptopServiceImpl implements LaptopService{
             laptop.setDeleted(false);
 
             List<String> imageUrls = new ArrayList<>();
-            String uploadDir = "src/main/resources/static/laptop_img/";
+            String uploadDir = "src/main/resources/static/uploads/laptops/";
 
             if (imageFiles != null) {
                 for (MultipartFile imageFile : imageFiles) {

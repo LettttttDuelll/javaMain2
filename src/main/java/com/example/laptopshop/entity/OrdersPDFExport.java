@@ -53,6 +53,7 @@ public class OrdersPDFExport {
         document.open();
 
         Paragraph title = new Paragraph("Danh sách đơn hàng", fontTitle);
+        title.setAlignment("center");
         document.add(title);
 
         PdfPTable table = new PdfPTable(7);

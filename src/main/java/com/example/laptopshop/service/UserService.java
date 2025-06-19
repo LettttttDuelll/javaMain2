@@ -118,14 +118,14 @@ public class UserService implements UserServiceInterface{
         }
         return false;
     }
-    @Transactional
+    /*@Transactional
     public boolean deleteUser(Long id) {
         if (userRepository.existsById(id)) {
             userRepository.deleteById(id);
             return true;
         }
         return false;
-    }
+    }*/
     /*@Transactional
     public boolean deleteUser(Long id){
         Optional<User> userOpt = userRepository.findById(id);
@@ -138,6 +138,32 @@ public class UserService implements UserServiceInterface{
         }
         return false;
     }*/
+    @Transactional
+    public boolean deleteUser(Long id, String currentUsername) {
+        User currentUser = userRepository.findByUsername(currentUsername)
+                .orElseThrow(() -> new RuntimeException("Không tìm thấy người dùng hiện tại"));
+
+        User targetUser = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Người dùng cần xóa không tồn tại"));
+
+        int currentLevel = getRoleLevel(currentUser.getRoles());
+        int targetLevel = getRoleLevel(targetUser.getRoles());
+
+        if (currentLevel <= targetLevel) {
+            throw new RuntimeException("Không đủ quyền để xóa người dùng này.");
+        }
+
+        userRepository.deleteById(id);
+        return true;
+    }
+     private int getRoleLevel(String role) {
+        return switch (role.toUpperCase()) {
+            case "ADMIN" -> 3;
+            case "MANAGER" -> 2;
+            case "MEMBER" -> 1;
+            default -> 0;
+        };
+    }
     @Transactional
     public boolean update(){
         return true ;

@@ -21,7 +21,6 @@ public class LaptopController {
     public ResponseEntity<List<Laptop>> getAllLaptop() {
         List<Laptop>  laptops = laptopService.getAllLaptops();
         Collections.reverse(laptops);
-        Collections.reverse(laptops);
         return ResponseEntity.ok(laptops);
     }
     @GetMapping("/laptop/{id}")

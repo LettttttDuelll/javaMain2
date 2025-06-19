@@ -59,7 +59,7 @@ public class CartService {
             CartItemDto dto = new CartItemDto();
             dto.setId(item.getId());
             dto.setLaptopName(item.getLaptop().getName());
-            dto.setImage(item.getLaptop().getImage_url());
+            dto.setImage(item.getLaptop().getFirstImageUrl());
             dto.setPrice(item.getLaptop().getCurrent_price());
             dto.setQuantity(item.getQuantity());
             return dto;

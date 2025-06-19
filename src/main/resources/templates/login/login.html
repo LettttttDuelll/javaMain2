@@ -78,10 +78,10 @@
 
       if (response.ok) {
         const role = data.role;
-        if (role === 'ROLE_ADMIN') {
+        if (role === 'ADMIN') {
           window.location.href = '/dashboard';
-        } else if (role === 'ROLE_EMPLOYEE') {
-          window.location.href = '/employee/home';
+        } else if (role === 'MANAGER') {
+          window.location.href = '/dashboard';
         } else {
           window.location.href = '/home';
         }
