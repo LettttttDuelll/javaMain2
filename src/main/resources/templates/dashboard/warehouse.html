@@ -3,13 +3,14 @@
 
 
 
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" th:href="@{node_modules/bootstrap/dist/css/bootstrap.css}">
     <link rel="stylesheet" th:href="@{node_modules/bootstrap-icons/font/bootstrap-icons.css}">
     <link rel="stylesheet" th:href="@{css/dashboard.css}">
-    <title>Danh sách người dùng</title>
+    <title>Danh sách kho</title>
 </head>
 
 <body>
@@ -93,7 +94,7 @@
             </ul>
         </nav>
     </header>
-    <aside id="sidebar" class="sidebar">
+        <aside id="sidebar" class="sidebar">
         <ul class="sidebar-nav" id="sidebar-nav">
 
             <li class="nav-item">
@@ -102,13 +103,17 @@
                     <span>Dashboard</span>
                 </a>
             </li>
-
+            <li class="nav-item">
+                <a class="nav-link " th:href="@{/admin/orderList}">
+                    <i class="bi bi-cart"></i>
+                    <span>Quản lý Đơn Hàng </span>
+                </a>
+            </li>
             <li class="nav-item">
                 <a class="nav-link [[${activeMenu == 'user'} ? '' : 'collapsed']]" data-bs-target="#components-nav"
                     data-bs-toggle="collapse" href="#">
                     <i class="bi bi-people"></i><span>Quản lí danh sách</span><i class="bi bi-chevron-down ms-3"></i>
                 </a>
-
                 <ul id="components-nav" class="nav-content collapse [[${activeMenu == 'user'} ? 'show' : '']]"
                     data-bs-parent="#sidebar-nav">
                     <li>
@@ -116,7 +121,6 @@
                             <i class="bi bi-person"></i><span>người sử dụng</span>
                         </a>
                     </li>
-
                 </ul>
             </li>
             <li class="nav-item">
@@ -177,6 +181,7 @@
                     <th>ID</th>
                     <th>Ảnh</th>
                     <th>Tên Laptop</th>
+                    <th>Số lượng</th>
                     <th>Giá hiện tại</th>
                     <th>Thao tác</th>
                 </tr>
@@ -189,6 +194,7 @@
                             style="width: 70px; height: 50px; object-fit: cover;" />
                     </td>
                     <td th:text="${laptop.name}"></td>
+                    <td th:text="${laptop.stock}"></td>
                     <td th:text="${#numbers.formatDecimal(laptop.current_price, 0, 'COMMA', 0, 'POINT')} + ' đ'"></td>
                     <td class="d-flex gap-2">
                         <button type="button" class="btn btn-sm btn-info" title="Xem chi tiết"
@@ -199,16 +205,11 @@
                             th:attr="data-laptop-id=${laptop.id}" data-bs-toggle="modal" data-bs-target="#editModal">
                             <i class="bi bi-pencil-square"></i>
                         </button>
-                        <button type="button" class="btn btn-sm btn-danger" title="Xoá"
-                            th:attr="data-laptop-id=${laptop.id}" data-bs-toggle="modal" data-bs-target="#deleteModal">
-                            <i class="bi bi-trash"></i>
-                        </button>
                     </td>
                 </tr>
             </tbody>
         </table>
     </main>
-
 
     <div class="modal fade" id="viewModal" tabindex="-1">
         <div class="modal-dialog modal-xl">
@@ -466,7 +467,7 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Chỉnh sửa người dùng</h5>
+                    <h5 class="modal-title">Chỉnh sửa laptop</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
@@ -474,49 +475,12 @@
                         <input type="hidden" id="edit-id" name="id">
                         <div class="row g-3">
                             <div class="col-md-6">
-                                <label for="edit-fullName" class="form-label">Họ và tên</label>
-                                <input type="text" id="edit-fullName" name="fullName" class="form-control">
+                                <label for="edit-name" class="form-label">Tên Laptop</label>
+                                <input type="text" id="edit-name" name="name" class="form-control">
                             </div>
                             <div class="col-md-6">
-                                <label for="edit-birthday" class="form-label">Ngày sinh</label>
-                                <input type="date" id="edit-birthday" name="birthday" class="form-control">
-                            </div>
-                            <div class="col-md-6">
-                                <label for="edit-phone" class="form-label">Số điện thoại</label>
-                                <input type="text" id="edit-phone" name="phone" class="form-control">
-                            </div>
-                            <div class="col-md-6">
-                                <label for="edit-email" class="form-label">Email</label>
-                                <input type="email" id="edit-email" name="email" class="form-control">
-                            </div>
-                            <div class="col-12">
-                                <label for="edit-address" class="form-label">Địa chỉ</label>
-                                <input type="text" id="edit-address" name="address" class="form-control">
-                            </div>
-                            <div class="col-md-4">
-                                <label for="edit-jobArea" class="form-label">Khu vực công việc</label>
-                                <input type="text" id="edit-jobArea" name="jobArea" class="form-control">
-                            </div>
-                            <div class="col-md-4">
-                                <label for="edit-job" class="form-label">Công việc</label>
-                                <input type="text" id="edit-job" name="job" class="form-control">
-                            </div>
-                            <div class="col-md-4">
-                                <label for="edit-position" class="form-label">Chức vụ</label>
-                                <input type="text" id="edit-position" name="position" class="form-control">
-                            </div>
-
-                            <div class="col-md-4">
-                                <label for="edit-applyYear" class="form-label">Năm ứng tuyển</label>
-                                <input type="number" id="edit-applyYear" name="applyYear" class="form-control">
-                            </div>
-                            <div class="col-md-4">
-                                <label for="edit-roles" class="form-label">Quyền</label>
-                                <input type="text" id="edit-roles" name="roles" class="form-control">
-                            </div>
-                            <div class="col-12">
-                                <label for="edit-userNotes" class="form-label">Ghi chú</label>
-                                <textarea id="edit-userNotes" name="userNotes" class="form-control"></textarea>
+                                <label for="edit-stock" class="form-label">Số lượng</label>
+                                <input type="number" id="edit-stock" name="stock" class="form-control">
                             </div>
                         </div>
                     </form>
@@ -566,7 +530,7 @@
     <script>
         $(document).ready(function () {
             $('#laptopTable').DataTable({
-                pageLength: 3,
+                pageLength: 10,
                 ordering: false,
                 "language": {
                     "search": "Tìm kiếm:",
@@ -718,54 +682,36 @@
 
         editModal.addEventListener('show.bs.modal', function (event) {
             const button = event.relatedTarget;
-            const userId = button.getAttribute('data-user-id');
-            fetch(`/api/v1/users/user/${userId}`)
+            const laptopId = button.getAttribute('data-laptop-id');
+            fetch(`/api/v1/laptops/laptop/${laptopId}`)
                 .then(response => response.json())
-                .then(user => {
-                    document.getElementById('edit-id').value = user.id;
-                    document.getElementById('edit-fullName').value = user.fullName;
-                    document.getElementById('edit-birthday').value = user.birthday;
-                    document.getElementById('edit-phone').value = user.phone;
-                    document.getElementById('edit-email').value = user.email;
-                    document.getElementById('edit-address').value = user.address;
-                    document.getElementById('edit-jobArea').value = user.jobArea;
-                    document.getElementById('edit-job').value = user.job;
-                    document.getElementById('edit-position').value = user.position;
-                    document.getElementById('edit-applyYear').value = user.applyYear;
-                    document.getElementById('edit-userNotes').value = user.userNotes;
-                    document.getElementById('edit-roles').value = user.roles;
-                    document.getElementById('edit-logined').checked = user.logined;
-                    document.getElementById('edit-userActions').value = user.userActions;
-                });
+                .then(laptop => {
+            document.getElementById("edit-id").value = laptop.id;
+            document.getElementById("edit-name").value = laptop.name;
+            document.getElementById("edit-stock").value = laptop.stock;
+        });
         });
         function submitEditForm() {
-            const form = document.getElementById('editForm');
-            const formData = new FormData(form);
-            const userId = formData.get("id");
-            const data = {};
-            formData.forEach((value, key) => {
-                data[key] = value;
-            });
+            const id = document.getElementById("edit-id").value;
+            const stock = document.getElementById("edit-stock").value;
 
-            fetch(`/api/v1/users/edit/${userId}`, {
-                method: 'PUT',
+            fetch(`/api/v1/laptops/edit-stock/${id}`, {
+                method: "PUT",
                 headers: {
-                    'Content-Type': 'application/json'
+                    "Content-Type": "application/json"
                 },
-                body: JSON.stringify(data)
-            })
-                .then(response => {
-                    if (response.ok) {
-                        alert("Cập nhật thành công!");
-                        location.reload();
-                    } else {
-                        alert("Cập nhật thất bại.");
-                    }
+                body: JSON.stringify({
+                    stock: stock
                 })
-                .catch(error => {
-                    console.error("Lỗi khi gửi dữ liệu:", error);
-                    alert("Đã xảy ra lỗi.");
-                });
+            })
+            .then(res => {
+                if (res.ok) {
+                    alert("Cập nhật kho thành công");
+                    location.reload();
+                } else {
+                    alert("Cập nhật thất bại");
+                }
+            });
         }
         deleteModal.addEventListener('show.bs.modal', function (event) {
             const button = event.relatedTarget;

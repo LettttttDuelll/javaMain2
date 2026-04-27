@@ -2,6 +2,7 @@ package com.example.laptopshop.controller;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import com.example.laptopshop.dto.LaptopDTO;
 import com.example.laptopshop.service.LaptopServiceImpl;
@@ -16,6 +17,9 @@ import com.example.laptopshop.entity.Laptop;
 public class LaptopController {
     @Autowired
     private LaptopServiceImpl laptopService;
+
+    @Autowired
+    private com.example.laptopshop.repository.LaptopRepository laptopRepository;
 
     @GetMapping("/list")
     public ResponseEntity<List<Laptop>> getAllLaptop() {
@@ -80,4 +84,17 @@ public class LaptopController {
         List<Laptop> deletedLaptops = laptopService.getDeletedLaptops();
         return ResponseEntity.ok(deletedLaptops);
     }
+
+    @PutMapping("/edit-stock/{id}")
+    public ResponseEntity<?> updateStock(
+        @PathVariable Long id,
+        @RequestBody Map<String, Integer> body) {
+
+    Laptop laptop = laptopRepository.findById(id).orElseThrow();
+
+    laptop.setStock(body.get("stock"));
+    laptopRepository.save(laptop);
+
+    return ResponseEntity.ok("Updated");
+}
 }

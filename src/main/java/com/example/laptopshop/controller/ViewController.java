@@ -93,6 +93,13 @@ public class ViewController {
         return "end_user/order";
     }
 
+    @GetMapping("/products")
+    public String products(Model model) {
+        List<Laptop> laptops = laptopService.getAllLaptops();
+        model.addAttribute("products", laptops);
+        return "end_user/product";
+    }
+    
     // Danh sách sản phẩm trong dashboard
     @GetMapping("/productList")
     public String productList(Model model) {
@@ -110,4 +117,14 @@ public class ViewController {
         model.addAttribute("list", orders);
         return "dashboard/list_order";
     }
+
+    //quan ly kho
+    @GetMapping("/warehouse")
+    public String warehouse(Model model) {
+        List<Laptop> laptops = laptopService.getAllLaptops();
+        Collections.reverse(laptops);
+        model.addAttribute("laptops", laptops);
+        return "dashboard/warehouse";
+    }
+    
 }

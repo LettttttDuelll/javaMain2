@@ -2,7 +2,7 @@ package com.example.laptopshop.repository;
 
 import java.time.LocalDateTime;
 import java.util.List;
-
+import java.util.Optional;
 
 import com.example.laptopshop.entity.Laptop;
 
@@ -22,6 +22,6 @@ public interface LaptopRepository extends JpaRepository<Laptop,Long> {
     List<Object[]> countByModel();
     @Query("SELECT l.discount, SUM(l.stock) FROM Laptop l WHERE l.deleted = false GROUP BY l.discount ORDER BY l.discount ASC")
     List<Object[]> stockByDiscount();
-
+    Optional<Laptop> findById(Integer id);
 
 }

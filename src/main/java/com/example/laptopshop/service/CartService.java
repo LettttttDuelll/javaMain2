@@ -7,10 +7,15 @@ import com.example.laptopshop.entity.Laptop;
 import com.example.laptopshop.entity.User;
 import com.example.laptopshop.repository.CartItemRepository;
 import com.example.laptopshop.repository.LaptopRepository;
+
+import jakarta.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class CartService {
@@ -19,6 +24,8 @@ public class CartService {
     private CartItemRepository cartRepo;
     @Autowired
     private LaptopRepository laptopRepo;
+    @Autowired
+    private CartItemRepository cartItemRepo;
 
     /**
      * Thêm sản phẩm vào giỏ hàng.
@@ -58,6 +65,7 @@ public class CartService {
         return cartItems.stream().map(item -> {
             CartItemDto dto = new CartItemDto();
             dto.setId(item.getId());
+            //dto.setId(item.getLaptop().getId());
             dto.setLaptopName(item.getLaptop().getName());
             dto.setImage(item.getLaptop().getFirstImageUrl());
             dto.setPrice(item.getLaptop().getCurrent_price());
@@ -92,9 +100,29 @@ public class CartService {
             cartRepo.delete(item);
         } else {
             item.setQuantity(newQuantity);
+            //item.setQuantity(item.getQuantity() + newQuantity);
             cartRepo.save(item);
         }
     }
+
+    public void updateByCartItemId(Long cartItemId, int newQuantity) {
+
+    CartItem item = cartItemRepo.findById(cartItemId)
+            .orElseThrow(() -> new RuntimeException("Không tìm thấy item trong giỏ hàng"));
+
+    Laptop laptop = item.getLaptop();
+
+    if (newQuantity > laptop.getStock()) {
+        throw new RuntimeException("Số lượng vượt quá tồn kho");
+    }
+
+    if (newQuantity <= 0) {
+        cartItemRepo.delete(item);
+    } else {
+        item.setQuantity(newQuantity);
+        cartRepo.save(item);
+    }
+}
 
     /**
      * Xóa toàn bộ giỏ hàng sau khi đặt hàng thành công.
@@ -107,6 +135,19 @@ public class CartService {
         cartRepo.deleteById(cartItemId);
     }
 
+    public void validateCartBeforeCheckout(User user) {
+    List<CartItem> items = cartRepo.findByUserId(user.getId());
+
+    for (CartItem item : items) {
+        Laptop laptop = item.getLaptop();
+
+        if (item.getQuantity() > laptop.getStock()) {
+            throw new RuntimeException(
+                "Sản phẩm " + laptop.getName() + " chỉ còn " + laptop.getStock()
+            );
+        }
+    }
+}
 }
 
 
