@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Collections;
@@ -125,6 +126,27 @@ public class ViewController {
         Collections.reverse(laptops);
         model.addAttribute("laptops", laptops);
         return "dashboard/warehouse";
+    }
+
+    @GetMapping("/checkoutQR")
+    public String checkoutQR(Model model) {
+
+        Order order = orderService.getLatestOrder();
+
+        double tongTien = order.getOrderItems()
+                .stream()
+                .mapToDouble(i -> i.getPrice() * i.getQuantity())
+                .sum();
+
+        String qrUrl = "https://img.vietqr.io/image/ICB-101876816062-only-qr.png"
+                + "?amount=" + (int) tongTien
+                + "&addInfo=DH" + order.getId();
+
+        model.addAttribute("order", order);
+        model.addAttribute("tongTien", tongTien);
+        model.addAttribute("qrUrl", qrUrl);
+
+        return "end_user/checkoutQR";
     }
     
 }

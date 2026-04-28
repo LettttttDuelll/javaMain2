@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface OrderRepository extends JpaRepository<Order, Integer> {
     List<Order> findByUser_Id(Integer userId);
-
+    Order findTopByOrderByIdDesc(); // ✅ thêm dòng này
     @Query("SELECT o FROM Order o JOIN FETCH o.user")
     List<Order> findAllWithUser(); // ✅ thêm dòng này
 }

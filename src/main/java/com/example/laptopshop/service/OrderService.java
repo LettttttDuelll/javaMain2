@@ -84,5 +84,9 @@ public class OrderService {
     public Optional<Order> getOrderById(Integer id) {
         return orderRepo.findById(id);
     }
+
+    public Order getLatestOrder() {
+        return orderRepo.findTopByOrderByIdDesc();
+    }
 }
 

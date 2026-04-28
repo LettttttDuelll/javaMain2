@@ -136,6 +136,9 @@ public class Laptop {
     @Column(name = "restored", nullable = false)
     private boolean restored = false;
 
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
 
     public String getFirstImageUrl() {
         if (this.image_url == null || this.image_url.trim().isEmpty()) {
