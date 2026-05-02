@@ -1,0 +1,392 @@
+<!-- src/main/resources/templates/dashboard/voucher.html -->
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý mã giảm giá</title>
+
+    <!-- Bootstrap -->
+    <link th:href="@{/assets/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/assets/vendor/bootstrap-icons/bootstrap-icons.css}" rel="stylesheet">
+
+    <!-- DataTables -->
+    <link rel="stylesheet"
+          href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+
+    <style>
+        body {
+            background: #f6f9ff;
+        }
+
+        .card {
+            border-radius: 14px;
+        }
+
+        .table thead {
+            background: #212529;
+            color: white;
+        }
+
+        .badge-on {
+            background: #198754;
+        }
+
+        .badge-off {
+            background: #dc3545;
+        }
+
+        .toast-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container mt-5">
+
+    <!-- Toast -->
+    <div class="toast-container">
+
+        <div th:if="${param.success}"
+             class="toast align-items-center text-bg-success border-0 show">
+            <div class="d-flex">
+                <div class="toast-body">
+                    Thêm / cập nhật voucher thành công
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto"
+                        data-bs-dismiss="toast"></button>
+            </div>
+        </div>
+
+        <div th:if="${param.updated}"
+             class="toast align-items-center text-bg-primary border-0 show">
+            <div class="d-flex">
+                <div class="toast-body">
+                    Đổi trạng thái voucher thành công
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto"
+                        data-bs-dismiss="toast"></button>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="card shadow">
+        <div class="card-body">
+
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h3 class="fw-bold mt-3">Quản lý mã giảm giá</h3>
+
+                <button class="btn btn-primary"
+                        data-bs-toggle="modal"
+                        data-bs-target="#addModal">
+                    <i class="bi bi-plus-circle"></i> Thêm voucher
+                </button>
+            </div>
+
+            <table class="table table-striped datatable">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Tên</th>
+                    <th>Mã</th>
+                    <th>Loại</th>
+                    <th>Giảm</th>
+                    <th>Đơn tối thiểu</th>
+                    <th>Ngày áp dụng</th>
+                    <th>Trạng thái</th>
+                    <th width="180">Thao tác</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr th:each="item : ${vouchers}">
+                    <td th:text="${item.id}"></td>
+                    <td th:text="${item.name}"></td>
+                    <td th:text="${item.code}"></td>
+                    <td th:text="${item.discountType}"></td>
+
+                    <td>
+                        <span th:if="${item.discountType == 'FIXED'}"
+                              th:text="${#numbers.formatDecimal(item.discountValue,0,'COMMA',0,'POINT')} + ' đ'"></span>
+
+                        <span th:if="${item.discountType == 'PERCENT'}"
+                              th:text="${item.discountValue} + '%'"></span>
+                    </td>
+
+                    <td th:text="${#numbers.formatDecimal(item.minOrderValue,0,'COMMA',0,'POINT')}"></td>
+
+                    <td>
+                        <span th:text="${item.startDate}"></span>
+                        <br>
+                        <small class="text-muted" th:text="${item.endDate}"></small>
+                    </td>
+
+                    <td>
+                        <span th:if="${item.active}" class="badge badge-on">Bật</span>
+                        <span th:unless="${item.active}" class="badge badge-off">Tắt</span>
+                    </td>
+
+                    <td>
+
+                        <!-- Edit -->
+                        <button class="btn btn-warning btn-sm text-white"
+                                data-bs-toggle="modal"
+                                th:attr="data-bs-target='#editModal_' + ${item.id}"
+                                title="Chỉnh sửa">
+                            <i class="bi bi-pencil-square"></i>
+                        </button>
+
+                        <!-- Toggle -->
+                        <a th:href="@{/admin/vouchers/toggle/{id}(id=${item.id})}"
+                           class="btn btn-secondary btn-sm"
+                           title="Bật / Tắt">
+                            <i class="bi bi-arrow-repeat"></i>
+                        </a>
+
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+</div>
+
+<!-- ADD MODAL -->
+<div class="modal fade" id="addModal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <form th:action="@{/admin/vouchers/save}" method="post">
+
+                <div class="modal-header">
+                    <h5 class="modal-title">Thêm voucher</h5>
+                    <button type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body row">
+
+                    <div class="col-md-6 mb-3">
+                        <label>Tên voucher</label>
+                        <input type="text" name="name"
+                               class="form-control" required>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label>Mã</label>
+                        <input type="text" name="code"
+                               class="form-control" required>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label>Loại giảm</label>
+                        <select name="discountType" class="form-select">
+                            <option value="FIXED">Tiền mặt</option>
+                            <option value="PERCENT">Phần trăm</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label>Giá trị giảm</label>
+                        <input type="number" step="0.01"
+                               name="discountValue"
+                               class="form-control" required>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label>Đơn tối thiểu</label>
+                        <input type="number" step="0.01"
+                               name="minOrderValue"
+                               class="form-control" required>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label>Ngày bắt đầu</label>
+                        <input type="date"
+                               name="startDate"
+                               class="form-control" required>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label>Ngày kết thúc</label>
+                        <input type="date"
+                               name="endDate"
+                               class="form-control" required>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label>Ghi chú</label>
+                        <input type="text"
+                               name="note"
+                               class="form-control">
+                    </div>
+
+                    <input type="hidden" name="active" value="true">
+
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-primary">Lưu</button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<!-- EDIT MODALS -->
+<div th:each="item : ${vouchers}">
+    <div class="modal fade"
+         th:id="'editModal_' + ${item.id}">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+
+                <form th:action="@{/admin/vouchers/save}" method="post">
+
+                    <div class="modal-header">
+                        <h5 class="modal-title">Cập nhật voucher</h5>
+                        <button type="button"
+                                class="btn-close"
+                                data-bs-dismiss="modal"></button>
+                    </div>
+
+                    <div class="modal-body row">
+
+                        <input type="hidden" name="id"
+                               th:value="${item.id}">
+
+                        <div class="col-md-6 mb-3">
+                            <label>Tên voucher</label>
+                            <input type="text"
+                                   name="name"
+                                   class="form-control"
+                                   th:value="${item.name}" required>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label>Mã</label>
+                            <input type="text"
+                                   name="code"
+                                   class="form-control"
+                                   th:value="${item.code}" required>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label>Loại giảm</label>
+                            <select name="discountType"
+                                    class="form-select">
+                                <option value="FIXED"
+                                        th:selected="${item.discountType == 'FIXED'}">
+                                    Tiền mặt
+                                </option>
+
+                                <option value="PERCENT"
+                                        th:selected="${item.discountType == 'PERCENT'}">
+                                    Phần trăm
+                                </option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label>Giá trị giảm</label>
+                            <input type="number"
+                                   step="0.01"
+                                   name="discountValue"
+                                   class="form-control"
+                                   th:value="${item.discountValue}">
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label>Đơn tối thiểu</label>
+                            <input type="number"
+                                   step="0.01"
+                                   name="minOrderValue"
+                                   class="form-control"
+                                   th:value="${item.minOrderValue}">
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label>Ngày bắt đầu</label>
+                            <input type="date"
+                                   name="startDate"
+                                   class="form-control"
+                                   th:value="${item.startDate}">
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label>Ngày kết thúc</label>
+                            <input type="date"
+                                   name="endDate"
+                                   class="form-control"
+                                   th:value="${item.endDate}">
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label>Ghi chú</label>
+                            <input type="text"
+                                   name="note"
+                                   class="form-control"
+                                   th:value="${item.note}">
+                        </div>
+
+                        <input type="hidden"
+                               name="active"
+                               th:value="${item.active}">
+
+                    </div>
+
+                    <div class="modal-footer">
+                        <button class="btn btn-warning text-white">
+                            Cập nhật
+                        </button>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- JS -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script th:src="@{/assets/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $('.datatable').DataTable({
+            language: {
+                search: "Tìm kiếm:",
+                lengthMenu: "Hiển thị _MENU_ mục",
+                info: "Hiển thị _START_ đến _END_ / _TOTAL_ mục",
+                paginate: {
+                    previous: "Trước",
+                    next: "Sau"
+                }
+            }
+        });
+    });
+</script>
+
+<script>
+    setTimeout(function () {
+        $('.toast').toast('hide');
+    }, 2500);
+</script>
+
+</body>
+</html>

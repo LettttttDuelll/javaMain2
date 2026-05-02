@@ -5,7 +5,7 @@ public class OrderRequest {
     private String email;
     private String phone;
     private String address;
-
+    private String voucherCode;
     // Getters và setters đầy đủ
     public String getName() {
         return name;
@@ -37,5 +37,13 @@ public class OrderRequest {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getVoucherCode() {
+        return voucherCode;
+    }
+
+    public void setVoucherCode(String voucherCode) {
+        this.voucherCode = voucherCode;
     }
 }

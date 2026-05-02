@@ -328,6 +328,26 @@
           </table>
         </div>
         <button id="btn-pay" style="display: none;" hidden></button>
+
+        <div class="row g-2 mb-3">
+            <div class="col-8">
+                <input type="text"
+                      id="voucherCode"
+                      class="form-control"
+                      placeholder="Nhập mã giảm giá">
+            </div>
+
+            <div class="col-4">
+                <button type="button"
+                        id="btnApplyVoucher"
+                        class="btn btn-gradient w-100">
+                    Áp dụng
+                </button>
+            </div>
+        </div>
+
+        <div id="voucher-result" class="small mb-2 text-success"></div>
+
         <div class="text-end mb-2" id="cart-footer">
           <h5 id="total-price" class="text-info">Tổng giá: 0 đ</h5>
         </div>
@@ -361,6 +381,9 @@
   function toggleLoading(show) {
       document.getElementById("loading").className = show ? "" : "d-none";
   }
+
+  let currentTotal = 0;
+  let finalTotal = 0;
 
   // Hiển thị giỏ hàng
   function loadCart() {
@@ -397,7 +420,10 @@
                 });
                 btnPay.style.display = "inline-block";
                 totalPriceEl.style.display = "block";
+                currentTotal = total;
+                finalTotal = total;
                 totalPriceEl.innerText = `Tổng giá: ${total.toLocaleString()} đ`;
+                // totalPriceEl.innerText = `Tổng giá: ${total.toLocaleString()} đ`;
             }
         });
 }
@@ -419,7 +445,8 @@
           fetch("/api/orders", {
               method: "POST",
               headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({ address: address, phone: phone, name: name, email: email })
+              body: JSON.stringify({ address: address, phone: phone, name: name, email: email , voucherCode: document.getElementById("voucherCode").value,
+    finalTotal: finalTotal})
           })
               .then(res => {
                   toggleLoading(false);
@@ -434,6 +461,40 @@
               });
       };
   });
+
+
+  document.getElementById("btnApplyVoucher").onclick = function () {
+
+    const code = document.getElementById("voucherCode").value.trim();
+
+    if (!code) {
+        showToast("Vui lòng nhập mã giảm giá", "danger");
+        return;
+    }
+
+    fetch(`/api/vouchers/apply?code=${code}&total=${currentTotal}`)
+        .then(res => res.json())
+        .then(data => {
+
+            if (data.valid) {
+
+                finalTotal = data.finalTotal;
+
+                document.getElementById("total-price").innerText =
+                    `Tổng giá sau giảm: ${data.finalTotal.toLocaleString()} đ`;
+
+                document.getElementById("voucher-result").innerHTML =
+                    `Giảm ${data.discount.toLocaleString()} đ`;
+
+                showToast("Áp dụng mã thành công!", "success");
+
+            } else {
+                showToast(data.message, "danger");
+            }
+
+        });
+};
+
 </script>
 </body>
 

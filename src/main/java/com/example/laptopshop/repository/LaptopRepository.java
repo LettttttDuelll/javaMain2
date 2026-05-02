@@ -9,6 +9,7 @@ import com.example.laptopshop.entity.Laptop;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 
@@ -24,4 +25,10 @@ public interface LaptopRepository extends JpaRepository<Laptop,Long> {
     List<Object[]> stockByDiscount();
     Optional<Laptop> findById(Integer id);
 
+    @Query("""
+    SELECT l FROM Laptop l
+    WHERE lower(l.name) LIKE lower(concat('%', :keyword, '%'))
+    AND l.deleted = false AND l.current_price > 0
+    """)
+    List<Laptop> searchByKeyword(@Param("keyword") String keyword);
 }

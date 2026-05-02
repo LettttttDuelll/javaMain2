@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.*;
                 return ResponseEntity.status(401).body("Bạn cần đăng nhập để đặt hàng.");
             }
 
-            orderService.placeOrder(user, request.getAddress(), request.getPhone());
+            orderService.placeOrder(user, request.getAddress(), request.getPhone(),request.getVoucherCode());
             return ResponseEntity.ok("Đặt hàng thành công");
         }
     }

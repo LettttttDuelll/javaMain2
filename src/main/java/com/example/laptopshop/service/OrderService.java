@@ -4,11 +4,14 @@ import com.example.laptopshop.entity.*;
 import com.example.laptopshop.repository.CartItemRepository;
 import com.example.laptopshop.repository.LaptopRepository;
 import com.example.laptopshop.repository.OrderRepository;
+import com.example.laptopshop.repository.VoucherRepository;
+
 import org.openqa.selenium.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,9 +24,10 @@ public class OrderService {
     @Autowired private CartItemRepository cartRepo;
     @Autowired private OrderRepository orderRepo;
     @Autowired private LaptopRepository laptopRepo;
+    @Autowired private VoucherRepository voucherRepo;
 
     @Transactional
-    public Order placeOrder(User user, String address, String phone) {
+    public Order placeOrder(User user, String address, String phone,String voucherCode) {
         List<CartItem> cartItems = cartRepo.findByUserId(user.getId());
         if (cartItems.isEmpty()) throw new RuntimeException("Giỏ hàng rỗng!");
 
@@ -49,11 +53,38 @@ public class OrderService {
             total += p.getCurrent_price() * ci.getQuantity();
         }
 
+// Áp dụng voucher nếu có
+double discount = 0;
+
+if (voucherCode != null && !voucherCode.isEmpty()) {
+
+    Voucher voucher = voucherRepo.findByCode(voucherCode);
+
+    if (voucher != null && voucher.getActive()) {
+
+        LocalDate now = LocalDate.now();
+
+        if (!now.isBefore(voucher.getStartDate()) &&
+            !now.isAfter(voucher.getEndDate())) {
+
+            if (total >= voucher.getMinOrderValue()) {
+
+                if (voucher.getDiscountType().equals("PERCENT")) {
+                    discount = total * voucher.getDiscountValue() / 100;
+                } else {
+                    discount = voucher.getDiscountValue();
+                }
+            }
+        }
+    }
+}
+        double finalTotal = total - discount;
+
         // Tạo Order
         Order order = new Order();
         order.setUser(user);
         order.setOrderDate(LocalDateTime.now());
-        order.setTotalPrice(total);
+        order.setTotalPrice(finalTotal);
         order.setStatus("PENDING");
         order.setAddress(address);
         order.setPhone(phone);

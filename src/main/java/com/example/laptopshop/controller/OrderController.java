@@ -38,7 +38,7 @@ public class OrderController {
     public RedirectView createOrder(@ModelAttribute OrderRequest request) {
         User user = userService.getCurrentUser();
 
-        orderService.placeOrder(user, request.getAddress(), request.getPhone());
+        orderService.placeOrder(user, request.getAddress(), request.getPhone(),request.getVoucherCode());
 
         return new RedirectView("/orderconfirm");
     }

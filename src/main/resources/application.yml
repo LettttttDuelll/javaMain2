@@ -47,3 +47,8 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQLDialect
+
+gemini:
+  api:
+    key: AIzaSyDqrJGOeTeAKVuFXClqhndOBbBHCEMpY94
+    url: https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent
