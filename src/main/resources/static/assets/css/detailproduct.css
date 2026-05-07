@@ -1,81 +1,216 @@
 body {
-      background: linear-gradient(rgb(14, 17, 36), rgb(36, 26, 73));
-      color: white;
+    background: #f5f5f7;
+    color: #222;
+    font-family: Arial, sans-serif;
 }
-    .main-image-container img {
-      border: 3px solid white;
-      max-height: 400px;
-      object-fit: contain;
-      background: white;
-    }
-    .thumbnail-container {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-    .thumbnail-image {
-      width: 100px;
-      height: auto;
-      cursor: pointer;
-      border: 2px solid transparent;
-      background: white;
-      padding: 2px;
-      border-radius: 5px;
-      transition: transform 0.2s ease;
-    }
-    .thumbnail-image:hover {
-      transform: scale(1.05);
-    }
-    .thumbnail-image.active {
-      border: 2px solid #ffffff;
-    }
-    .accordion-button {
-      background-color: #ffffff !important;
-      color: #0d6efd !important;
-    }
-    .accordion-body {
-      background-color: #ffffff;
-      color: #0d6efd;
-    }
-    .alert-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.7);
-      z-index: 1050;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .alert-box {
-      background: white;
-      color: black;
-      padding: 30px;
-      border-radius: 10px;
-      text-align: center;
-    }
-    .toast-container {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      z-index: 9999;
-    }
-    .toast {
-      background-color: #0f5132;
-      color: #fff;
-      padding: 10px 20px;
-      border-radius: 5px;
-      margin-top: 10px;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-    }
-    .toast small {
-      display: block;
-      font-size: 0.75em;
-      opacity: 0.8;
-      margin-top: 2px;
-    }
-.footer-description{
-    color: black;
+
+/* KHUNG ẢNH CHÍNH */
+.main-image-wrapper {
+    background: white;
+    border-radius: 18px;
+    padding: 20px;
+    border: 1px solid #ececec;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 500px;
+}
+
+/* ẢNH CHÍNH */
+.main-product-image {
+    max-height: 100%;
+    object-fit: contain;
+    transition: 0.3s ease;
+}
+
+/* DANH SÁCH THUMBNAIL */
+.thumbnail-list {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+/* MỖI THUMBNAIL */
+.thumbnail-item {
+    width: 80px;
+    height: 80px;
+    border-radius: 12px;
+    border: 1px solid #e5e7eb;
+    background: white;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    padding: 5px;
+}
+
+.thumbnail-item:hover {
+    border-color: #d70018;
+    transform: translateY(-2px);
+}
+
+/* ẢNH THUMBNAIL */
+.thumbnail-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* ACTIVE */
+.thumbnail-item.active {
+    border: 2px solid #d70018;
+}
+
+.main-product-image:hover {
+    transform: scale(1.08);
+}
+
+
+
+/* NAVBAR */
+.navbar {
+    background: #111010 !important;
+}
+
+.navbar .nav-link,
+.navbar .navbar-brand {
+    color: white !important;
+}
+
+/* SEARCH */
+.search-box {
+    border: none;
+    border-radius: 8px;
+    padding: 10px 15px;
+    width: 350px;
+    outline: none;
+}
+
+/* CARD ẢNH */
+.product-img {
+    background: white;
+    border-radius: 12px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.product-img:hover {
+    transform: translateY(-3px);
+}
+
+/* KHUNG ẢNH */
+.border.rounded-3 {
+    border: 1px solid #eee !important;
+    border-radius: 14px !important;
+    transition: 0.2s;
+}
+
+.border.rounded-3:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+/* ACCORDION */
+.accordion-item {
+    border-radius: 12px !important;
+    overflow: hidden;
+    margin-bottom: 12px;
+    border: 1px solid #e5e7eb;
+}
+
+.accordion-button {
+    background: white !important;
+    color: #222 !important;
+    font-weight: 600;
+}
+
+.accordion-button:not(.collapsed) {
+    background: #fff5f5 !important;
+    color: #d70018 !important;
+}
+
+.accordion-body {
+    background: white;
+    color: #333;
+}
+
+/* GIÁ */
+#price {
+    color: #d70018;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+/* INPUT SỐ LƯỢNG */
+#quantity {
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    color: #d70018 !important;
+    font-weight: bold;
+}
+
+/* BUTTON */
+.btn-outline-primary {
+    border-color: #d70018;
+    color: #d70018;
+    border-radius: 10px;
+    font-weight: 600;
+}
+
+.btn-outline-primary:hover {
+    background: #d70018;
+    color: white;
+}
+
+.btn-success {
+    background: #d70018;
+    border: none;
+    border-radius: 10px;
+    font-weight: bold;
+}
+
+.btn-success:hover {
+    background: #b80014;
+}
+
+/* MODAL */
+.modal-content {
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+/* ALERT */
+.alert-box {
+    background: white;
+    color: #222;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
+
+/* FOOTER */
+.footer {
+    background: white !important;
+    border-top: 1px solid #eee;
+}
+
+.footer-description {
+    color: #555;
+}
+
+/* TITLE */
+#title {
+    color: #222;
+    font-weight: bold;
+}
+
+/* CHI TIẾT */
+.accordion-body ul li {
+    margin-bottom: 8px;
+    color: #444;
+}
+
+/* SHADOW KHUNG CHÍNH */
+.container .row {
+    background: white;
+    padding: 24px;
+    border-radius: 18px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
 }

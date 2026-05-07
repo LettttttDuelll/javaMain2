@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-
 <head>
     <meta charset="UTF-8">
     <title>Chi tiết sản phẩm</title>
@@ -77,18 +76,29 @@
     <h3 id="title" class="mb-4 text-center" th:text="${laptop.name}"></h3>
     <div class="row">
         <!-- Hiển thị ảnh sản phẩm kiểu Tiki/Lazada -->
-        <div class="container my-4">
-            <div class="row row-cols-2 row-cols-md-4 g-3">
-                <div class="col" th:each="imgUrl, iterStat : ${laptop.imageList}">
-                    <div class="border rounded-3 shadow-sm p-2 bg-white h-100">
-                        <img th:src="${imgUrl}"
-                             class="img-fluid rounded product-img"
-                             th:alt="'Ảnh ' + ${iterStat.index + 1}"
-                             th:attr="data-bs-toggle='modal', data-bs-target='#imageModal', data-img=${imgUrl}" />
-                    </div>
+        <div class="col-lg-6">
+
+            <!-- ẢNH CHÍNH -->
+            <div class="main-image-wrapper mb-3">
+                <img id="mainImage"
+                    th:src="${laptop.getFirstImageUrl()}"
+                    class="img-fluid main-product-image"
+                    alt="Ảnh sản phẩm">
+            </div>
+
+            <!-- DANH SÁCH THUMBNAIL -->
+            <div class="thumbnail-list">
+                <div class="thumbnail-item"
+                    th:each="imgUrl, iterStat : ${laptop.imageList}">
+
+                    <img th:src="${imgUrl}"
+                        class="thumbnail-image"
+                        th:attr="data-img=${imgUrl}" />
                 </div>
             </div>
+
         </div>
+
         <!-- Modal hiển thị ảnh phóng to -->
         <div class="modal fade" id="imageModal" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-lg">
@@ -197,15 +207,14 @@
 
                 </strong>
             </p>
-        </div>
 
-        <div class="product-quantity mb-3">
+                    <div class="product-quantity mb-3">
             <label for="quantity" class="form-label">Số lượng:</label>
             <div class="d-flex align-items-center">
-                <button class="btn btn-outline-light px-3" onclick="changeQuantity(-1)">-</button>
+                <button class="btn btn-outline-secondary px-3" onclick="changeQuantity(-1)">-</button>
                 <input type="number" id="quantity" class="form-control text-center mx-2" value="1" min="1"
                        style="width: 80px; color: red;" />
-                <button class="btn btn-outline-light px-3" onclick="changeQuantity(1)">+</button>
+                <button class="btn btn-outline-secondary px-3" onclick="changeQuantity(1)">+</button>
                 <span class="ms-3 text-muted">9993 sản phẩm có sẵn</span>
             </div>
             <div id="quantity-error" class="text-danger mt-1" style="display:none; font-size: 0.9em;"></div>
@@ -214,6 +223,10 @@
             <button class="btn btn-outline-primary" th:onclick="'addToCart(' + ${laptop.id} + ')'">Thêm vào giỏ hàng</button>
             <button class="btn btn-success" th:onclick="'buyNow(' + ${laptop.id} + ')'">Mua ngay</button>
         </div>
+        
+        </div>
+
+
     </div>
 </div>
 </div>
@@ -249,17 +262,30 @@
 </script>
 <!-- Xử lý hiển thị ảnh modal -->
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const modalImage = document.getElementById('modalImage');
-        const productImages = document.querySelectorAll('.product-img');
+    ddocument.addEventListener("DOMContentLoaded", function () {
 
-        productImages.forEach(img => {
-            img.addEventListener('click', function () {
-                const imageUrl = this.getAttribute('data-img');
-                modalImage.src = imageUrl;
-            });
+    const mainImage = document.getElementById("mainImage");
+    const thumbnails = document.querySelectorAll(".thumbnail-image");
+    const thumbnailItems = document.querySelectorAll(".thumbnail-item");
+
+    thumbnails.forEach((thumb, index) => {
+
+        thumb.addEventListener("click", function () {
+
+            const newSrc = this.getAttribute("data-img");
+
+            mainImage.src = newSrc;
+
+            thumbnailItems.forEach(item =>
+                item.classList.remove("active")
+            );
+
+            thumbnailItems[index].classList.add("active");
         });
+
     });
+
+});
 </script>
 
 <!-- Các hàm logic tương tác -->
