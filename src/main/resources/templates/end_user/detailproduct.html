@@ -215,7 +215,7 @@
                 <input type="number" id="quantity" class="form-control text-center mx-2" value="1" min="1"
                        style="width: 80px; color: red;" />
                 <button class="btn btn-outline-secondary px-3" onclick="changeQuantity(1)">+</button>
-                <span class="ms-3 text-muted">9993 sản phẩm có sẵn</span>
+                <span>Số lượng</span><span class="ms-3 text-muted" th:text="${laptop.stock}"></span>
             </div>
             <div id="quantity-error" class="text-danger mt-1" style="display:none; font-size: 0.9em;"></div>
         </div>
@@ -223,7 +223,7 @@
             <button class="btn btn-outline-primary" th:onclick="'addToCart(' + ${laptop.id} + ')'">Thêm vào giỏ hàng</button>
             <button class="btn btn-success" th:onclick="'buyNow(' + ${laptop.id} + ')'">Mua ngay</button>
         </div>
-        
+
         </div>
 
 
