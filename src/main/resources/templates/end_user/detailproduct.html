@@ -215,7 +215,7 @@
                 <input type="number" id="quantity" class="form-control text-center mx-2" value="1" min="1"
                        style="width: 80px; color: red;" />
                 <button class="btn btn-outline-secondary px-3" onclick="changeQuantity(1)">+</button>
-                <span>Số lượng</span><span class="ms-3 text-muted" th:text="${laptop.stock}"></span>
+                <span> Số lượng: </span><span class="ms-3 text-muted" th:text="${laptop.stock}"></span>
             </div>
             <div id="quantity-error" class="text-danger mt-1" style="display:none; font-size: 0.9em;"></div>
         </div>
@@ -327,7 +327,7 @@
         fetch('/cart/api/add', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ productId: productId, quantity: 1 })
+            body: JSON.stringify({ productId: productId, quantity: quantity })
         }).then(res => {
             if (res.ok) alert("Đã thêm vào giỏ hàng");
             else alert("Thêm giỏ hàng thất bại");

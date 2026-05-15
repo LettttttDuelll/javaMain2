@@ -80,7 +80,7 @@ public class AuthController {
         ));
     }
     @PostMapping("/logout")
-public ResponseEntity<?> logout(HttpServletRequest request, HttpServletResponse response) {
+    public ResponseEntity<?> logout(HttpServletRequest request, HttpServletResponse response) {
     // Huỷ session hiện tại
     HttpSession session = request.getSession(false);
     if (session != null) {

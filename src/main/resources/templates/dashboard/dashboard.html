@@ -101,12 +101,35 @@
                     <span>Dashboard</span>
                 </a>
             </li>
+
             <li class="nav-item">
                 <a class="nav-link " th:href="@{/admin/orderList}">
-                    <i class="bi bi-cart"></i>
+                    <i class="bi bi-bag-check"></i>
                     <span>Quản lý Đơn Hàng </span>
                 </a>
             </li>
+
+            <li class="nav-item">
+                <a class="nav-link " th:href="@{/admin/vouchers}">
+                    <i class="bi bi-ticket-perforated"></i>
+                    <span>Quản lý Mã giảm giá </span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link " th:href="@{/admin/categories}">
+                    <i class="bi bi-tags"></i>
+                    <span>Quản lý Danh mục </span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link " th:href="@{/warehouse}">
+                    <i class="bi bi-boxes"></i>
+                    <span>Quản lý Tồn kho </span>
+                </a>
+            </li>
+
             <li class="nav-item">
                 <a class="nav-link [[${activeMenu == 'user'} ? '' : 'collapsed']]" data-bs-target="#components-nav"
                     data-bs-toggle="collapse" href="#">
@@ -175,121 +198,113 @@
                 </ol>
             </nav>
         </div>
-        <section class="section dashboard">
-            <div class="row ">
-                <div class="col-12">
-                    <div class="row ">
-                        <div class="col-xxl-4 col-lg-4 col-md-4">
-                            <div class="card info-card sales-card">
-                                <div class="filter">
-                                    <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                            class="bi bi-three-dots ms-2"></i></a>
-                                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                        <li class="dropdown-header text-start">
-                                            <h6>Filter</h6>
-                                        </li>
-                                        <li><a class="dropdown-item" href="#">Ngày</a></li>
-                                        <li><a class="dropdown-item" href="#">Tháng</a></li>
-                                        <li><a class="dropdown-item" href="#">Năm</a></li>
-                                    </ul>
-                                </div>
+        <div class="row mb-4">
 
-                                <div class="card-body">
-                                    <h5 class="card-title">Số lượng <span>|Ngày</span></h5>
+    <div class="col-lg-3">
+        <label>Từ ngày</label>
+        <input type="date" id="startDate" class="form-control">
+    </div>
 
-                                    <div class="d-flex align-items-center">
-                                        <div
-                                            class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                            <i class="bi bi-cart"></i>
-                                        </div>
-                                        <div class="ps-3">
-                                            <h6>145</h6>
-                                            <span class="text-success small pt-1 fw-bold">12%</span> <span
-                                                class="text-muted small pt-2 ps-1">tăng </span>
+    <div class="col-lg-3">
+        <label>Đến ngày</label>
+        <input type="date" id="endDate" class="form-control">
+    </div>
 
-                                        </div>
-                                    </div>
-                                </div>
+    <div class="col-lg-2 d-flex align-items-end">
+        <button class="btn btn-primary w-100" onclick="loadRevenue()">
+            <i class="bi bi-funnel"></i> Lọc dữ liệu
+        </button>
+    </div>
 
-                            </div>
-                        </div>
+</div>
 
+<div class="row">
 
-                        <div class="col-xxl-4 col-lg-4 col-md-4">
-                            <div class="card info-card revenue-card">
+    <div class="col-lg-4">
+        <div class="card info-card shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <i class="bi bi-cash-stack text-success"></i>
+                    Tổng doanh thu
+                </h5>
 
-                                <div class="filter">
-                                    <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                            class="bi bi-three-dots ms-2"></i></a>
-                                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                        <li class="dropdown-header text-start">
-                                            <h6>Bộ lọc </h6>
-                                        </li>
-                                        <li><a class="dropdown-item" href="#">Ngày</a></li>
-                                        <li><a class="dropdown-item" href="#">Tháng</a></li>
-                                        <li><a class="dropdown-item" href="#">Năm</a></li>
-                                    </ul>
-                                </div>
-
-                                <div class="card-body">
-                                    <h5 class="card-title">Doanh thu <span>| Tháng </span></h5>
-
-                                    <div class="d-flex align-items-center">
-                                        <div
-                                            class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                            <i class="bi bi-currency-dollar"></i>
-                                        </div>
-                                        <div class="ps-3">
-                                            <h6>$3,264</h6>
-                                            <span class="text-success small pt-1 fw-bold">8%</span> <span
-                                                class="text-muted small pt-2 ps-1">tăng</span>
-
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-
-                        <div class="col-xxl-4 col-lg-4 col-md-4">
-
-                            <div class="card info-card customers-card">
-
-                                <div class="filter">
-                                    <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                            class="bi bi-three-dots ms-2"></i></a>
-                                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                        <li class="dropdown-header text-start">
-                                            <h6>Bộ lọc</h6>
-                                        </li>
-
-                                        <li><a class="dropdown-item" href="#">Ngày</a></li>
-                                        <li><a class="dropdown-item" href="#">Tháng</a></li>
-                                        <li><a class="dropdown-item" href="#">Năm</a></li>
-                                    </ul>
-                                </div>
-
-                                <div class="card-body">
-                                    <h5 class="card-title">Khách hàng <span>| Năm </span></h5>
-
-                                    <div class="d-flex align-items-center">
-                                        <div
-                                            class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                            <i class="bi bi-people"></i>
-                                        </div>
-                                        <div class="ps-3">
-                                            <h6>1244</h6>
-                                            <span class="text-danger small pt-1 fw-bold">12%</span>
-                                            <span class="text-muted small pt-2 ps-1">giảm</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <h3 id="totalRevenue">0 VNĐ</h3>
             </div>
-        </section>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="card info-card shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <i class="bi bi-bag-check text-primary"></i>
+                    Tổng đơn hàng
+                </h5>
+
+                <h3 id="totalOrders">0</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="card info-card shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <i class="bi bi-box-seam text-warning"></i>
+                    Tổng sản phẩm bán ra
+                </h5>
+
+                <h3 id="totalProducts">0</h3>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="row mt-4">
+
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Biểu đồ doanh thu</h5>
+                <div id="revenueChart"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Tồn kho thấp</h5>
+
+                <ul class="list-group" id="lowStockList">
+
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="card mt-4">
+    <div class="card-body">
+        <h5 class="card-title">Top sản phẩm bán chạy</h5>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Sản phẩm</th>
+                    <th>Đã bán</th>
+                </tr>
+            </thead>
+
+            <tbody id="topProductsTable">
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
         <div class="col-12 mt-3">
             <div class="card">
                 
@@ -379,6 +394,211 @@
     </footer>
     <script type="module" src="node_modules/apexcharts/dist/apexcharts.js"></script>
     <script type="module" src="node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
+    <script>
+
+    function formatMoney(number) {
+        return new Intl.NumberFormat('vi-VN', {
+            style: 'currency',
+            currency: 'VND'
+        }).format(number);
+    }
+
+    async function loadRevenue() {
+
+        const start = document.getElementById("startDate").value;
+        const end = document.getElementById("endDate").value;
+
+        if (!start || !end) {
+            alert("Vui lòng chọn ngày");
+            return;
+        }
+
+        const response = await fetch(
+            `/api/dashboard/revenue?start=${start}&end=${end}`
+        );
+
+        const data = await response.json();
+
+        document.getElementById("totalRevenue").innerText =
+            formatMoney(data.totalRevenue);
+
+        document.getElementById("totalOrders").innerText =
+            data.totalOrders;
+
+        document.getElementById("totalProducts").innerText =
+            data.totalProducts;
+    }
+
+    window.onload = () => {
+
+        const today = new Date();
+
+        const firstDay = new Date(
+            today.getFullYear(),
+            today.getMonth(),
+            1
+        );
+
+        document.getElementById("startDate").value =
+            firstDay.toISOString().split("T")[0];
+
+        document.getElementById("endDate").value =
+            today.toISOString().split("T")[0];
+
+        //loadRevenue();
+        loadRevenueChart();
+    }
+
+</script>
+<script type="module">
+
+import ApexCharts from "./node_modules/apexcharts/dist/apexcharts.esm.js";
+
+let revenueChart;
+
+async function loadRevenueChart() {
+
+    const start = document.getElementById("startDate").value;
+    const end = document.getElementById("endDate").value;
+
+    const response = await fetch(
+        `/api/dashboard/revenue-chart?start=${start}&end=${end}`
+    );
+
+    const data = await response.json();
+
+    const categories = data.map(item => item.date);
+    const revenues = data.map(item => item.revenue);
+
+    // Nếu chart cũ tồn tại thì xoá
+    if (revenueChart) {
+        revenueChart.destroy();
+    }
+
+    revenueChart = new ApexCharts(
+        document.querySelector("#revenueChart"),
+        {
+            chart: {
+                type: 'line',
+                height: 300
+            },
+
+            series: [{
+                name: 'Doanh thu',
+                data: revenues
+            }],
+
+            xaxis: {
+                categories: categories
+            },
+
+            colors: ['#3b82f6']
+        }
+    );
+
+    revenueChart.render();
+}
+
+async function loadTopProducts() {
+
+    const response = await fetch("/api/dashboard/top-products");
+    const data = await response.json();
+
+    const table = document.getElementById("topProductsTable");
+
+    table.innerHTML = "";
+
+    data.slice(0,5).forEach(item => {
+
+        table.innerHTML += `
+            <tr>
+                <td>${item.productName}</td>
+                <td>${item.totalSold}</td>
+            </tr>
+        `;
+    });
+}
+
+async function loadLowStock() {
+
+    const response = await fetch("/api/dashboard/low-stock");
+    const data = await response.json();
+
+    const list = document.getElementById("lowStockList");
+
+    list.innerHTML = "";
+
+    data.forEach(item => {
+
+        list.innerHTML += `
+            <li class="list-group-item d-flex justify-content-between">
+                <span>${item.name}</span>
+                <span class="badge bg-danger">
+                    ${item.stock}
+                </span>
+            </li>
+        `;
+    });
+}
+
+// Gọi khi bấm nút lọc
+window.loadRevenue = async function () {
+
+    const start = document.getElementById("startDate").value;
+    const end = document.getElementById("endDate").value;
+
+    if (!start || !end) {
+        alert("Vui lòng chọn ngày");
+        return;
+    }
+
+    // load thống kê
+    const response = await fetch(
+        `/api/dashboard/revenue?start=${start}&end=${end}`
+    );
+
+    const data = await response.json();
+
+    document.getElementById("totalRevenue").innerText =
+        new Intl.NumberFormat('vi-VN', {
+            style: 'currency',
+            currency: 'VND'
+        }).format(data.totalRevenue);
+
+    document.getElementById("totalOrders").innerText =
+        data.totalOrders;
+
+    document.getElementById("totalProducts").innerText =
+        data.totalProducts;
+
+    // reload chart
+    await loadRevenueChart();
+};
+
+window.addEventListener("load", async () => {
+
+    const today = new Date();
+
+    const firstDay = new Date(
+        today.getFullYear(),
+        today.getMonth(),
+        1
+    );
+
+    document.getElementById("startDate").value =
+        firstDay.toISOString().split("T")[0];
+
+    document.getElementById("endDate").value =
+        today.toISOString().split("T")[0];
+
+    await loadRevenue();
+
+    loadTopProducts();
+    loadLowStock();
+});
+
+</script>
+
 </body>
 
 </html>

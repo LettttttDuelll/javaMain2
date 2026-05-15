@@ -5,6 +5,33 @@
     transition: all 1s ease;
 }
 
+.info-card {
+    border: none;
+    border-radius: 15px;
+    background: #ffffff;
+    transition: 0.3s;
+}
+
+.info-card:hover {
+    transform: translateY(-5px);
+}
+
+.info-card .card-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.info-card h3 {
+    font-size: 28px;
+    font-weight: 700;
+    color: #212529;
+}
+
+body {
+    background-color: #f5f7fb;
+}
+
 a {
     text-decoration: none;
 }
@@ -91,7 +118,6 @@ ul {
     bottom: 0;
     z-index: 800;
     background-color: antiquewhite;
-    border: 3px solid #f1f1f1;
     overflow-y: auto;
     scrollbar-width: thin;
     scrollbar-color: #f1f1f1 transparent;
@@ -106,6 +132,7 @@ ul {
     margin: 0px;
 
 }
+
 #components-nav {
     padding: 10px;
     margin: 0px auto;
@@ -203,28 +230,24 @@ main {
     margin-left: 250px;
     padding: 20px;
     transition: all 1s ease;
-    
+
 }
+
 .card {
-    box-shadow: 6px 6px 12px rgba(0, 0, 0, 0.1);
-    background: linear-gradient(45deg,#00ffee, #0048ff);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    background: #fff;
+    border-radius: 12px;
+    border: 1px solid #eee;
 }
-.info-card{
+
+.info-card {
     margin-bottom: 10px;
 }
+
 .card::before {
-    content: "";
-    position: absolute;
-    top: -3px;
-    left: -3px;
-    right: -3px;
-    bottom: -3px;
-    border-radius: 10px;
-    background: linear-gradient(90deg, #ff0000, #ff7300, #ffeb00, #47ff00, #00ffee, #0048ff, #a200ff, #ff00a2);
-    z-index: -1;
-    background-size: 400% 400%;
-    animation: borderAnimation 3s linear infinite;
+    display: none;
 }
+
 @keyframes borderAnimation {
     0% {
         background-position: 0% 50%;
@@ -238,9 +261,11 @@ main {
         background-position: 0% 50%;
     }
 }
-.dropdown-item i{
-    margin-right:10px;
+
+.dropdown-item i {
+    margin-right: 10px;
 }
+
 @media screen and (max-width: 768px) {
     .sidebar {
         width: 0;
@@ -257,6 +282,7 @@ main {
     display: inline-block;
     cursor: pointer;
 }
+
 .avatar {
     width: 150px;
     height: 150px;
@@ -266,59 +292,62 @@ main {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     transition: 0.3s;
 }
+
 .avatar:hover {
     opacity: 0.8;
 }
-#imageUrl{
-    display : none;
+
+#imageUrl {
+    display: none;
 }
+
 .add-image-box {
-        width: 120px;
-        height: 120px;
-        border: 2px dashed #ccc;
-        border-radius: 8px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        background-color: #f9f9f9;
-        transition: border-color 0.3s;
-    }
+    width: 120px;
+    height: 120px;
+    border: 2px dashed #ccc;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background-color: #f9f9f9;
+    transition: border-color 0.3s;
+}
 
-    .add-image-box:hover {
-        border-color: #007bff;
-    }
+.add-image-box:hover {
+    border-color: #007bff;
+}
 
-    .plus-icon {
-        font-size: 36px;
-        color: #999;
-    }
+.plus-icon {
+    font-size: 36px;
+    color: #999;
+}
 
-    .image-wrapper {
-        position: relative;
-        width: 120px;
-        height: 120px;
-    }
+.image-wrapper {
+    position: relative;
+    width: 120px;
+    height: 120px;
+}
 
-    .preview-img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        border-radius: 8px;
-        border: 1px solid #ccc;
-    }
+.preview-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
 
-    .remove-btn {
-        position: absolute;
-        top: -8px;
-        right: -8px;
-        background: red;
-        color: white;
-        border-radius: 50%;
-        width: 20px;
-        height: 20px;
-        text-align: center;
-        line-height: 20px;
-        font-size: 14px;
-        cursor: pointer;
-    }
+.remove-btn {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: red;
+    color: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    line-height: 20px;
+    font-size: 14px;
+    cursor: pointer;
+}

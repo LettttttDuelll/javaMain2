@@ -31,4 +31,6 @@ public interface LaptopRepository extends JpaRepository<Laptop,Long> {
     AND l.deleted = false AND l.current_price > 0
     """)
     List<Laptop> searchByKeyword(@Param("keyword") String keyword);
+
+    List<Laptop> findTop5ByStockLessThanAndDeletedFalse(Integer stock);
 }

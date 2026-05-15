@@ -45,7 +45,102 @@
         }
     </style>
 </head>
+<aside id="sidebar" class="sidebar">
+        <ul class="sidebar-nav" id="sidebar-nav">
 
+            <li class="nav-item">
+                <a class="nav-link " th:href="@{/dashboard}">
+                    <i class="bi bi-grid"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link " th:href="@{/admin/orderList}">
+                    <i class="bi bi-bag-check"></i>
+                    <span>Quản lý Đơn Hàng </span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link " th:href="@{/admin/vouchers}">
+                    <i class="bi bi-ticket-perforated"></i>
+                    <span>Quản lý Mã giảm giá </span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link " th:href="@{/admin/categories}">
+                    <i class="bi bi-tags"></i>
+                    <span>Quản lý Danh mục </span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link " th:href="@{/warehouse}">
+                    <i class="bi bi-boxes"></i>
+                    <span>Quản lý Tồn kho </span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link [[${activeMenu == 'user'} ? '' : 'collapsed']]" data-bs-target="#components-nav"
+                    data-bs-toggle="collapse" href="#">
+                    <i class="bi bi-people"></i><span>Quản lí danh sách</span><i class="bi bi-chevron-down ms-3"></i>
+                </a>
+                <ul id="components-nav" class="nav-content collapse [[${activeMenu == 'user'} ? 'show' : '']]"
+                    data-bs-parent="#sidebar-nav">
+                    <li>
+                        <a th:href="@{/user_list}" th:classappend="${activeMenu == 'user'} ? 'active'">
+                            <i class="bi bi-person"></i><span>người sử dụng</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" data-bs-target="#product-nav" data-bs-toggle="collapse" href="#">
+                    <i class="bi bi-box-seam"></i><span>Quản lí sản phẩm</span><i class="bi bi-chevron-down ms-3"></i>
+                </a>
+
+                <ul id="product-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                    <li>
+                        <a th:href="@{/productList}">
+                            <i class="bi bi-collection"></i><span>Danh sách</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a th:href="@{/bin}">
+                            <i class="bi bi-trash"></i><span>Thùng rác</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" data-bs-target="#support-nav" data-bs-toggle="collapse" href="#">
+                    <i class="bi bi-telephone"></i><span>Liên hệ & hỗ trợ </span><i class="bi bi-chevron-down ms-3"></i>
+                </a>
+
+                <ul id="support-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+
+                    <li>
+                        <a href="add.html">
+                            <i class="bi bi-envelope"></i><span>Hộp thư</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="grant-permission.html">
+                            <i class="bi bi-telephone-fill"></i><span>Tổng đài</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="bin.html">
+                            <i class="bi bi-shield-check"></i><span>Chính sách bảo hành</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </aside>
 <body>
 
 <div class="container mt-5">
@@ -387,6 +482,5 @@
         $('.toast').toast('hide');
     }, 2500);
 </script>
-
 </body>
 </html>
