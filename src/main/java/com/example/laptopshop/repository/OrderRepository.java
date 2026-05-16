@@ -57,5 +57,6 @@ List<Object[]> getRevenueByDate(
         @Param("endDate") LocalDateTime endDate
 );
 
+List<Order> findByUserIdOrderByOrderDateDesc(Long userId);
 }
 

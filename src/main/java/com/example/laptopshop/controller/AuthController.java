@@ -79,22 +79,22 @@ public class AuthController {
                 "role", user.getRoles()
         ));
     }
-    @PostMapping("/logout")
-    public ResponseEntity<?> logout(HttpServletRequest request, HttpServletResponse response) {
+    //@PostMapping("/logout")
+    //public ResponseEntity<?> logout(HttpServletRequest request, HttpServletResponse response) {
     // Huỷ session hiện tại
-    HttpSession session = request.getSession(false);
-    if (session != null) {
-        session.invalidate(); // Hủy session
-    }
+    //HttpSession session = request.getSession(false);
+    //if (session != null) {
+    //    session.invalidate(); // Hủy session
+    //}
 
     // Xoá cookie JSESSIONID (optional)
-    Cookie cookie = new Cookie("JSESSIONID", null);
-    cookie.setPath("/");
-    cookie.setHttpOnly(true);
-    cookie.setMaxAge(0); // Xoá cookie
-    response.addCookie(cookie);
+    //Cookie cookie = new Cookie("JSESSIONID", null);
+    //cookie.setPath("/");
+    //cookie.setHttpOnly(true);
+    //cookie.setMaxAge(0); // Xoá cookie
+    //response.addCookie(cookie);
 
-    return ResponseEntity.ok(Map.of("message", "Đăng xuất thành công!"));
-}
+    //return ResponseEntity.ok(Map.of("message", "Đăng xuất thành công!"));
+//}
 
 }

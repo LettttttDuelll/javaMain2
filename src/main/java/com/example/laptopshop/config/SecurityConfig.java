@@ -53,6 +53,15 @@ public class SecurityConfig {
                         //.successHandler(customSuccessHandler)
                 //)
                 .csrf(AbstractHttpConfigurer::disable)
+
+                .logout(logout -> logout
+        .logoutUrl("/logout")
+        .logoutSuccessUrl("/home")
+        .invalidateHttpSession(true)
+        .deleteCookies("JSESSIONID")
+        .permitAll()
+)
+
                 .build();
     }
     @Bean
