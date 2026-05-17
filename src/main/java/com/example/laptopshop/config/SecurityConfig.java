@@ -21,7 +21,7 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity https) throws Exception {
         return https.
                 authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/custom-login", "/login/**", "/register", "/oauth2/authorization/**","/products/**","/api/v1/laptops/laptop/**","/api/chat/**",
+                        .requestMatchers("/", "/custom-login", "/login/**", "/register", "/oauth2/authorization/**","/products/**","/api/v1/laptops/laptop/**","/api/chat/**","/search/**",
                                 "/custom-login/oauth2/code/**","/css/**" , "/img/**","/node_modules/**" , "/home/**" , "/assets/**" , "/js/**" ,"/uploads/**" ,"/cart/**","/detailproduct/**" ,"/laptop_img/**").permitAll()
                         .requestMatchers("/api/v1/users").hasAnyRole("ADMIN","MANAGER")
                         .requestMatchers("/api/v1/laptops").hasAnyRole("ADMIN","MANAGER")

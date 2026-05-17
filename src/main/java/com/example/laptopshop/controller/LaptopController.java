@@ -97,4 +97,41 @@ public class LaptopController {
 
     return ResponseEntity.ok("Updated");
 }
+
+@GetMapping("/search")
+public ResponseEntity<List<Laptop>> searchLaptop(
+        @RequestParam(required = false) String keyword,
+        @RequestParam(required = false) String brand,
+        @RequestParam(required = false) Double minPrice,
+        @RequestParam(required = false) Double maxPrice,
+        @RequestParam(required = false) String sort
+) {
+
+    List<Laptop> laptops = laptopRepository.searchAndFilter(
+            keyword,
+            brand,
+            minPrice,
+            maxPrice
+    );
+
+    // SORT
+    if ("priceAsc".equals(sort)) {
+        laptops.sort((a,b) ->
+                Double.compare(a.getCurrent_price(), b.getCurrent_price()));
+    }
+    else if ("priceDesc".equals(sort)) {
+        laptops.sort((a,b) ->
+                Double.compare(b.getCurrent_price(), a.getCurrent_price()));
+    }
+    else if ("nameAsc".equals(sort)) {
+        laptops.sort((a,b) ->
+                a.getName().compareToIgnoreCase(b.getName()));
+    }
+    else if ("nameDesc".equals(sort)) {
+        laptops.sort((a,b) ->
+                b.getName().compareToIgnoreCase(a.getName()));
+    }
+
+    return ResponseEntity.ok(laptops);
+}
 }

@@ -27,10 +27,41 @@ public interface LaptopRepository extends JpaRepository<Laptop,Long> {
 
     @Query("""
     SELECT l FROM Laptop l
-    WHERE lower(l.name) LIKE lower(concat('%', :keyword, '%'))
-    AND l.deleted = false AND l.current_price > 0
+    WHERE l.deleted = false AND l.current_price > 0
+    AND (lower(l.name) LIKE lower(concat('%', :keyword, '%'))
+        OR lower(l.model) LIKE lower(concat('%', :keyword, '%'))
+        OR lower(l.category.name) LIKE lower(concat('%', :keyword, '%')))
     """)
     List<Laptop> searchByKeyword(@Param("keyword") String keyword);
 
-    List<Laptop> findTop5ByStockLessThanAndDeletedFalse(Integer stock);
+    List<Laptop> findTop5ByStockLessThanAndDeletedFalse(Integer stock); 
+
+    @Query("""
+SELECT l FROM Laptop l
+WHERE l.deleted = false
+AND (
+    :keyword IS NULL
+    OR lower(l.name) LIKE lower(concat('%', :keyword, '%'))
+)
+AND (
+    :brand IS NULL
+    OR lower(l.model) = lower(:brand)
+)
+AND (
+    :minPrice IS NULL
+    OR l.current_price >= :minPrice
+)
+AND (
+    :maxPrice IS NULL
+    OR l.current_price <= :maxPrice
+)
+""")
+List<Laptop> searchAndFilter(
+        @Param("keyword") String keyword,
+        @Param("brand") String brand,
+        @Param("minPrice") Double minPrice,
+        @Param("maxPrice") Double maxPrice
+);
+
+
 }

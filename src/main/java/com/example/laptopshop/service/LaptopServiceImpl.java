@@ -266,5 +266,8 @@ public class LaptopServiceImpl implements LaptopService{
         }).collect(Collectors.toList());
     }
 
+    public List<Laptop> searchLaptop(String keyword) {
+        return laptopRepository.searchByKeyword(keyword);
+    }
 
 }

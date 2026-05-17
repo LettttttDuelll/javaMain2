@@ -1,47 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="utf-8">
-    <title>Trang chủ</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" th:href="@{/favicon.ico}">
-
-    <!-- Local CSS -->
-    <link rel="stylesheet" th:href="@{css/home.css}">
-
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-
-    <!-- Bootstrap JS Bundle -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
-    <!-- Owl Carousel CSS -->
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-    <!-- jQuery + Owl Carousel JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
-
-    <style>
-        body {
-            background: #faf9ff;
-        }
-    </style>
-
+    <title>Kết quả tìm kiếm</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+          rel="stylesheet">
 </head>
-
 <body>
-<div class="toast-container"></div>
 <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-dark">
         <div class="container">
@@ -133,316 +97,134 @@
         </div>
     </nav>
 </header>
-<section class="banner-laptop">
-    <div class="banner-content">
-        <h1>Chọn laptop hoàn hảo cho bạn</h1>
-        <p>Hãy để chúng tôi giúp bạn tìm được chiếc laptop phù hợp nhất</p>
-        <button>MUA NGAY</button>
-    </div>
-    <div class="banner-image">
-        <img th:src="@{https://cdn.tgdd.vn/Products/Images/44/289472/apple-macbook-air-m2-2022-16gb-256gb-1-2-750x500.jpg}"
-             alt="Laptop Image" />
-    </div>
-</section>
-<div class="container">
-    <section class="custom-banner">
-        <div class="slider-container owl-carousel owl-theme">
-            <div class="banner-item">
-                <a th:href="@{https://example.com/link1}" target="_blank" rel="nofollow">
-                    <img th:src="@{https://cdnv2.tgdd.vn/mwg-static/tgdd/Banner/82/8a/828aee5818229c8512f373520909b4bb.png}"
-                         alt="Banner 1" />
-                </a>
-            </div>
-            <div class="banner-item">
-                <a th:href="@{https://example.com/link2}" target="_blank" rel="nofollow">
-                    <img th:src="@{https://cdnv2.tgdd.vn/mwg-static/tgdd/Banner/61/63/61633d2c813b88b9cee25e7cd84ac923.png}"
-                         alt="Banner 2" />
-                </a>
-            </div>
-            <div class="banner-item">
-                <a th:href="@{https://example.com/link3}" target="_blank" rel="nofollow">
-                    <img th:src="@{https://cdnv2.tgdd.vn/mwg-static/tgdd/Banner/b2/83/b283533b3a31e2d02509f37b04b15a4f.png}"
-                         alt="Banner 3" />
-                </a>
-            </div>
-            <div class="banner-item">
-                <a th:href="@{https://example.com/link3}" target="_blank" rel="nofollow">
-                    <img th:src="@{https://cdnv2.tgdd.vn/mwg-static/tgdd/Banner/b2/83/b283533b3a31e2d02509f37b04b15a4f.png}"
-                         alt="Banner 3" />
-                </a>
-            </div>
-            <div class="banner-item">
-                <a th:href="@{https://example.com/link3}" target="_blank" rel="nofollow">
-                    <img th:src="@{https://cdnv2.tgdd.vn/mwg-static/tgdd/Banner/b2/83/b283533b3a31e2d02509f37b04b15a4f.png}"
-                         alt="Banner 3" />
-                </a>
-            </div>
-            <!-- Thêm banner-item tùy ý -->
-        </div>
-    </section>
-    <script>
-        $(document).ready(function () {
-            $('.slider-container').owlCarousel({
-                items: 2,               // Hiển thị 2 ảnh mỗi lần
-                loop: true,
-                margin: 10,
-                autoplay: true,
-                autoplayTimeout: 3000,
-                autoplayHoverPause: true,
-                responsive: {
-                    0: {
-                        items: 1
-                    },
-                    768: {
-                        items: 2
-                    }
-                }
-            });
-        });
-    </script>
-    <!-- Tìm kiếm và bộ lọc -->
-    <div class="search-box">
-        <div class="filter-bar container-fluid d-flex flex-wrap justify-content-between align-items-center mb-4">
-            <div class="filter-item">
-                <label for="brand-select" class="form-label fw-bold">Hãng:</label>
-                <select id="brand-select" class="form-select">
-                    <option selected disabled>Chọn hãng</option>
-                    <option>Tất cả</option>
-                    <option>ACER</option>
-                    <option>ASUS</option>
-                    <option>DELL</option>
-                    <option>LENOVO</option>
-                </select>
-            </div>
+<div class="container mt-4">
 
-            <div class="filter-item">
-                <label for="price-select" class="form-label fw-bold">Mức giá:</label>
-                <select id="price-select" class="form-select">
-                    <option selected disabled>Chọn mức giá</option>
-                    <option>Tất cả</option>
-                    <option>Dưới 10 triệu</option>
-                    <option>10 - 20 triệu</option>
-                    <option>20 - 30 triệu</option>
-                    <option>Trên 30 triệu</option>
-                </select>
-            </div>
+    <h3>
+        Kết quả cho:
+        <span th:text="${keyword}"></span>
+    </h3>
 
-            <div class="filter-item">
-                <label for="sort-select" class="form-label fw-bold">Ưu tiên:</label>
-                <select id="sort-select" class="form-select">
-                    <option selected disabled>Sắp xếp theo</option>
-                    <option>Tất cả</option>
-                    <option>Tên A → Z</option>
-                    <option>Tên Z → A</option>
-                    <option>Giá tăng dần</option>
-                    <option>Giá giảm dần</option>
-                </select>
-            </div>
-        </div>
-    </div>
-    <div id="hidden-products" style="display: none;">
-        <div class="product" th:each="product : ${products}" th:attr="data-id=${product.id},
-                  data-name=${product.name},
-                  data-price=${product.current_price},
-                  data-img=${product.firstImageUrl}">
-        </div>
-    </div>
+    <!-- SORT -->
+    <form method="get" th:action="@{/search}" class="mb-3">
+        <input type="hidden"
+               name="keyword"
+               th:value="${keyword}">
+
+        <select name="sort"
+                onchange="this.form.submit()"
+                class="form-select w-25">
+
+            <option value="">Sắp xếp</option>
+
+            <option value="priceAsc"
+                    th:selected="${sort=='priceAsc'}">
+                Giá tăng
+            </option>
+
+            <option value="priceDesc"
+                    th:selected="${sort=='priceDesc'}">
+                Giá giảm
+            </option>
+
+            <option value="nameAsc"
+                    th:selected="${sort=='nameAsc'}">
+                Tên A-Z
+            </option>
+
+        </select>
+    </form>
+
+    <!-- PRODUCTS -->
     <div class="row" id="product-container">
 
+    <div class="col-md-3 mb-4 product-card"
+         th:each="p : ${products}"
+         style="display:none;">
+
+        <div class="card h-100 shadow-sm">
+
+            <img th:src="${p.firstImageUrl}"
+                 class="card-img-top"
+                 style="height:220px; object-fit:cover;">
+
+            <div class="card-body d-flex flex-column">
+
+                <!-- TÊN -->
+                <h5 class="card-title"
+                    th:text="${p.name}">
+                </h5>
+
+                <!-- GIÁ -->
+                <p class="text-danger fw-bold mt-auto"
+                   th:text="${#numbers.formatDecimal(p.current_price,0,'COMMA',0,'POINT')} + ' đ'">
+                </p>
+
+                <!-- CHI TIẾT -->
+                <a th:href="@{/detailproduct(id=${p.id})}"
+                   class="btn btn-primary w-100">
+                    Xem chi tiết
+                </a>
+
+            </div>
+        </div>
+
     </div>
-    <div class="text-center mt-4">
-        <button id="loadMoreBtn" class="btn btn-outline-primary">Xem thêm</button>
-    </div>
-
-    <!-- CHAT BUTTON -->
-    <div id="chat-toggle">💬</div>
-
-    <!-- CHAT BOX -->
-    <div id="chat-box">
-        <div id="chat-header">
-            <span>💻 Tư vấn Laptop AI</span>
-            <button id="close-chat">✖</button>
-        </div>
-
-        <div id="chat-messages"></div>
-
-        <div id="quick-questions">
-            <button onclick="sendQuick('Laptop gaming 20 triệu')">Gaming 20tr</button>
-            <button onclick="sendQuick('Laptop học IT')">Học IT</button>
-            <button onclick="sendQuick('Laptop văn phòng nhẹ')">Văn phòng</button>
-        </div>
-
-        <div id="chat-input-area">
-            <input type="text" id="chat-input" placeholder="Nhập câu hỏi...">
-            <button onclick="sendMessage()">Gửi</button>
-        </div>
 
 </div>
+
+<!-- button -->
+<div class="text-center mt-4"
+     th:if="${!#lists.isEmpty(products)}">
+
+    <button id="loadMoreBtn"
+            class="btn btn-outline-primary">
+        Xem thêm
+    </button>
+
+</div>
+
+    <!-- empty -->
+    <div th:if="${#lists.isEmpty(products)}"
+         class="alert alert-warning">
+
+        Không tìm thấy sản phẩm phù hợp.
+    </div>
+
+</div>
+
 <script>
-document.addEventListener("DOMContentLoaded", function () {
 
-    const toggle = document.getElementById("chat-toggle");
-    const box = document.getElementById("chat-box");
-    const closeBtn = document.getElementById("close-chat");
-    const messages = document.getElementById("chat-messages");
+    const cards =
+        document.querySelectorAll('.product-card');
 
-    toggle.onclick = () => box.style.display = "flex";
-    closeBtn.onclick = () => box.style.display = "none";
+    const loadBtn =
+        document.getElementById('loadMoreBtn');
 
-    loadHistory();
+    let visible = 16;
 
-    function addMessage(text,type){
-        const div=document.createElement("div");
-        div.className="msg "+type;
-        div.innerText=text;
-        messages.appendChild(div);
-        messages.scrollTop=messages.scrollHeight;
-        saveHistory();
-    }
+    function showProducts() {
 
-    window.sendQuick=function(text){
-        document.getElementById("chat-input").value=text;
-        sendMessage();
-    }
+        for(let i=0;i<visible && i<cards.length;i++) {
+            cards[i].style.display = 'block';
+        }
 
-    window.sendMessage=async function(){
-
-        const input=document.getElementById("chat-input");
-        const text=input.value.trim();
-
-        if(!text) return;
-
-        addMessage(text,"user");
-        input.value="";
-
-        addMessage("Đang suy nghĩ...","bot");
-
-        const loading = messages.lastChild;
-
-        const res = await fetch("/api/chat",{
-            method:"POST",
-            headers:{
-                "Content-Type":"application/json"
-            },
-            body:JSON.stringify({
-                message:text
-            })
-        });
-
-        const data = await res.json();
-
-        loading.remove();
-
-        addMessage(data.reply,"bot");
-    }
-
-    document.getElementById("chat-input")
-    .addEventListener("keypress",function(e){
-        if(e.key==="Enter") sendMessage();
-    });
-
-    function saveHistory(){
-        localStorage.setItem("chatHistory",messages.innerHTML);
-    }
-
-    function loadHistory(){
-        const data=localStorage.getItem("chatHistory");
-        if(data) messages.innerHTML=data;
-    }
-
-});
-</script>
-<script>
-    const allProducts = Array.from(document.querySelectorAll('#hidden-products .product')).map(p => ({
-        id: p.dataset.id,
-        name: p.dataset.name,
-        price: p.dataset.price,
-        img: p.dataset.img
-    }));
-
-    const container = document.getElementById('product-container');
-    const loadMoreBtn = document.getElementById('loadMoreBtn');
-    const pageSize = 6;
-    let currentIndex = 0;
-
-    function loadProducts() {
-        const end = currentIndex + pageSize;
-        const productsToLoad = allProducts.slice(currentIndex, end);
-
-        productsToLoad.forEach(product => {
-            const html = `
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="product-item" data-id="${product.id}">
-                        <img src="${product.img}" alt="Ảnh sản phẩm" class="product-image img-fluid">
-                        <h3 class="product-name">${product.name}</h3>
-                        <p class="product-price">${Number(product.price).toLocaleString()}đ</p>
-                        <div class="product-actions">
-                            <a class="btn btn-primary" href="/detailproduct?id=${product.id}">Xem chi tiết</a>
-                            <button class="btn btn-success buy-now-btn" data-id="${product.id}">Mua ngay</button>
-                        </div>
-                    </div>
-                </div>
-            `;
-            container.innerHTML += html;
-        });
-
-        currentIndex += pageSize;
-        if (currentIndex >= allProducts.length) {
-            loadMoreBtn.style.display = 'none';
+        if(visible >= cards.length && loadBtn){
+            loadBtn.style.display = 'none';
         }
     }
 
-    // Load sản phẩm lần đầu
-    loadProducts();
-    loadMoreBtn.addEventListener('click', loadProducts);
+    showProducts();
 
-    // Thông báo toast
-    function showToast(msg, type = "success") {
-        let toastContainer = document.querySelector('.toast-container');
-        if (!toastContainer) {
-            toastContainer = document.createElement('div');
-            toastContainer.className = 'toast-container';
-            document.body.appendChild(toastContainer);
-        }
-        let icon = '';
-        if (type === "success") icon = '<span style="font-size:1.3em;vertical-align:middle; margin-right:8px;">✅</span>';
-        else if (type === "danger") icon = '<span style="font-size:1.3em;vertical-align:middle; margin-right:8px;">❌</span>';
-        const toast = document.createElement('div');
-        toast.className = `toast align-items-center text-bg-${type} border-0 show mb-2`;
-        toast.setAttribute('role', 'alert');
-        toast.innerHTML = `<div class="d-flex align-items-center">
-            <div class="toast-body">${icon}${msg}</div>
-            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
-        </div>`;
-        toastContainer.appendChild(toast);
-        setTimeout(() => toast.remove(), 2800);
-    }
-
-    // Gán sự kiện cho nút "Mua ngay"
-    document.addEventListener("DOMContentLoaded", function () {
-        container.addEventListener("click", function (e) {
-            if (e.target.classList.contains("buy-now-btn")) {
-                const id = e.target.getAttribute("data-id");
-                fetch("/api/cart/clear", { method: "DELETE" })
-                    .then(() =>
-                        fetch("/cart/api/add", {
-                            method: "POST",
-                            headers: { "Content-Type": "application/json" },
-                            body: JSON.stringify({ productId: parseInt(id), quantity: 1 })
-                        })
-                    )
-                    .then(res => {
-                        if (res.ok) window.location.href = "/order";
-                        else showToast("Mua ngay thất bại! , Bạn cần LOGIN ngay ", "danger");
-                    });
-            }
+    if(loadBtn){
+        loadBtn.addEventListener('click', () => {
+            visible += 8;
+            showProducts();
         });
-    });
-
-    
+    }
 
 </script>
 
+</body>
 <footer th:fragment="footer"
         style="margin-top:48px; width:100vw; position:relative; left:50%; transform:translateX(-50%);">
     <div class="footer-main py-4 px-2 px-lg-0" style="max-width:none;width:100vw;">
@@ -742,5 +524,4 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     </style>
 </footer>
-</body>
 </html>

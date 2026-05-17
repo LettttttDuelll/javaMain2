@@ -149,4 +149,38 @@ public class ViewController {
         return "end_user/checkoutQR";
     }
     
+    @GetMapping("/search")
+public String search(
+        @RequestParam("keyword") String keyword,
+        @RequestParam(value = "sort", required = false) String sort,
+        Model model) {
+
+    List<Laptop> laptops = laptopService.searchLaptop(keyword);
+
+    // SORT
+    if (sort != null) {
+        switch (sort) {
+            case "priceAsc":
+                laptops.sort((a,b) ->
+                        Double.compare(a.getCurrent_price(), b.getCurrent_price()));
+                break;
+
+            case "priceDesc":
+                laptops.sort((a,b) ->
+                        Double.compare(b.getCurrent_price(), a.getCurrent_price()));
+                break;
+
+            case "nameAsc":
+                laptops.sort((a,b) ->
+                        a.getName().compareToIgnoreCase(b.getName()));
+                break;
+        }
+    }
+
+    model.addAttribute("products", laptops);
+    model.addAttribute("keyword", keyword);
+    model.addAttribute("sort", sort);
+
+    return "end_user/search_result";
+}
 }
