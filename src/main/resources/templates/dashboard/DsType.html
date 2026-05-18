@@ -1,8 +1,5 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-
-
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -93,7 +90,7 @@
             </ul>
         </nav>
     </header>
-    <aside id="sidebar" class="sidebar">
+<aside id="sidebar" class="sidebar">
         <ul class="sidebar-nav" id="sidebar-nav">
 
             <li class="nav-item">
@@ -104,11 +101,38 @@
             </li>
 
             <li class="nav-item">
+                <a class="nav-link " th:href="@{/admin/orderList}">
+                    <i class="bi bi-bag-check"></i>
+                    <span>Quản lý Đơn Hàng </span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link " th:href="@{/admin/vouchers}">
+                    <i class="bi bi-ticket-perforated"></i>
+                    <span>Quản lý Mã giảm giá </span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link " th:href="@{/admin/categories}">
+                    <i class="bi bi-tags"></i>
+                    <span>Quản lý Danh mục </span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link " th:href="@{/warehouse}">
+                    <i class="bi bi-boxes"></i>
+                    <span>Quản lý Tồn kho </span>
+                </a>
+            </li>
+
+            <li class="nav-item">
                 <a class="nav-link [[${activeMenu == 'user'} ? '' : 'collapsed']]" data-bs-target="#components-nav"
                     data-bs-toggle="collapse" href="#">
                     <i class="bi bi-people"></i><span>Quản lí danh sách</span><i class="bi bi-chevron-down ms-3"></i>
                 </a>
-
                 <ul id="components-nav" class="nav-content collapse [[${activeMenu == 'user'} ? 'show' : '']]"
                     data-bs-parent="#sidebar-nav">
                     <li>
@@ -116,7 +140,6 @@
                             <i class="bi bi-person"></i><span>người sử dụng</span>
                         </a>
                     </li>
-
                 </ul>
             </li>
             <li class="nav-item">
@@ -566,7 +589,7 @@
     <script>
         $(document).ready(function () {
             $('#laptopTable').DataTable({
-                pageLength: 3,
+                pageLength: 10,
                 ordering: false,
                 "language": {
                     "search": "Tìm kiếm:",

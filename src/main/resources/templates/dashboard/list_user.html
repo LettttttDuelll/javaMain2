@@ -13,7 +13,7 @@
 
 
 <body>
-    <header class="header d-flex fixed-top align-items-center row">
+<header class="header d-flex fixed-top align-items-center row">
         <div class="d-flex align-items-center justify-content-between col-auto">
             <a th:href="@{/dashboard}" class="logo d-flex align-items-center">
                 <img th:src="@{img/6380171.jpg}" alt="">
@@ -84,7 +84,7 @@
                             <hr class="dropdown-divider">
                         </li>
                         <li>
-                            <a class="dropdown-item d-flex align-items-center" th:href="@{login.html}">
+                            <a class="dropdown-item d-flex align-items-center" th:href="@{/custom-login}">
                                 <i class="bi bi-box-arrow-right"></i>
                                 <span>Đăng xuất</span>
                             </a>
@@ -105,11 +105,38 @@
             </li>
 
             <li class="nav-item">
+                <a class="nav-link " th:href="@{/admin/orderList}">
+                    <i class="bi bi-bag-check"></i>
+                    <span>Quản lý Đơn Hàng </span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link " th:href="@{/admin/vouchers}">
+                    <i class="bi bi-ticket-perforated"></i>
+                    <span>Quản lý Mã giảm giá </span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link " th:href="@{/admin/categories}">
+                    <i class="bi bi-tags"></i>
+                    <span>Quản lý Danh mục </span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link " th:href="@{/warehouse}">
+                    <i class="bi bi-boxes"></i>
+                    <span>Quản lý Tồn kho </span>
+                </a>
+            </li>
+
+            <li class="nav-item">
                 <a class="nav-link [[${activeMenu == 'user'} ? '' : 'collapsed']]" data-bs-target="#components-nav"
                     data-bs-toggle="collapse" href="#">
                     <i class="bi bi-people"></i><span>Quản lí danh sách</span><i class="bi bi-chevron-down ms-3"></i>
                 </a>
-
                 <ul id="components-nav" class="nav-content collapse [[${activeMenu == 'user'} ? 'show' : '']]"
                     data-bs-parent="#sidebar-nav">
                     <li>
