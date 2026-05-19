@@ -34,27 +34,44 @@ public class ChatService {
 
     public String ask(String userMessage) {
 
-        List<Laptop> laptops = laptopRepository.searchByKeyword(extractKeyword(userMessage));
+      String keyword = extractKeyword(userMessage);
+
+System.out.println("Keyword = [" + keyword + "]");
+
+
+        List<Laptop> laptops = laptopRepository.searchByKeyword(keyword);
+        System.out.println("Laptop found = " + laptops.size());
 
         StringBuilder context = new StringBuilder();
         context.append("Dữ liệu laptop trong cửa hàng:\n");
-
+        System.out.println(context.toString());
         for (Laptop l : laptops.stream().limit(5).toList()) {
             context.append("- ")
-                   .append(l.getName())
-                   .append(" | Giá: ")
-                   .append(l.getCurrent_price())
-                   .append(" VND\n");
+       .append(l.getName())
+       .append(" | Danh mục: ")
+       .append(l.getCategory().getName())
+       .append(" | Giá: ")
+       .append(l.getCurrent_price())
+       .append(" VND\n");
         }
-
+      
         String prompt = """
-Bạn là nhân viên tư vấn laptop.
+Bạn là nhân viên tư vấn laptop của cửa hàng LaptopShop.
+
+Chỉ sử dụng dữ liệu sản phẩm được cung cấp bên dưới.
+
+Dữ liệu laptop:
 
 %s
 
-Khách hỏi: %s
+Câu hỏi khách hàng:
+%s
 
-Hãy tư vấn ngắn gọn, đúng dữ liệu trên.
+Yêu cầu trả lời:
+- Trả lời như con người, thân thiện, dễ hiểu. những câu hỏi xã giao như "cảm ơn", "chào bạn" thì cứ trả lời bình thường, không cần liên quan đến laptop.
+- Tư vấn nhiều options nếu có thể, max = 4
+- Nêu tên laptop phù hợp
+- Giải thích vì sao phù hợp
 """.formatted(context, userMessage);
 
         return callGemini(prompt);
@@ -63,13 +80,25 @@ Hãy tư vấn ngắn gọn, đúng dữ liệu trên.
     private String extractKeyword(String text) {
         text = text.toLowerCase();
 
-        if (text.contains("asus")) return "asus";
-        if (text.contains("acer")) return "acer";
-        if (text.contains("dell")) return "dell";
-        if (text.contains("lenovo")) return "lenovo";
-        if (text.contains("hp")) return "hp";
+        String prompt = """
+Trích xuất keyword tìm kiếm laptop từ câu hỏi.
 
-        return "";
+Chỉ trả về keyword. keyword có thể là tên laptop, hoặc danh mục (gaming, office, macbook, đồ họa). chỉ gồm 1 từ thôi, ví dụ "gaming", "office", "macbook", "đồ họa", hoặc hãng laptop như "asus", "macbook", "dell", "lenovo", "hp", "msi". Nếu không tìm thấy keyword nào thì trả về empty string.
+Không giải thích. ưu tiên keyword là tên laptop, nếu không có thì mới đến danh mục, nếu không có thì mới đến hãng.
+Hãy hướng câu hỏi của khách hàng vào 1 trong 4 danh mục sau nếu có thể:
+
+1 Gaming	gaming		 
+2	Office	office		 
+3	Macbook	macbook		 
+4	Đồ họa	do-hoa
+
+Câu hỏi:
+%s
+""".formatted(text);
+
+    return callGemini(prompt).trim();
+        
+        //return "";
     }
 
     private String callGemini(String prompt) {
